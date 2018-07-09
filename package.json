@@ -1,0 +1,44 @@
+{
+  "name": "axios-api",
+  "version": "0.1.0",
+  "description": "An intuitive Axios API + endpoint wrapper",
+  "main": "dist/axios-api.js",
+  "module": "dist/axios-api.esm.js",
+  "jsnext:main": "dist/axios-api.esm.js",
+  "files": [
+    "dist/*"
+  ],
+  "scripts": {
+    "dev": "rollup -c build/rollup.js -w",
+    "build": "rollup -c build/rollup.js",
+    "docs": "node-sass docs/assets/scss -o docs/assets/css -w docs/assets/scss/**/*.scss & docsify serve docs",
+    "demo": "cd demo && npm run dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dave Stewart <dave@davestewart.io>",
+  "homepage": "https://github.com/davestewart/axios-api#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davestewart/axios-api.git"
+  },
+  "keywords": [
+    "axios",
+    "rest",
+    "resful",
+    "api"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davestewart/axios-api/issues"
+  },
+  "dependencies": {
+    "lodash.clonedeep": "^4.5.0"
+  },
+  "devDependencies": {
+    "rollup-plugin-buble": "^0.19.1",
+    "rollup-plugin-commonjs": "^8.4.1",
+    "rollup-plugin-license": "^0.6.0",
+    "rollup-plugin-uglify": "^3.0.0",
+    "node-sass": "^4.9.0"
+  }
+}
