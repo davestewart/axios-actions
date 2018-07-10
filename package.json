@@ -35,10 +35,13 @@
     "lodash.clonedeep": "^4.5.0"
   },
   "devDependencies": {
+    "node-sass": "^4.9.0",
     "rollup-plugin-buble": "^0.19.1",
     "rollup-plugin-commonjs": "^8.4.1",
     "rollup-plugin-license": "^0.6.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-typescript2": "^0.15.1",
     "rollup-plugin-uglify": "^3.0.0",
-    "node-sass": "^4.9.0"
+    "typescript": "^2.9.2"
   }
 }

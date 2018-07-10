@@ -4,6 +4,8 @@ dist/
 npm-debug.log
 yarn-error.log
 
+.rpt2_cache
+
 # Editor directories and files
 .idea
 *.suo

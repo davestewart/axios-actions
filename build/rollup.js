@@ -7,6 +7,8 @@ import license from 'rollup-plugin-license'
 import commonjs from 'rollup-plugin-commonjs'
 import uglify from 'rollup-plugin-uglify'
 import buble from 'rollup-plugin-buble'
+import typescript from 'rollup-plugin-typescript2'
+import nodeResolve from 'rollup-plugin-node-resolve'
 
 const pkg = require('../package.json')
 const external = Object.keys(pkg.dependencies || {})
@@ -31,6 +33,11 @@ const umd = {
   external: external,
   output: output('js'),
   plugins: [
+    nodeResolve({
+      jsnext: true,
+      extensions: [ '.ts', '.js', '.json' ]
+    }),
+    typescript(),
     license({
       banner: {
         file: path.join(__dirname, 'banner.txt')
