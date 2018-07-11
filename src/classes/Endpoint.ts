@@ -39,40 +39,40 @@ export default class Endpoint extends Base {
     }
   }
 
-  call (action: string, data?: any) {
+  call (action: string, data?: any): Promise<any> {
     const verb = getVerb(this.path, action)
     const path = replaceTokens(getPath(this.path, action), data)
     return this.http.call(this, verb, path, data)
   }
 
-  browse (data?: any) {
+  browse (data?: any): Promise<any> {
     return this.call('browse', data)
   }
 
-  create (data: object) {
+  create (data: object): Promise<any> {
     return this.call('create', data)
   }
 
-  read (id: any) {
+  read (id: any): Promise<any> {
     return this.call('read', id)
   }
 
-  update (data: object) {
+  update (data: object): Promise<any> {
     return this.call('update', data)
   }
 
-  delete (id: any) {
+  delete (id: any): Promise<any> {
     return this.call('delete', id)
   }
 }
 
-function getPath (path: string | object, action: string) {
+function getPath (path: string | object, action: string): string {
   return isObject(path)
     ? path[action]
     : path
 }
 
-function getVerb (path: string | object, action: string) {
+function getVerb (path: string | object, action: string): string {
   const groups = config.verbs
   const verbs = Object.assign({}, groups.default, isObject(path)
     ? groups.simple

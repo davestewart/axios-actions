@@ -15,15 +15,15 @@ export default class Api extends Base {
     super(axios)
   }
 
-  get (path: string, data?: object) {
+  get (path: string, data?: object): Promise<any> {
     return this.call('get', path, data)
   }
 
-  post (path: string, data?: object) {
+  post (path: string, data?: object): Promise<any> {
     return this.call('post', path, data)
   }
 
-  call (verb: string, path: string, data?: object) {
+  call (verb: string, path: string, data?: object): Promise<any> {
     return this.http.call(this, verb, path, data)
   }
 
