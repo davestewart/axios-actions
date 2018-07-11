@@ -5,15 +5,15 @@ export default class Http {
   axios: any
   before: Function[]
   after: Function[]
-  done: Function[]
-  fail: Function[]
+  done: Set<Function>
+  fail: Set<Function>
 
   constructor (axios: any) {
     this.axios = axios
     this.before = []
     this.after = []
-    this.done = []
-    this.fail = []
+    this.done = new Set<Function>()
+    this.fail = new Set<Function>()
   }
 
   call (instance, verb, path, data) {
@@ -40,21 +40,5 @@ export default class Http {
       .finally(() => {
         instance.loading = false
       })
-  }
-}
-
-class Processor {
-  stack: Function[]
-
-  constructor () {
-    this.stack = []
-  }
-
-  add (fn) {
-    this.stack.push(fn)
-  }
-
-  process (fn) {
-    this.stack.push(data => process(data, fn))
   }
 }

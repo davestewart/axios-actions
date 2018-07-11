@@ -15,6 +15,6 @@ export default function (data: any, callback: Function) {
   if (isObject(data)) {
     return callback(data)
   }
-  {}
+
   return data
 }

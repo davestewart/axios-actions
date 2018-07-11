@@ -31,3 +31,4 @@ export default class Api extends Base {
     return new Endpoint(this.http.axios, path, optimize, map)
   }
 }
+

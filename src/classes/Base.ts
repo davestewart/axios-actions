@@ -13,16 +13,12 @@ export default class Base {
   }
 
   public done (callback) {
-    if (!this.http.done.find(callback)) {
-      this.http.done.push(callback)
-    }
+    this.http.done.add(callback)
     return this
   }
 
   public fail (callback) {
-    if (!this.http.fail.find(callback)) {
-      this.http.fail.push(callback)
-    }
+    this.http.fail.add(callback)
     return this
   }
 }
