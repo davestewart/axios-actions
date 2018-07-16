@@ -2,6 +2,7 @@ import AbstractEndpoint from './AbstractEndpoint'
 import RestfulDriver from '../drivers/ResfulDriver'
 import CustomDriver from '../drivers/CustomDriver'
 import remap from '../helpers/remap'
+import { replaceTokens } from '../utils/string'
 
 /**
  * CRUD endpoint class
@@ -37,5 +38,10 @@ export default class Endpoint extends AbstractEndpoint {
     if (optimize) {
       this.http.after.push(res => res.data)
     }
+  }
+
+  call (verb: string, path: string, data?: object): Promise<any> {
+    path = replaceTokens(path, data)
+    return super.call(verb, path, data);
   }
 }

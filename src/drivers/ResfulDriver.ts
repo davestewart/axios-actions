@@ -1,15 +1,9 @@
-import IDriver from './IDriver'
-import { replaceTokens } from '../utils/string'
+import ActionsDriver from './CustomDriver'
 
-export default class RestfulDriver implements IDriver {
-
-  path: string
+export default class RestfulDriver extends ActionsDriver {
 
   constructor (path: string) {
-    this.path = path
-  }
-
-  process (action: string, data?: object) {
+    super({})
     const verbs = {
       read: 'get',
       browse: 'get',
@@ -17,10 +11,10 @@ export default class RestfulDriver implements IDriver {
       update: 'patch',
       delete: 'delete'
     }
-
-    const path = replaceTokens(this.path, data)
-
-    return [ verbs[action], path ]
+    Object.assign(this.verbs, verbs)
+    Object.keys(verbs).forEach(verb => {
+      this.add(verb, path, verbs[verb])
+    })
   }
 }
 

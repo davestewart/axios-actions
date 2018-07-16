@@ -1,60 +1,42 @@
 import IDriver from './IDriver'
+import { replaceTokens } from '../utils/string'
+
+type action = { verb: string, path: string }
 
 export default class CustomDriver implements IDriver {
 
-  paths: object
+  actions: any
 
-  constructor (paths: object) {
-    this.paths = paths
-  }
-
-  add (action, path) {
-    this.paths[action] = path
-  }
-
-  process (action: string, data?: object) {
-    let verb = verbs[action] || 'get'
-    let path = this.paths[action]
-    const matches = path.match(/^(GET|POST|PATCH|PUT|DELETE|HEAD)\s+(.+)/i)
-    if (matches) {
-      verb = matches[1].toLowerCase()
-      path = matches[2]
-    }
-    return [ verb, path ]
-  }
-}
-
-const verbs = {
-  read: 'get',
-  browse: 'get',
-  create: 'post',
-  update: 'post',
-  delete: 'post'
-}
-
-// const Driver = (action: string, data?: object) => Function
-
-// let configure: (action: string, data: object) => Function = function (action, data) {
-
-function configure (config) {
-
-  const verbs = {
+  verbs: object = {
     read: 'get',
     browse: 'get',
     create: 'post',
     update: 'post',
-    delete: 'post'
+    delete: 'post',
+    default: 'get',
   }
 
-  return function (action, data) {
-    let verb = verbs[action] || 'get'
-    let path = config[action]
+  constructor (paths: object) {
+    this.actions = {}
+    Object.keys(paths).forEach(action => {
+      this.add(action, paths[action])
+    })
+  }
+
+  add (action: string, path: string, verb?: string) {
     const matches = path.match(/^(GET|POST|PATCH|PUT|DELETE|HEAD)\s+(.+)/i)
     if (matches) {
       verb = matches[1].toLowerCase()
       path = matches[2]
+    } else {
+      verb = this.verbs[action] || this.verbs['default'] || 'get'
     }
-    return [ verb, path ]
+    this.actions[action] = { verb, path }
   }
 
+  process (action: string, data?: object) {
+    const prop = this.actions[action]
+    const path = replaceTokens(prop.path, data)
+    return [prop.verb, path]
+  }
 }
