@@ -1,104 +1,41 @@
-import { isObject} from '../utils/object'
-import { replaceTokens } from '../utils/string'
-
-import Base from './Base'
-import transform from '../services/transform'
+import AbstractEndpoint from './AbstractEndpoint'
+import RestfulDriver from '../drivers/ResfulDriver'
+import CustomDriver from '../drivers/CustomDriver'
+import remap from '../helpers/remap'
 
 /**
  * CRUD endpoint class
  */
-export default class Endpoint extends Base {
-
-  path: string | object
-  map?: object
+export default class Endpoint extends AbstractEndpoint {
 
   /**
    * Endpoint constructor
    *
-   * @param   {Api}             axios       An Axios instance
-   * @param   {object|string}   path        A single RESTful URL or map of URLs for create, read, update, delete
-   * @param   {boolean}        [optimize]   An optional flag to return the data rather than the response
-   * @param   {object}         [map]        An optional map to re-key objects on send and receive
+   * - inherits all API methods
+   * - inherits all CRUD operations + browse
+   * - supports REST or object configuration
+   * - optionally returns data rather than response
+   * - optionally maps keys to and from the server
+   *
+   * @param   axios       An Axios instance
+   * @param   config      A single RESTful URL or map of URLs for create, read, update, delete
+   * @param   optimize    An optional flag to return the data rather than the response
+   * @param   map         An optional map to re-key objects on send and receive
    */
-  constructor (axios: any, path: string | object, optimize: boolean = false, map?: object) {
-    super(axios)
+  constructor (axios: any, config: string | object, optimize: boolean = false, map?: object) {
+    const driver = typeof config === 'string'
+      ? new RestfulDriver(config)
+      : new CustomDriver(config)
 
-    this.path = path
-    this.map = map
+    super(axios, driver)
 
     if (map) {
-      this.http.before.push(data => transform(data, map, false))
-      this.http.after.push(res => {
-        res.data = transform(res.data, map, true)
-        return res
-      })
+      this.http.before.push(data => remap(data, map, false))
+      this.http.after.push(({data}) => remap(data, map, true))
     }
 
     if (optimize) {
       this.http.after.push(res => res.data)
     }
-  }
-
-  call (action: string, data?: any): Promise<any> {
-    const verb = getVerb(this.path, action)
-    const path = replaceTokens(getPath(this.path, action), data)
-    return this.http.call(this, verb, path, data)
-  }
-
-  browse (data?: any): Promise<any> {
-    return this.call('browse', data)
-  }
-
-  create (data: object): Promise<any> {
-    return this.call('create', data)
-  }
-
-  read (id: any): Promise<any> {
-    return this.call('read', id)
-  }
-
-  update (data: object): Promise<any> {
-    return this.call('update', data)
-  }
-
-  delete (id: any): Promise<any> {
-    return this.call('delete', id)
-  }
-}
-
-function getPath (path: string | object, action: string): string {
-  return isObject(path)
-    ? path[action]
-    : path
-}
-
-function getVerb (path: string | object, action: string): string {
-  const groups = config.verbs
-  const verbs = Object.assign({}, groups.default, isObject(path)
-    ? groups.simple
-    : groups.rest)
-  return verbs[action]
-}
-
-export const config = {
-  verbs: {
-    default: {
-      get: 'get',
-      post: 'post'
-    },
-    simple: {
-      read: 'get',
-      browse: 'get',
-      create: 'post',
-      update: 'post',
-      delete: 'post'
-    },
-    rest: {
-      read: 'get',
-      browse: 'get',
-      create: 'post',
-      update: 'patch',
-      delete: 'delete'
-    },
   }
 }

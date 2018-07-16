@@ -1,34 +1,25 @@
-import Base from './Base'
+import AbstractApi from './AbstractApi'
 import Endpoint from './Endpoint'
 
 /**
  * Api wrapper class
+ *
+ * - supports basic API verbs via get(), post() and call()
+ * - supports done () and fail() callbacks
+ *
  */
-export default class Api extends Base {
+export default class Api extends AbstractApi {
 
   /**
-   * Constructor function
+   * API constructor function
    *
-   * @param   {object}   axios       An Axios instance
+   * @param   axios   An Axios instance
    */
   constructor (axios: any) {
     super(axios)
-  }
-
-  get (path: string, data?: object): Promise<any> {
-    return this.call('get', path, data)
-  }
-
-  post (path: string, data?: object): Promise<any> {
-    return this.call('post', path, data)
-  }
-
-  call (verb: string, path: string, data?: object): Promise<any> {
-    return this.http.call(this, verb, path, data)
   }
 
   endpoint (path, optimize: boolean = true, map?: any) {
     return new Endpoint(this.http.axios, path, optimize, map)
   }
 }
-

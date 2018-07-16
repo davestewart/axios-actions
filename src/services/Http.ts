@@ -1,5 +1,3 @@
-import process from '../services/process'
-
 export default class Http {
 
   axios: any
@@ -21,14 +19,22 @@ export default class Http {
     instance.error = null
     instance.loading = true
 
-    // transform
     data = this.before.reduce((data, fn) => fn(data), data)
+
+    // sanity check
+    if (typeof this.axios[verb] !== 'function') {
+      throw new Error(`No such Axios verb '${verb}' !`)
+    }
 
     // call
     return this.axios[verb](path, data)
       .then(res => {
-        // transform
-        res = this.after.reduce((data, fn) => fn(data), res)
+        this.after.forEach(fn => {
+          const result = fn(res)
+          if (typeof result !== 'undefined') {
+            res = result
+          }
+        })
         this.done.forEach(fn => fn(res))
         return res
       })

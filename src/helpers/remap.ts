@@ -9,6 +9,6 @@ import process from './process'
  * @param   {boolean}          [flip]
  * @returns {*}
  */
-export default function transform (data: object, map: object, flip?: boolean) {
+export default function (data: object, map: object, flip?: boolean) {
   return process(data, obj => reKey(obj, map, flip))
 }

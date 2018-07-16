@@ -3,11 +3,11 @@ import { isObject } from '../utils/object'
 /**
  * Helper function to process single object or array
  *
- * @param   {*|array}   data
- * @param   {function}  callback
- * @returns {*}
+ * @param   data
+ * @param   callback
+ * @returns
  */
-export default function (data: any, callback: Function) {
+export default function (data: any | any[], callback: Function): any | any[] {
   if (Array.isArray(data)) {
     return data.map(obj => callback(obj))
   }
