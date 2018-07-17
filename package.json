@@ -1,10 +1,10 @@
 {
-  "name": "axios-api",
-  "version": "0.1.0",
+  "name": "axios-actions",
+  "version": "1.0.0-alpha",
   "description": "An intuitive Axios API + endpoint wrapper",
-  "main": "dist/axios-api.js",
-  "module": "dist/axios-api.esm.js",
-  "jsnext:main": "dist/axios-api.esm.js",
+  "main": "dist/axios-actions.js",
+  "module": "dist/axios-actions.esm.js",
+  "jsnext:main": "dist/axios-actions.esm.js",
   "files": [
     "dist/*"
   ],
@@ -16,29 +16,31 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Dave Stewart <dave@davestewart.io>",
-  "homepage": "https://github.com/davestewart/axios-api#readme",
+  "homepage": "https://github.com/davestewart/axios-actions#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/davestewart/axios-api.git"
+    "url": "git+https://github.com/davestewart/axios-actions.git"
   },
   "keywords": [
     "axios",
     "rest",
-    "resful",
+    "restful",
     "api"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/davestewart/axios-api/issues"
+    "url": "https://github.com/davestewart/axios-actions/issues"
   },
   "dependencies": {
     "lodash.clonedeep": "^4.5.0"
   },
   "devDependencies": {
+    "node-sass": "^4.9.0",
     "rollup-plugin-buble": "^0.19.1",
     "rollup-plugin-commonjs": "^8.4.1",
     "rollup-plugin-license": "^0.6.0",
+    "rollup-plugin-typescript2": "0.14.0",
     "rollup-plugin-uglify": "^3.0.0",
-    "node-sass": "^4.9.0"
+    "typescript": "^2.9.2"
   }
 }

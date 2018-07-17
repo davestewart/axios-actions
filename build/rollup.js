@@ -7,6 +7,7 @@ import license from 'rollup-plugin-license'
 import commonjs from 'rollup-plugin-commonjs'
 import uglify from 'rollup-plugin-uglify'
 import buble from 'rollup-plugin-buble'
+import typescript from 'rollup-plugin-typescript2'
 
 const pkg = require('../package.json')
 const external = Object.keys(pkg.dependencies || {})
@@ -18,7 +19,7 @@ function output (ext, format = 'umd') {
     name: className,
     file: `dist/${name}.${ext}`,
     format: format,
-    // exports: 'default',
+    exports: 'named',
   }
 }
 
@@ -27,10 +28,11 @@ function output (ext, format = 'umd') {
 // ------------------------------------------------------------------------------------------
 
 const umd = {
-  input: 'src/main.js',
+  input: 'src/main.ts',
   external: external,
   output: output('js'),
   plugins: [
+    typescript(),
     license({
       banner: {
         file: path.join(__dirname, 'banner.txt')

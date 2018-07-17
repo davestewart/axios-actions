@@ -1,8 +1,8 @@
-export function isObject (value) {
+export function isObject (value: any) {
   return typeof value === 'object' && !!value && !Array.isArray(value)
 }
 
-export function isValue (value) {
+export function isValue (value: any) {
   return typeof value !== 'undefined' && value !== null
 }
 
@@ -11,7 +11,7 @@ export function isValue (value) {
  *
  * @param   {object}  obj   A hash of key => value pairs
  */
-export function flipKeys (obj) {
+export function flipKeys (obj: object) {
   return Object.keys(obj).reduce((output, key) => {
     output[obj[key]] = key
     return output
@@ -26,7 +26,7 @@ export function flipKeys (obj) {
  * @param {boolean}           flip  A boolean to flip the mapping
  * @returns {*}
  */
-export function reKey (obj, map, flip) {
+export function reKey (obj: object, map: object, flip?: boolean) {
   if (map instanceof Function) {
     return map(obj, flip, reKey)
   }
@@ -45,3 +45,4 @@ export function reKey (obj, map, flip) {
 
   return obj
 }
+
