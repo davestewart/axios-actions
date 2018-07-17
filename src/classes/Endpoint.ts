@@ -1,13 +1,10 @@
-import AbstractEndpoint from './AbstractEndpoint'
-import RestfulDriver from '../drivers/ResfulDriver'
-import CustomDriver from '../drivers/CustomDriver'
+import Group from './Group'
 import remap from '../helpers/remap'
-import { replaceTokens } from '../utils/string'
 
 /**
  * CRUD endpoint class
  */
-export default class Endpoint extends AbstractEndpoint {
+export default class Endpoint extends Group {
 
   /**
    * Endpoint constructor
@@ -23,25 +20,81 @@ export default class Endpoint extends AbstractEndpoint {
    * @param   optimize    An optional flag to return the data rather than the response
    * @param   map         An optional map to re-key objects on send and receive
    */
-  constructor (axios: any, config: string | object, optimize: boolean = false, map?: object) {
-    const driver = typeof config === 'string'
-      ? new RestfulDriver(config)
-      : new CustomDriver(config)
+  constructor (axios: any, config: string | object) {
+    super(axios)
 
-    super(axios, driver)
-
-    if (map) {
-      this.http.before.push(data => remap(data, map, false))
-      this.http.after.push(({data}) => remap(data, map, true))
+    // normal
+    let actions = config
+    let verbs = {
+      read: 'get',
+      browse: 'get',
+      create: 'post',
+      update: 'post',
+      delete: 'post'
     }
 
-    if (optimize) {
-      this.http.after.push(res => res.data)
+    // rest
+    if (typeof config === 'string') {
+      verbs = {
+        read: 'get',
+        browse: 'get',
+        create: 'post',
+        update: 'patch',
+        delete: 'delete'
+      }
+      actions = Object
+        .keys(verbs)
+        .reduce((output, action) => {
+          output[action] = config
+          return output
+        }, {})
     }
+
+    // add actions
+    Object
+      .keys(actions)
+      .map(action => {
+        this.map.add(action, actions[action], verbs[action])
+      })
   }
 
-  call (verb: string, path: string, data?: object): Promise<any> {
-    path = replaceTokens(path, data)
-    return super.call(verb, path, data);
+  /**
+   * Browse the resource index
+   * @param   data
+   */
+  browse (data?: any): Promise<any> {
+    return this.exec('browse', data)
+  }
+
+  /**
+   * Create a new resource
+   * @param   data
+   */
+  create (data: any): Promise<any> {
+    return this.exec('create', data)
+  }
+
+  /**
+   * Read a single resource
+   * @param   id
+   */
+  read (id: any): Promise<any> {
+    return this.exec('read', id)
+  }
+
+  /**
+   * Update the resource
+   * @param   data
+   */
+  update (data: any): Promise<any> {
+    return this.exec('update', data)
+  }
+
+  /**
+   * Delete the resource
+   * @param   id
+   */
+  delete (id: any): Promise<any> {
+    return this.exec('delete', id)
   }
 }

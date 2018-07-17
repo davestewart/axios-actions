@@ -1,10 +1,10 @@
 {
-  "name": "axios-api",
-  "version": "0.1.0",
-  "description": "An intuitive Axios API + endpoint wrapper",
-  "main": "dist/axios-api.js",
-  "module": "dist/axios-api.esm.js",
-  "jsnext:main": "dist/axios-api.esm.js",
+  "name": "axios-actions",
+  "version": "0.5.0",
+  "description": "Organise and call related API endpoints as actions",
+  "main": "dist/axios-actions.js",
+  "module": "dist/axios-actions.esm.js",
+  "jsnext:main": "dist/axios-actions.esm.js",
   "files": [
     "dist/*"
   ],
@@ -16,20 +16,20 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Dave Stewart <dave@davestewart.io>",
-  "homepage": "https://github.com/davestewart/axios-api#readme",
+  "homepage": "https://github.com/davestewart/axios-actions#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/davestewart/axios-api.git"
+    "url": "git+https://github.com/davestewart/axios-actions.git"
   },
   "keywords": [
     "axios",
     "rest",
-    "resful",
+    "restful",
     "api"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/davestewart/axios-api/issues"
+    "url": "https://github.com/davestewart/axios-actions/issues"
   },
   "dependencies": {
     "lodash.clonedeep": "^4.5.0"

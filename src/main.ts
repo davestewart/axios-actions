@@ -1,13 +1,13 @@
 import Api from './classes/Api'
+import Group from './classes/Group'
 import Endpoint from './classes/Endpoint'
-import AbstractApi from './classes/AbstractApi'
-import AbstractDriver from './drivers/IDriver'
-import RestfulDriver from './drivers/ResfulDriver'
+
+import * as plugins from './plugins'
 
 import process from './helpers/process'
 import remap from './helpers/remap'
 
-const services = {
+const helpers = {
   process,
   remap,
 }
@@ -16,9 +16,8 @@ export default Api
 
 export {
   Api,
+  Group,
   Endpoint,
-  AbstractApi,
-  AbstractDriver,
-  RestfulDriver,
-  services
+  helpers,
+  plugins
 }

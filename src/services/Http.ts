@@ -14,6 +14,11 @@ export default class Http {
     this.fail = new Set<Function>()
   }
 
+  install (plugin: Function, ...rest) {
+    plugin(this, ...rest)
+    return this
+  }
+
   call (instance, verb, path, data) {
     // reset
     instance.error = null
