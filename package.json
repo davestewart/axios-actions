@@ -1,7 +1,7 @@
 {
   "name": "axios-actions",
-  "version": "0.5.0",
-  "description": "Organise and call related API endpoints as actions",
+  "version": "1.0.0-alpha",
+  "description": "An intuitive Axios API + endpoint wrapper",
   "main": "dist/axios-actions.js",
   "module": "dist/axios-actions.esm.js",
   "jsnext:main": "dist/axios-actions.esm.js",
