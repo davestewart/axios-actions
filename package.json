@@ -1,6 +1,6 @@
 {
   "name": "axios-actions",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0-alpha-1",
   "description": "An intuitive Axios API + endpoint wrapper",
   "main": "dist/axios-actions.js",
   "module": "dist/axios-actions.esm.js",

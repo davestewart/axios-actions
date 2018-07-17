@@ -4,16 +4,24 @@
 
 ## Intro
 
-Axios Action is a related set of classes which allows you to organise and call related sets of endpoints as actions.
+Axios Actions comprises a small set of classes which allows you to organise and call related sets of endpoints as callable actions:
+
+```js
+api.call('foo/bar')
+widgets.load().then(update)
+users.create({ name: 'Steve' })
+```
 
 It has 3 core classes:
 
 - `Api` - call arbitrary URLs
-- `Group` - group and call paths as actions
+- `Group` - group and call paths under a URL as actions
 - `Endpoint` - group and update CRUD resources as actions
 
 The library has additional functionality:
  
+- expands REST-style path format `users/:id` to CRUD endpoints + REST verbs
+- supports arbitrary path `:token` replacement in URLs
 - `loaded` property
 - `error` property
 - `before()` and `after()` transforms
@@ -91,7 +99,7 @@ import { Endpoint } from 'axios-actions'
 
 axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com/'
 
-class Api extends Endpoint {
+class Resource extends Endpoint {
   
   constructor (path) {
     super(axios, path)
@@ -105,7 +113,7 @@ class Api extends Endpoint {
 }
 
 // new api with global error handler
-const api = new Api('users/:id').catch(err => console.log(err.message))
+const api = new Resource('users/:id').catch(err => console.log(err.message))
 
 // search for something
 api.search({ name: 'Leanne' }).then(console.log)
@@ -113,8 +121,8 @@ api.search({ name: 'Leanne' }).then(console.log)
 
 Call endpoint and pass `data` directly to `then()`
 
-```json
-{id: 5, name: "Leanne Graham", username: "leanne", email: "leanne@april.biz", address: {…}, …}
+```js
+{id: 5, name: "Leanne Graham", username: "leanne", email: "leanne@april.biz", address: { … }, … }
 ```
 
 ## Demo
