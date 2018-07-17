@@ -6,6 +6,7 @@
       <button class="button" @click="create()">Create</button>
       <button class="button" @click="update()">Update</button>
       <button class="button" @click="remove()">Delete</button>
+      <button class="button" @click="users()">Users</button>
     </section>
     <section>
       <pre v-if="endpoint.error">{{ endpoint.error.message }}</pre>
@@ -16,24 +17,28 @@
 
 <script>
 import axios from 'axios'
-import { Api, Endpoint } from '../../dist/axios-api.esm'
-import { Posts, Users } from './classes/endpoints'
+import { Endpoint } from '../../dist/axios-actions.esm'
 
-const api = new Api(axios)
+const endpoint = new Endpoint(axios, 'posts/:id')
 
-const posts = new Posts(axios)
+console.log(endpoint)
 
 export default {
   name: 'app',
+
   data () {
     return {
       data: null,
       error: null,
-      // endpoint: api('posts/:id', true)
-      endpoint: posts
+      endpoint: endpoint
         .done(this.done)
         .fail(this.fail)
     }
+  },
+
+  mounted () {
+    console.log(this.endpoint.done)
+    this.endpoint.map.add('users', 'users/:id')
   },
 
   methods: {
@@ -62,6 +67,10 @@ export default {
 
     done (data) {
       this.data = data
+    },
+
+    users () {
+      this.endpoint.call('get', 'users/:id', { id: 1 })
     },
 
     fail (error) {
