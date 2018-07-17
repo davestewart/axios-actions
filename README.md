@@ -4,7 +4,7 @@
 
 ## Intro
 
-Axios Actions comprises a small set of classes which allows you to organise and call related sets of endpoints as callable actions:
+Axios Actions comprises a small set of classes which allows you to organise and call related sets of endpoints as discrete actions:
 
 ```js
 api.call('foo/bar')
@@ -27,7 +27,7 @@ The library has additional functionality:
 - `before()` and `after()` transforms
 - `done()` and `fail()` hooks
 
-The library allows you to build up small, atomic API building blocks which are portable, reusable, easy to integrate and test.
+The library allows you to build up small, atomic API building blocks which are portable, reusable, and easy to integrate + test.
 
 ## Basic usage
 
@@ -35,63 +35,68 @@ Basic setup:
 
 ```js
 import axios from 'axios'
-import { Api, Group, Endpoint } from 'axios-actions'
-
 axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com/'
 ```
 
 Use as an API:
 
 ```js
-const api = new Api(axios)
-api
-  .get('users')
-  .then(console.log)
-api
-  .call('get', 'users')
-  .then(console.log)
+import { Api } from 'axios-actions'
+
+// set up simple Api
+const api = new Api(axios).then(console.log)
+
+// call with basic methods
+api.get('users')
+api.call('get', 'users')
 ```
 
-Use as a group of unrelated URLS:
+Use as a group of unrelated URLs:
 
 ```js
-const map = {
-  posts: 'posts',
-  users: 'users',
-  user: 'users/:id',
+import { Group } from 'axios-actions'
+
+// urls
+const urls = {
+    login: 'POST admin/login',
+    update: 'PATCH admin/account',
+    logout: 'admin/logout',
 }
 
-const group = new Group(axios, map).done(console.log)
+// endpoint
+const admin = new Group(axios, urls).done(console.log)
 
 // execute actions via `exec()`
-group.exec('posts')
-group.exec('users')
-group.exec('user', {id: 1})
+admin.exec('login', { username, password })
+admin.exec('update', { username, url })
+admin.exec('logout')
 
 // but still call endpoint as API
-group.get('posts?userId=1')
+admin.get('posts?userId=1')
 ```
 
 Use as a single endpoint):
 
 ```js
-// set up REST API URL
-const endpoint = new Endpoint(axios, 'posts/:id').done(console.log)
+import { Endpoint } from 'axios-actions'
 
-// call REST endpoints directly
-endpoint.browse()
-endpoint.create({ id: 1, name: 'John Smith' })
-endpoint.read({ id: 1 })
-endpoint.update({ id: 1, name: 'Joe Bloggs' })
-endpoint.delete({ id: 1 })
+// set up endpoints with specially-formatted REST URL
+const posts = new Endpoint(axios, 'posts/:id').done(console.log)
+
+// call CRUD endpoints directly
+posts.browse()
+posts.create({ id: 1, name: 'John Smith' })
+posts.read({ id: 1 })
+posts.update({ id: 1, name: 'Joe Bloggs' })
+posts.delete({ id: 1 })
 
 // but still call endpoint as API
-group.get('posts/search', { name: 'Bill' })
+posts.post('posts/search', { name: 'Bill' })
 ```
 
 ## Advanced usage
 
-Create a base class to manage API calls:
+Create a custom base class to manage and modify API resources:
 
 ```js
 import axios from 'axios'
@@ -113,16 +118,16 @@ class Resource extends Endpoint {
 }
 
 // new api with global error handler
-const api = new Resource('users/:id').catch(err => console.log(err.message))
+const users = new Resource('users/:id').catch(err => console.log(err.message))
 
-// search for something
-api.search({ name: 'Leanne' }).then(console.log)
+// search for a particular user
+users.search({ name: 'Leanne' }).then(console.log)
 ```
 
 Call endpoint and pass `data` directly to `then()`
 
 ```js
-{id: 5, name: "Leanne Graham", username: "leanne", email: "leanne@april.biz", address: { … }, … }
+[ {id: 5, name: "Leanne Graham", username: "leanne", email: "leanne@april.biz", address: { … }, … } ]
 ```
 
 ## Demo
