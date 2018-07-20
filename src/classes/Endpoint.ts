@@ -1,8 +1,10 @@
 import Group from './Group'
-import remap from '../helpers/remap'
+import { isObject } from '../utils/object'
 
 /**
- * CRUD endpoint class
+ * Endpoint class
+ *
+ * Manages browse and CRUD calls for a specific endpoint
  */
 export default class Endpoint extends Group {
 
@@ -71,6 +73,9 @@ export default class Endpoint extends Group {
    * @param   data
    */
   create (data: any): Promise<any> {
+    if (!isObject(data)) {
+      throw new Error('Missing data parameter')
+    }
     return this.exec('create', data)
   }
 
@@ -79,6 +84,9 @@ export default class Endpoint extends Group {
    * @param   id
    */
   read (id: any): Promise<any> {
+    if (typeof id === 'undefined') {
+      throw new Error('Missing id parameter')
+    }
     return this.exec('read', id)
   }
 
@@ -87,6 +95,9 @@ export default class Endpoint extends Group {
    * @param   data
    */
   update (data: any): Promise<any> {
+    if (!isObject(data)) {
+      throw new Error('Missing data parameter')
+    }
     return this.exec('update', data)
   }
 
@@ -95,6 +106,9 @@ export default class Endpoint extends Group {
    * @param   id
    */
   delete (id: any): Promise<any> {
+    if (typeof id === 'undefined') {
+      throw new Error('Missing id parameter')
+    }
     return this.exec('delete', id)
   }
 }

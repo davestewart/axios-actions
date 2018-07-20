@@ -2,7 +2,9 @@ import Api from './Api'
 import ActionMap from '../services/ActionMap'
 
 /**
- * Abstract endpoint class
+ * Group class
+ *
+ * Manages related URLs of an API
  */
 export default class Group extends Api {
 
@@ -33,5 +35,4 @@ export default class Group extends Api {
     const action = this.map.get(name)
     return this.call(action.verb, action.path, data)
   }
-
 }

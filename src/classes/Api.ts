@@ -1,6 +1,11 @@
 import Http from '../services/Http'
 import { replaceTokens } from '../utils/string'
 
+/**
+ * Api class
+ *
+ * Base class to manage calls to API
+ */
 export default class Api {
 
   /**
