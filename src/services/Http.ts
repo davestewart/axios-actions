@@ -1,3 +1,5 @@
+import { replaceTokens } from '../utils/string'
+
 export default class Http {
 
   axios: any
@@ -14,17 +16,15 @@ export default class Http {
     this.fail = new Set<Function>()
   }
 
-  install (plugin: Function, ...rest) {
-    plugin(this, ...rest)
-    return this
-  }
-
   call (instance, verb, path, data) {
     // reset
     instance.error = null
     instance.loading = true
 
     data = this.before.reduce((data, fn) => fn(data), data)
+
+    // replace tokens
+    path = replaceTokens(path, data)
 
     // sanity check
     if (typeof this.axios[verb] !== 'function') {
@@ -48,8 +48,9 @@ export default class Http {
         this.fail.forEach(fn => fn(error))
         return Promise.reject(error)
       })
-      .finally(() => {
+      .then(res => {
         instance.loading = false
+        return res
       })
   }
 }

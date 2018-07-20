@@ -7,7 +7,7 @@ import { isObject } from '../utils/object'
  * @param   callback
  * @returns
  */
-export default function (data: any | any[], callback: Function): any | any[] {
+export function process (data: any | any[], callback: Function): any | any[] {
   if (Array.isArray(data)) {
     return data.map(obj => callback(obj))
   }
@@ -17,4 +17,16 @@ export default function (data: any | any[], callback: Function): any | any[] {
   }
 
   return data
+}
+
+/**
+ * Default conversion function for resource plugin
+ *
+ * @param data
+ * @returns {any}
+ */
+export function toJSON (data) {
+  return isObject(data) && data.toJSON instanceof Function
+    ? data.toJSON()
+    : data
 }

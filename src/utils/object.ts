@@ -6,6 +6,17 @@ export function isValue (value: any) {
   return typeof value !== 'undefined' && value !== null
 }
 
+export function getValue (obj: any, path: string) {
+  const keys = path.split('.')
+  while (obj && keys.length) {
+    const key = keys.shift()
+    obj = isObject(obj)
+      ? obj[key]
+      : undefined
+  }
+  return obj
+}
+
 /**
  * Flip the keys of an object
  *
