@@ -1,7 +1,7 @@
 {
   "name": "axios-actions",
   "version": "1.0.0-alpha-1",
-  "description": "An intuitive Axios API + endpoint wrapper",
+  "description": "Bundle endpoints as callable, reusable services",
   "main": "dist/axios-actions.js",
   "module": "dist/axios-actions.esm.js",
   "jsnext:main": "dist/axios-actions.esm.js",
@@ -11,9 +11,11 @@
   "scripts": {
     "dev": "rollup -c build/rollup.js -w",
     "build": "rollup -c build/rollup.js",
-    "docs": "node-sass docs/assets/scss -o docs/assets/css -w docs/assets/scss/**/*.scss & docsify serve docs",
+    "docs": "docsify serve docs",
+    "docs.old": "node-sass docs/assets/scss -o docs/assets/css -w docs/assets/scss/**/*.scss & docsify serve docs",
     "demo": "cd demo && npm run dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --watchAll --verbose",
+    "unit": "jest --config jest.config.js --coverage"
   },
   "author": "Dave Stewart <dave@davestewart.io>",
   "homepage": "https://github.com/davestewart/axios-actions#readme",
@@ -32,15 +34,35 @@
     "url": "https://github.com/davestewart/axios-actions/issues"
   },
   "dependencies": {
+    "docsify": "^4.7.0",
     "lodash.clonedeep": "^4.5.0"
   },
   "devDependencies": {
+    "@types/jest": "^23.3.0",
+    "axios": "^0.18.0",
+    "babel-jest": "^23.4.0",
+    "jest": "^23.4.1",
     "node-sass": "^4.9.0",
     "rollup-plugin-buble": "^0.19.1",
     "rollup-plugin-commonjs": "^8.4.1",
     "rollup-plugin-license": "^0.6.0",
     "rollup-plugin-typescript2": "0.14.0",
     "rollup-plugin-uglify": "^3.0.0",
+    "ts-jest": "^23.0.1",
     "typescript": "^2.9.2"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
 }

@@ -4,7 +4,10 @@ dist/
 npm-debug.log
 yarn-error.log
 
-.rpt2_cache
+build/.rpt2_cache
+tests/coverage
+/coverage
+
 
 # Editor directories and files
 .idea
