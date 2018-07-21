@@ -7,6 +7,7 @@ export default class Http {
   after: Function[]
   done: Set<Function>
   fail: Set<Function>
+  queue: Map<any,any>
 
   constructor (axios: any) {
     this.axios = axios
@@ -14,6 +15,7 @@ export default class Http {
     this.after = []
     this.done = new Set<Function>()
     this.fail = new Set<Function>()
+    this.queue = new Map
   }
 
   /**
@@ -30,9 +32,8 @@ export default class Http {
     instance.error = null
     instance.loading = true
 
+    // variables
     data = this.before.reduce((data, fn) => fn(data), data)
-
-    // replace tokens
     path = replaceTokens(path, data)
 
     // sanity check
@@ -40,8 +41,13 @@ export default class Http {
       throw new Error(`No such Axios verb '${verb}' !`)
     }
 
+    // loading
+    const promise = this.axios[verb](path, data)
+    const key = Symbol(`${verb} ${path}`)
+    this.queue.set(key, promise)
+
     // call
-    return this.axios[verb](path, data)
+    return promise
       .then(res => {
         this.after.forEach(fn => {
           const result = fn(res)
@@ -58,7 +64,8 @@ export default class Http {
         return Promise.reject(error)
       })
       .then(res => {
-        instance.loading = false
+        this.queue.delete(key)
+        instance.loading = this.queue.size > 0
         return res
       })
   }
