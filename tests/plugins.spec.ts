@@ -1,7 +1,7 @@
 import AxiosMock from './helpers/AxiosMock'
 import ApiResource from '../src/classes/ApiResource'
 import ApiEndpoint from '../src/classes/ApiEndpoint'
-import { resource, remap, optimize } from '../src/plugins'
+import { resource, remap, optimize } from '../src/functions/plugins'
 
 // ---------------------------------------------------------------------------------------------------------------------
 // classes

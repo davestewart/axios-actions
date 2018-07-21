@@ -3,8 +3,8 @@ import ApiGroup from './classes/ApiGroup'
 import ApiEndpoint from './classes/ApiEndpoint'
 import ApiResource from './classes/ApiResource'
 
-import * as helpers from './plugins/helpers'
-import * as plugins from './plugins'
+import * as helpers from './functions/helpers'
+import * as plugins from './functions/plugins'
 
 export default Api
 

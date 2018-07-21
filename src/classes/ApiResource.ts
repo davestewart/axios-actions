@@ -1,5 +1,5 @@
 import ApiEndpoint from './ApiEndpoint'
-import { optimize, resource } from '../plugins'
+import { optimize, resource } from '../functions/plugins'
 
 /**
  * Resource class

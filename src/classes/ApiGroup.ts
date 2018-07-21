@@ -1,5 +1,5 @@
 import Api from './Api'
-import ActionMap from '../services/ActionMap'
+import ActionMap from './services/ActionMap'
 
 /**
  * Group class

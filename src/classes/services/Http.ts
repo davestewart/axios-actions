@@ -1,5 +1,5 @@
-import Api from '../classes/Api'
-import { replaceTokens } from '../utils/string'
+import Api from '../Api'
+import { replaceTokens } from '../../utils/string'
 
 export default class Http {
 
