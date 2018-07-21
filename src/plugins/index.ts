@@ -12,6 +12,7 @@ import { reKey } from '../utils/object'
 export function resource (api: Api, model: any, convert: Function = toJSON) {
   api.http.before.push(data => process(data, data => convert(data)))
   api.http.after.push(res => process(res.data, data => new model(data)))
+  return this
 }
 
 /**
@@ -29,6 +30,7 @@ export function remap (api: Api, map: object) {
     res.data = process(res.data, obj => reKey(obj, map, true))
     return res
   })
+  return this
 }
 
 /**
@@ -38,5 +40,6 @@ export function remap (api: Api, map: object) {
  */
 export function optimize (api: Api) {
   api.http.after.push(res => res.data)
+  return this
 }
 

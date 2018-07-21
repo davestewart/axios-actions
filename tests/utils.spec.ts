@@ -24,21 +24,6 @@ describe('string utils', () => {
 })
 
 describe('object utils', () => {
-  describe('flip keys', () => {
-    const obj = flipKeys({
-      one: 'ONE',
-      two: 'TWO',
-      three: 'THREE',
-    })
-
-    it('should flip keys', () => {
-      expect(Object.keys(obj)).toEqual(['ONE', 'TWO', 'THREE'])
-    })
-    it('should flip values', () => {
-      expect(Object.values(obj)).toEqual(['one', 'two', 'three'])
-    })
-  })
-
   describe('isObject', () => {
     it('should pass for objects', () => {
       expect(isObject({})).toBe(true)
@@ -95,8 +80,20 @@ describe('object utils', () => {
     it('should rekey a response', () => {
       expect(reKey(res, map, true)).toEqual(req)
     })
-    it('should rekey 2 levels deep', () => {
-      // not run yet
+  })
+
+  describe('flipKeys', () => {
+    const obj = flipKeys({
+      one: 'ONE',
+      two: 'TWO',
+      three: 'THREE',
+    })
+
+    it('should flip keys', () => {
+      expect(Object.keys(obj)).toEqual(['ONE', 'TWO', 'THREE'])
+    })
+    it('should flip values', () => {
+      expect(Object.values(obj)).toEqual(['one', 'two', 'three'])
     })
   })
 

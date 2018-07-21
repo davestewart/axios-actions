@@ -4,23 +4,19 @@ import { isObject } from '../utils/object'
 /**
  * Endpoint class
  *
- * Manages browse and CRUD calls for a specific endpoint
+ * Manages CRUD and index calls for a specific endpoint
  */
 export default class ApiEndpoint extends ApiGroup {
 
   /**
    * Endpoint constructor
    *
+   * - creates CRUD operations + index
    * - inherits all API methods
-   * - inherits all CRUD operations + browse
    * - supports REST or object configuration
-   * - optionally returns data rather than response
-   * - optionally maps keys to and from the server
    *
    * @param   axios       An Axios instance
    * @param   config      A single RESTful URL or map of URLs for create, read, update, delete
-   * @param   optimize    An optional flag to return the data rather than the response
-   * @param   map         An optional map to re-key objects on send and receive
    */
   constructor (axios: any, config: string | object) {
     super(axios)
@@ -29,7 +25,7 @@ export default class ApiEndpoint extends ApiGroup {
     let actions = config
     let verbs = {
       read: 'get',
-      browse: 'get',
+      index: 'get',
       create: 'post',
       update: 'post',
       delete: 'post'
@@ -39,7 +35,7 @@ export default class ApiEndpoint extends ApiGroup {
     if (typeof config === 'string') {
       verbs = {
         read: 'get',
-        browse: 'get',
+        index: 'get',
         create: 'post',
         update: 'patch',
         delete: 'delete'
@@ -56,16 +52,16 @@ export default class ApiEndpoint extends ApiGroup {
     Object
       .keys(actions)
       .map(action => {
-        this.map.add(action, actions[action], verbs[action])
+        this.actions.add(action, actions[action], verbs[action])
       })
   }
 
   /**
-   * Browse the resource index
+   * Load the resource index
    * @param   data
    */
   index (data?: any): Promise<any> {
-    return this.call('browse', data)
+    return this.call('index', data)
   }
 
   /**

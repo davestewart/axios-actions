@@ -11,7 +11,7 @@ export default class ApiGroup extends Api {
   /**
    * A map of API endpoints
    */
-  map: ActionMap
+  actions: ActionMap
 
   /**
    * Endpoint constructor
@@ -21,7 +21,7 @@ export default class ApiGroup extends Api {
    */
   constructor (axios: any, actions: any = null) {
     super(axios)
-    this.map = new ActionMap(actions)
+    this.actions = new ActionMap(actions)
   }
 
   /**
@@ -32,7 +32,7 @@ export default class ApiGroup extends Api {
    * @returns {Promise<any>}
    */
   call (name, data) {
-    const action = this.map.get(name)
+    const action = this.actions.get(name)
     return this.request(action.verb, action.path, data)
   }
 }

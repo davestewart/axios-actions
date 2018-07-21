@@ -1,3 +1,4 @@
+import Api from '../classes/Api'
 import { replaceTokens } from '../utils/string'
 
 export default class Http {
@@ -27,7 +28,7 @@ export default class Http {
    * @param data
    * @returns {Promise<any>}
    */
-  request (instance, verb, path, data) {
+  request (instance: Api, verb: string, path: string, data:any) {
     // reset
     instance.error = null
     instance.loading = true
@@ -46,9 +47,15 @@ export default class Http {
     const key = Symbol(`${verb} ${path}`)
     this.queue.set(key, promise)
 
+    const setLoaded = (key) => {
+      this.queue.delete(key)
+      instance.loading = this.queue.size > 0
+    }
+
     // call
     return promise
       .then(res => {
+        setLoaded(key)
         this.after.forEach(fn => {
           const result = fn(res)
           if (typeof result !== 'undefined') {
@@ -59,14 +66,10 @@ export default class Http {
         return res
       })
       .catch(error => {
+        setLoaded(key)
         instance.error = error
         this.fail.forEach(fn => fn(error))
         return Promise.reject(error)
-      })
-      .then(res => {
-        this.queue.delete(key)
-        instance.loading = this.queue.size > 0
-        return res
       })
   }
 }
