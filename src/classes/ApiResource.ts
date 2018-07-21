@@ -16,6 +16,6 @@ export default class ApiResource extends ApiEndpoint {
   }
 
   search (data) {
-    return this.exec('search', data)
+    return this.call('search', data)
   }
 }

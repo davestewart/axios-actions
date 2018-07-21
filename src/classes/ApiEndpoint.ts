@@ -64,8 +64,8 @@ export default class ApiEndpoint extends ApiGroup {
    * Browse the resource index
    * @param   data
    */
-  browse (data?: any): Promise<any> {
-    return this.exec('browse', data)
+  index (data?: any): Promise<any> {
+    return this.call('browse', data)
   }
 
   /**
@@ -76,7 +76,7 @@ export default class ApiEndpoint extends ApiGroup {
     if (!isObject(data)) {
       throw new Error('Missing data parameter')
     }
-    return this.exec('create', data)
+    return this.call('create', data)
   }
 
   /**
@@ -87,7 +87,7 @@ export default class ApiEndpoint extends ApiGroup {
     if (typeof id === 'undefined') {
       throw new Error('Missing id parameter')
     }
-    return this.exec('read', id)
+    return this.call('read', id)
   }
 
   /**
@@ -98,7 +98,7 @@ export default class ApiEndpoint extends ApiGroup {
     if (!isObject(data)) {
       throw new Error('Missing data parameter')
     }
-    return this.exec('update', data)
+    return this.call('update', data)
   }
 
   /**
@@ -109,6 +109,6 @@ export default class ApiEndpoint extends ApiGroup {
     if (typeof id === 'undefined') {
       throw new Error('Missing id parameter')
     }
-    return this.exec('delete', id)
+    return this.call('delete', id)
   }
 }

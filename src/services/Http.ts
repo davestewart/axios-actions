@@ -16,7 +16,16 @@ export default class Http {
     this.fail = new Set<Function>()
   }
 
-  call (instance, verb, path, data) {
+  /**
+   * Dispatch an axios request
+   *
+   * @param instance
+   * @param verb
+   * @param path
+   * @param data
+   * @returns {Promise<any>}
+   */
+  request (instance, verb, path, data) {
     // reset
     instance.error = null
     instance.loading = true

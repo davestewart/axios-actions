@@ -1,5 +1,4 @@
 import Http from '../services/Http'
-import { replaceTokens } from '../utils/string'
 
 /**
  * Api class
@@ -36,16 +35,15 @@ export default class Api {
   }
 
   /**
-   * Call the API via any HTTP verb
+   * Query the API via any HTTP verb
    *
    * @param   verb      The API verb to make the call
    * @param   path      The API path to call
    * @param   data      Any optional data to pass to the endpoints
    * @returns
    */
-  call (verb: string, path: string, data?: object): Promise<any> {
-    path = replaceTokens(path, data)
-    return this.http.call(this, verb, path, data)
+  request (verb: string, path: string, data?: object): Promise<any> {
+    return this.http.request(this, verb, path, data)
   }
 
   /**
@@ -56,7 +54,7 @@ export default class Api {
    * @returns
    */
   get (path: string, data?: object): Promise<any> {
-    return this.call('get', path, data)
+    return this.request('get', path, data)
   }
 
   /**
@@ -67,7 +65,7 @@ export default class Api {
    * @returns
    */
   post (path: string, data?: object): Promise<any> {
-    return this.call('post', path, data)
+    return this.request('post', path, data)
   }
 
   /**

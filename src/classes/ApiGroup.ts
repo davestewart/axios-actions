@@ -25,14 +25,14 @@ export default class ApiGroup extends Api {
   }
 
   /**
-   * Execute a specific action
+   * Call a specific action
    *
    * @param   name      The name of the action to execute
    * @param   data      An optional hash of data to pass to the server
    * @returns {Promise<any>}
    */
-  exec (name, data) {
+  call (name, data) {
     const action = this.map.get(name)
-    return this.call(action.verb, action.path, data)
+    return this.request(action.verb, action.path, data)
   }
 }
