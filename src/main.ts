@@ -1,7 +1,7 @@
 import Api from './classes/Api'
-import Group from './classes/Group'
-import Endpoint from './classes/Endpoint'
-import Resource from './classes/Resource'
+import ApiGroup from './classes/ApiGroup'
+import ApiEndpoint from './classes/ApiEndpoint'
+import ApiResource from './classes/ApiResource'
 
 import * as helpers from './plugins/helpers'
 import * as plugins from './plugins'
@@ -11,9 +11,9 @@ export default Api
 export {
   // classes
   Api,
-  Group,
-  Endpoint,
-  Resource,
+  ApiGroup,
+  ApiEndpoint,
+  ApiResource,
 
   // functions
   plugins,

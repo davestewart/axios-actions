@@ -1,6 +1,6 @@
 import AxiosMock from './helpers/AxiosMock'
-import Resource from '../src/classes/Resource'
-import Endpoint from '../src/classes/Endpoint'
+import ApiResource from '../src/classes/ApiResource'
+import ApiEndpoint from '../src/classes/ApiEndpoint'
 import { resource, remap, optimize } from '../src/plugins'
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ describe('axios mock', () => {
 })
 
 describe('resource class', () => {
-  const posts = new Resource(axios, 'posts/:id', Post)
+  const posts = new ApiResource(axios, 'posts/:id', Post)
 
   it('should transform inbound data to Post classes', () => {
     expect.assertions(1)
@@ -83,7 +83,7 @@ describe('resource class', () => {
 })
 
 describe('resource plugin', () => {
-  const posts = new Endpoint(axios, 'posts/:id')
+  const posts = new ApiEndpoint(axios, 'posts/:id')
 
   resource(posts, Post)
 
@@ -123,7 +123,7 @@ describe('remap plugin', () => {
     the_body: 'body',
   }
 
-  const posts = new Endpoint(axios, 'posts/:id')
+  const posts = new ApiEndpoint(axios, 'posts/:id')
 
   remap(posts, map)
 
@@ -142,7 +142,7 @@ describe('remap plugin', () => {
 })
 
 describe('optimize plugin', () => {
-  const posts = new Endpoint(axios, 'posts/:id')
+  const posts = new ApiEndpoint(axios, 'posts/:id')
   optimize(posts)
 
   it('should return the data object directly', () => {

@@ -6,7 +6,7 @@ import ActionMap from '../services/ActionMap'
  *
  * Manages related URLs of an API
  */
-export default class Group extends Api {
+export default class ApiGroup extends Api {
 
   /**
    * A map of API endpoints

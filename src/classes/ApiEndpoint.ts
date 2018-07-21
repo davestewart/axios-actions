@@ -1,4 +1,4 @@
-import Group from './Group'
+import ApiGroup from './ApiGroup'
 import { isObject } from '../utils/object'
 
 /**
@@ -6,7 +6,7 @@ import { isObject } from '../utils/object'
  *
  * Manages browse and CRUD calls for a specific endpoint
  */
-export default class Endpoint extends Group {
+export default class ApiEndpoint extends ApiGroup {
 
   /**
    * Endpoint constructor

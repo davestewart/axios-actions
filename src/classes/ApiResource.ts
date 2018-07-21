@@ -1,4 +1,4 @@
-import Endpoint from './Endpoint'
+import ApiEndpoint from './ApiEndpoint'
 import { optimize, resource } from '../plugins'
 
 /**
@@ -6,7 +6,7 @@ import { optimize, resource } from '../plugins'
  *
  * Example class showing how Endpoint can be extended to use plugins
  */
-export default class Resource extends Endpoint {
+export default class ApiResource extends ApiEndpoint {
   constructor (axios: any, config: string | object, model?: any) {
     super(axios, config)
     if (model) {
