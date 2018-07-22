@@ -45,22 +45,22 @@ export default class Api {
   use (name, ...params) {
     const plugin = plugins[name]
     if (!plugin) {
-      throw new Error(`Unknown plugin "${name}"`)
+      throw new Error(`No such plugin "${name}"`)
     }
     plugin(this, ...params)
     return this
   }
 
   /**
-   * Query the API via any HTTP verb
+   * Query the API via any HTTP method
    *
-   * @param   verb      The API verb to make the call
+   * @param   method    The HTTP method to make the call
    * @param   path      The API path to call
    * @param   data      Any optional data to pass to the endpoints
    * @returns
    */
-  request (verb: string, path: string, data?: object): Promise<any> {
-    return this.http.request(this, verb, path, data)
+  request (method: string, path: string, data?: object): Promise<any> {
+    return this.http.request(this, method, path, data)
   }
 
   /**

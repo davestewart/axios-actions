@@ -23,12 +23,12 @@ export default class Http {
    * Dispatch an axios request
    *
    * @param instance
-   * @param verb
+   * @param method
    * @param path
    * @param data
    * @returns {Promise<any>}
    */
-  request (instance: Api, verb: string, path: string, data:any) {
+  request (instance: Api, method: string, path: string, data:any) {
     // reset
     instance.error = null
     instance.loading = true
@@ -38,13 +38,13 @@ export default class Http {
     path = replaceTokens(path, data)
 
     // sanity check
-    if (typeof this.axios[verb] !== 'function') {
-      throw new Error(`No such Axios verb '${verb}' !`)
+    if (typeof this.axios[method] !== 'function') {
+      throw new Error(`No such HTTP method '${method}'`)
     }
 
     // loading
-    const promise = this.axios[verb](path, data)
-    const key = Symbol(`${verb} ${path}`)
+    const promise = this.axios[method](path, data)
+    const key = Symbol(`${method} ${path}`)
     this.queue.set(key, promise)
 
     const setLoaded = (key) => {

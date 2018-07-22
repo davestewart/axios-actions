@@ -31,8 +31,11 @@ export default class ApiGroup extends Api {
    * @param   data      An optional hash of data to pass to the server
    * @returns {Promise<any>}
    */
-  call (name, data) {
+  call (name: string, data?: any) {
     const action = this.actions.get(name)
-    return this.request(action.verb, action.path, data)
+    if (!action) {
+      throw new Error(`No such action "${action}"`)
+    }
+    return this.request(action.method, action.path, data)
   }
 }

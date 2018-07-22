@@ -23,7 +23,7 @@ export default class ApiEndpoint extends ApiGroup {
 
     // normal
     let actions = config
-    let verbs = {
+    let methods = {
       read: 'get',
       index: 'get',
       create: 'post',
@@ -33,7 +33,7 @@ export default class ApiEndpoint extends ApiGroup {
 
     // rest
     if (typeof config === 'string') {
-      verbs = {
+      methods = {
         read: 'get',
         index: 'get',
         create: 'post',
@@ -41,7 +41,7 @@ export default class ApiEndpoint extends ApiGroup {
         delete: 'delete'
       }
       actions = Object
-        .keys(verbs)
+        .keys(methods)
         .reduce((output, action) => {
           output[action] = config
           return output
@@ -52,7 +52,7 @@ export default class ApiEndpoint extends ApiGroup {
     Object
       .keys(actions)
       .map(action => {
-        this.actions.add(action, actions[action], verbs[action])
+        this.actions.add(action, actions[action], methods[action])
       })
   }
 
