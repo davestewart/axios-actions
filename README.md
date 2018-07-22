@@ -35,8 +35,8 @@ export const widgets = new ApiGroup(axios, {
 
 Note that:
 
-- HTTP verbs can be specified directly in the URL format
-- placeholder variables are automatically fill-in using the passed data
+- HTTP methods can be specified directly in the URL format
+- placeholder variables are automatically filled-in using passed data
 
 To use the endpoint, import and `call()` the actions by name:
 
@@ -49,7 +49,7 @@ widgets.call('save', { id: 2, name: ... , weight: ... }).then(onLoad)
 
 ### ApiEndpoint
 
-The `ApiEndpoint` class extends `ApiGroup` to automatically set up REST verbs, paths and CRUD methods:
+The `ApiEndpoint` class extends `ApiGroup` to automatically set up REST methods, paths and CRUD methods:
 
 ```js
 const posts = new ApiEndpoint(axios, 'posts/:id')
@@ -77,7 +77,7 @@ const posts = new ApiEndpoint(axios, {
 })
 ```
 
-The class is configured to use `GET` for `index` and `read` and `POST` for everything else. If you want to override these defaults, indicate the correct HTTP verb within the URL string:
+The class is configured to use `GET` for `index` and `read` and `POST` for everything else. If you want to override these defaults, indicate the correct HTTP method within the URL string:
 
 ```js
 { update: 'PATCH posts/update/:id' }
@@ -101,9 +101,7 @@ function load () {
   comments
     .index()
     .then(comments => {
-      comments
-        .forEach(comment => comment
-          .render(this))
+        comments.forEach(comment => comment.render(this))
       })
 }
 ```
@@ -167,8 +165,8 @@ All classes extend from the base `Api` class which contains core functionality f
 
 - HTTP methods `get()`, `post()` and `request()`
 - event handling via `done()` and `fail()`
-- loading progress via `loading`
-- error messages via `error`
+- loading state via `loading`
+- error state via `error`
 - plugins via `use()`
 
 
@@ -208,7 +206,7 @@ See the class itself for all methods:
 
 ### Axios configuration
 
-The package acts as a layer on top of your existing axios setup, so things like base URL and authentication would be handled by you, then the axios instance passed to Axios Actions classes:
+The package acts as a layer on top of your existing axios setup, so things like base URL, authentication and errors would be handled in axios, then the axios instance passed to Axios Actions classes:
 
 ```js
 import axios from 'axios'
