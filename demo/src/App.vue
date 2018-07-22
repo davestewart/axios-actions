@@ -37,7 +37,7 @@
 
 <script>
 import axios from 'axios'
-import { ApiEndpoint, plugins } from '../../dist/axios-actions.esm'
+import { ApiEndpoint } from '../../dist/axios-actions.esm'
 
 function payload (data) {
   return {
@@ -51,7 +51,7 @@ function payload (data) {
 const posts = new ApiEndpoint(axios, 'posts/:id')
 
 // return data by default
-plugins.optimize(posts)
+posts.use('data')
 
 // add a new endpoint
 posts.actions.add('search', 'GET posts?userId=:id')

@@ -1,6 +1,6 @@
 {
   "name": "axios-actions",
-  "version": "1.0.0-alpha-1",
+  "version": "1.0.0-beta-1",
   "description": "Bundle endpoints as callable, reusable services",
   "main": "dist/axios-actions.js",
   "module": "dist/axios-actions.esm.js",
