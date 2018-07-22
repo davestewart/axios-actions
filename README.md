@@ -47,7 +47,7 @@ widgets.call('view').then(onLoad)
 widgets.call('save', { id: 2, name: ... , weight: ... }).then(onLoad)
 ```
 
-### ApiEndpoint
+### ApiEndpoint
 
 The `ApiEndpoint` class extends `ApiGroup` to automatically set up REST verbs, paths and CRUD methods:
 
@@ -71,15 +71,22 @@ If your endpoints are not strictly REST, pass in a configuration object instead:
 const posts = new ApiEndpoint(axios, {
   index:  'posts/index',
   read:   'posts/view/:id',
-  create: 'POST posts/create',
-  update: 'POST posts/update/:id',
-  delete: 'POST posts/delete/:id'
+  create: 'posts/create',
+  update: 'posts/update/:id',
+  delete: 'posts/delete/:id'
 })
 ```
 
+The class is configured to use `GET` for `index` and `read` and `POST` for everything else. If you want to override these defaults, indicate the correct HTTP verb within the URL string:
+
+```js
+{ update: 'PATCH posts/update/:id' }
+```
+
+
 ### ApiResource
 
-A final `ApiResource` class extends `ApiEndpoint` to allow you work with models, which are converted and created in both request and response:
+The `ApiResource` class extends `ApiEndpoint` to allow you work with models, which are converted and created in both request and response:
 
 ```js
 const comments = new ApiResource(axios, 'comments/:id', Comment)
@@ -101,12 +108,42 @@ function load () {
 }
 ```
 
+## Additional functionality
+
+### Handling events
+
+Events can be handled per instance or per action.
+
+To set up instance-level event handling, use `done()` and `fail()`:
+
+```js
+const posts = new ApiEndpoint('posts/:id')
+  .done(onLoad)
+  .fail(onError)
+```
+```js
+posts.index()
+```
+
+To set up action-level event handling, use `then()` and `catch()`:
+
+```js
+const posts = new ApiEndpoint('posts/:id')
+```
+```js
+posts
+  .index()
+  .then(res => this.data = res.data.map(post => new Post(post)))
+```
+
+
 ### Adding actions
 
 Any of the main classes can have actions added to them at any point:
 
 ```js
-comments.actions.add('search', 'api/comments/search?user=:userId&text=:text')
+const comments = new ApiEndpoint('comments/:id')
+comments.actions.add('search', 'comments/search?user=:userId&text=:text')
 ```
 
 Call them using the `call()` method:
@@ -114,8 +151,15 @@ Call them using the `call()` method:
 ```js
 comments
   .call('search', form)
-  .then(onLoad)
+  .then(onSearch)
 ```
+
+You can add actions to existing instances, or create a [custom class](#extending-classes) on which you can add instance methods:
+
+```js
+const comments = new CommentsEndpoint(axios)
+comments.search(form)
+``` 
 
 ## Core class
 
@@ -177,7 +221,7 @@ const endpoint = new ApiEndpoint(axios, config)
 
 ### Modifying request or response data
 
-The `Http` class which manages the Axios calls allows you to modify the outgoing data and incoming responses in a similar manner via `before` and `after` arrays.
+The `Http` class which manages the Axios calls allows you to modify the outgoing data and incoming responses in a similar manner to Axios intercepters, via `before` and `after` arrays.
 
 To modify data or response, add a handler functions:
 
@@ -186,13 +230,18 @@ endpoint.http.before.push(data => onRequest)
 endpoint.http.after.push(data => onResponse)
 ```
 
-You can import the `process` helper function to assist you in managing arrays:
+You can import the `process` helper function to abstract the response data whether it's an array or a single object:
 
 ```js
 import { helpers } from 'axios-actions'
 function onResponse (res) {
-  // handles arrays or obejcts
-  process(res.data => item => item.toUpperCase())
+  process(res.data => item => {
+    Object
+      .keys(item)
+      .forEach(key => {
+        item[key] = String(item).toUpperCase()
+      })
+  })
 }
 ```
 
@@ -215,9 +264,65 @@ const endpoint = new ApiEndpoint(axios, config)
   .use('data')
 ```
 
-See the plugins file itself for all functions:
+See the plugins file itself for all built-in plugin functions:
 
 - [src/functions/plugins.ts](https://github.com/davestewart/axios-actions/blob/master/src/functions/plugins.ts)
+
+
+### Creating your own plugins
+
+Very simply, plugins are functions which take an endpoint instance, then any parameters you want to pass:
+
+```js
+function doSomething (api, foo, bar) { ... }
+```
+
+To extend the uppercase example from the previous section, we might do the following:
+
+```js
+import { helpers } from 'axios-actions'
+
+// create plugin
+function changeCase (api, state) {
+  const transform = state ? 'toUpperCase': 'toLowerCase'
+  const onResponse = function (res) {
+    process(res.data => item => {
+      Object
+        .keys(item)
+        .forEach(key => {
+          item[key] = String(item)[transform]()
+        })
+    })
+  }
+  api.http.after.push(res => onResponse)
+}
+```
+
+To implement it in our project, we can do the following:
+
+```js
+// optionally, add to global plugins
+import { plugins } from 'axios-actions'
+plugins.changeCase = changeCase
+
+// implement via using
+const posts = new ApiEndpoint('posts/:id')
+    .use('changeCase', true)
+
+// implement via calling
+changeCase(posts, false) 
+```
+
+You can do anything you like with the `api` instance in the plugin, for example adding callbacks:
+
+```js
+plugins.log = function (api) {
+  api.fail(error => {
+    console.log('ERROR!', error)
+    return Promise.reject(error)
+  })
+}
+```
 
 
 ### Extending classes
@@ -238,14 +343,20 @@ class Widgets extends ApiGroup {
       save: 'POST api/products/widgets/:id',
     })
     this.use('data')
+    this.items = []
   }
   
   view () {
-    return this.call('view')
+    return this
+      .call('view')
+      .then(data => {
+        this.items = data
+        return Promise.resolve(data)
+      })
   }
   
-  load () {
-    return this.call('load')
+  load (id) {
+    return this.call('load', id)
   }
   
   save (data) {
@@ -255,7 +366,9 @@ class Widgets extends ApiGroup {
 ```
 ```js
 const widgets = new Widgets()
-widgets.view().then( ... )
+widgets
+  .load(1)
+  .then( ... )
 ```
 
 ## Demo
