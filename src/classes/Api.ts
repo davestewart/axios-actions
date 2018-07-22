@@ -1,4 +1,5 @@
 import Http from './services/Http'
+import * as plugins from '../functions/plugins'
 
 /**
  * Api class
@@ -32,6 +33,22 @@ export default class Api {
     this.error = null
     this.loading = false
     Object.freeze(this.http)
+  }
+
+  /**
+   * Use one of the built-in plugins
+   *
+   * @param   name      The name of the plugin
+   * @param   params    Any options the plugin needs
+   * @returns {this}
+   */
+  use (name, ...params) {
+    const plugin = plugins[name]
+    if (!plugin) {
+      throw new Error(`Unknown plugin "${name}"`)
+    }
+    plugin(this, ...params)
+    return this
   }
 
   /**

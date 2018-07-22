@@ -1,7 +1,7 @@
 import AxiosMock from './helpers/AxiosMock'
 import ApiResource from '../src/classes/ApiResource'
 import ApiEndpoint from '../src/classes/ApiEndpoint'
-import { resource, remap, optimize } from '../src/functions/plugins'
+import { resource, remap, data } from '../src/functions/plugins'
 
 // ---------------------------------------------------------------------------------------------------------------------
 // classes
@@ -141,9 +141,9 @@ describe('remap plugin', () => {
   })
 })
 
-describe('optimize plugin', () => {
+describe('data plugin', () => {
   const posts = new ApiEndpoint(axios, 'posts/:id')
-  optimize(posts)
+  data(posts)
 
   it('should return the data object directly', () => {
     expect.assertions(1)

@@ -1,5 +1,4 @@
 import ApiEndpoint from './ApiEndpoint'
-import { optimize, resource } from '../functions/plugins'
 
 /**
  * Resource class
@@ -10,9 +9,9 @@ export default class ApiResource extends ApiEndpoint {
   constructor (axios: any, config: string | object, model?: any) {
     super(axios, config)
     if (model) {
-      resource(this, model)
+      this.use('resource', model)
     }
-    optimize(this)
+    this.use('data')
   }
 
   search (data) {

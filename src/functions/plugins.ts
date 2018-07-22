@@ -38,7 +38,7 @@ export function remap (api: Api, map: object) {
  *
  * @param api
  */
-export function optimize (api: Api) {
+export function data (api: Api) {
   api.http.after.push(res => res.data)
   return this
 }
