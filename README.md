@@ -250,7 +250,7 @@ widgets.view().then( ... )
 
 View the demo code here:
 
-- https://github.com/davestewart/axios-actions/blob/master/demo/src/App.vue
+- [demo/src/App.vue](https://github.com/davestewart/axios-actions/blob/master/demo/src/App.vue)
 
 Run the demo via the terminal:
 
