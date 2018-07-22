@@ -21,7 +21,9 @@ This collection-based approach allows you to set up APIs without scattering URLs
 
 ### ApiGroup
 
-The `ApiGroup` class is the base building block for actions:
+The `ApiGroup` class is the base building block for actions.
+
+You set it up with an axios instance and a configuration block:
 
 ```js
 export const widgets = new ApiGroup(axios, {
@@ -30,28 +32,37 @@ export const widgets = new ApiGroup(axios, {
   save: 'POST api/products/widgets/:id',
 })
 ```
-Specify HTTP verbs in the URL format.
+
+Note that:
+
+- HTTP verbs can be specified directly in the URL format
+- placeholder variables are automatically fill-in using the passed data
+
+To use the endpoint, import and `call()` the actions by name:
 
 ```js
 import { widgets } from '../api'
 
-widgets.view().then(onLoad)
-widgets.save({ id: 2, name: ... , weight: ... }).then(onLoad)
+widgets.call('view').then(onLoad)
+widgets.call('save', { id: 2, name: ... , weight: ... }).then(onLoad)
 ```
-
-Requests automatically fill-in path variables using the passed data.
 
 ### ApiEndpoint
 
 The `ApiEndpoint` class extends `ApiGroup` to automatically set up REST verbs, paths and CRUD methods:
 
 ```js
-const posts = new ApiEndpoint(axios, 'posts/:id').done(onLoad)
+const posts = new ApiEndpoint(axios, 'posts/:id')
 ```
+
+This makes it even easier to call REST endpoints as the methods [are declared](https://github.com/davestewart/axios-actions/blob/master/src/classes/ApiEndpoint.ts#L63-L109) on the class:
+
 ```js
 posts.index()
 posts.create(data)
-// read, update, delete
+posts.read(1)
+posts.update(data)
+posts.delete(1)
 ```
 
 ### ApiResource
@@ -96,7 +107,13 @@ comments
 
 ## Core class
 
-All classes extend from the base `Api` class which contains core functionality for HTTP methods, event handling, loading progress, error messages, and plugins.
+All classes extend from the base `Api` class which contains core functionality for:
+
+- HTTP methods `get()`, `post()` and `request()`
+- event handling via `done()` and `fail()`
+- loading progress via `loading`
+- error messages via `error`
+- plugins via `use()`
 
 
 ```js
@@ -159,7 +176,7 @@ endpoint.http.after.push(data => onResponse)
 
 You can import the `process` helper function to assist you in managing arrays:
 
-```
+```js
 import { helpers } from 'axios-actions'
 function onResponse (res) {
   // handles arrays or obejcts
@@ -185,6 +202,11 @@ const endpoint = new ApiEndpoint(axios, config)
   .use('remap', { the_title: 'title'}, the_body: 'body')
   .use('data')
 ```
+
+See the plugins file itself for all functions:
+
+- [src/functions/plugins.ts](https://github.com/davestewart/axios-actions/blob/master/src/functions/plugins.ts)
+
 
 ### Extending classes
 
@@ -238,7 +260,7 @@ npm run demo
 
 ### Install
 
-Install from NPM:
+Install via [NPM](https://www.npmjs.com/package/axios-actions):
 
 ```bash
 npm install axios-actions
