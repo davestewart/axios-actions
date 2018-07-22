@@ -235,7 +235,7 @@ You can import the `process` helper function to abstract the response data wheth
 ```js
 import { helpers } from 'axios-actions'
 function onResponse (res) {
-  process(res.data => item => {
+  helpers.process(res.data => item => {
     Object
       .keys(item)
       .forEach(key => {
@@ -271,7 +271,7 @@ See the plugins file itself for all built-in plugin functions:
 
 ### Creating your own plugins
 
-Very simply, plugins are functions which take an endpoint instance, then any parameters you want to pass:
+Very simply, plugins are functions which take any Api (or subclass) instance, then any parameters you want to pass:
 
 ```js
 function doSomething (api, foo, bar) { ... }
@@ -286,7 +286,7 @@ import { helpers } from 'axios-actions'
 function changeCase (api, state) {
   const transform = state ? 'toUpperCase': 'toLowerCase'
   const onResponse = function (res) {
-    process(res.data => item => {
+    helpers.process(res.data => item => {
       Object
         .keys(item)
         .forEach(key => {
@@ -301,14 +301,15 @@ function changeCase (api, state) {
 To implement it in our project, we can do the following:
 
 ```js
-// optionally, add to global plugins
+// add to global plugins
 import { plugins } from 'axios-actions'
 plugins.changeCase = changeCase
 
-// implement via using
+// implement via use()
 const posts = new ApiEndpoint('posts/:id')
     .use('changeCase', true)
-
+```
+```js
 // implement via calling
 changeCase(posts, false) 
 ```
