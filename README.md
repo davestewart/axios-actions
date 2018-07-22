@@ -65,6 +65,18 @@ posts.update(data)
 posts.delete(1)
 ```
 
+If your endpoints are not strictly REST, pass in a configuration object instead:
+
+```js
+const posts = new ApiEndpoint(axios, {
+  index:  'posts/index',
+  read:   'posts/view/:id',
+  create: 'POST posts/create',
+  update: 'POST posts/update/:id',
+  delete: 'POST posts/delete/:id'
+})
+```
+
 ### ApiResource
 
 A final `ApiResource` class extends `ApiEndpoint` to allow you work with models, which are converted and created in both request and response:
