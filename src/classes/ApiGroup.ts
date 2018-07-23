@@ -22,6 +22,20 @@ export default class ApiGroup extends Api {
   constructor (axios: any, actions: any = null) {
     super(axios)
     this.actions = new ActionMap(actions)
+    if (actions) {
+      Object
+        .keys(actions)
+        .forEach(action => {
+          if (action in this) {
+            console.warn(`Unable to add instance method for action name "${action}"`)
+          }
+          else {
+            this[action] = data => {
+              return this.call(action, data)
+            }
+          }
+        })
+    }
   }
 
   /**
