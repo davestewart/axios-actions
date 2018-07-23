@@ -83,7 +83,7 @@ const posts = new ApiEndpoint(axios, {
 })
 ```
 
-For object configuration, the class is configured to use `GET` for `index` and `read` and `POST` for everything else. If you want to override these defaults, indicate the correct HTTP method within the URL string:
+For object configuration, the class is configured to use `GET` for `index` / `read` and `POST` for everything else. If you want to override these defaults, indicate the correct HTTP method within the URL string:
 
 ```js
 { update: 'PATCH posts/update/:id' }
@@ -147,7 +147,7 @@ Any of the main classes can have actions added to them at any point:
 
 ```js
 const comments = new ApiEndpoint('comments/:id')
-comments.actions.add('search', 'comments/search?user=:userId&text=:text')
+comments.add('search', 'comments/search?user=:userId&text=:text')
 ```
 Again, prepend the HTTP method to the front of the URL if you need to, then execute via `call()` or the automatically-created method:
 
