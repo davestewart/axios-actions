@@ -38,46 +38,52 @@ Note that:
 - HTTP methods can be specified directly in the URL format
 - placeholder variables are automatically filled-in using passed data
 
-To use the endpoint, import and `call()` the actions by name:
+To use the endpoint, import it, then either `call()` the action by name, or execute it directly:
 
 ```js
 import { widgets } from '../api'
 
-widgets.call('view').then(onLoad)
-widgets.call('save', { id: 2, name: ... , weight: ... }).then(onLoad)
+// call by name
+widgets.call('load', 1).then(onLoad)
+
+// execute directly
+widgets.load(1).then(onLoad)
 ```
+
+Note that `ApiGroup` will **not** override existing properties or methods with new ones.
+
 
 ### ApiEndpoint
 
-The `ApiEndpoint` class extends `ApiGroup` to automatically set up REST methods, paths and CRUD methods:
+The `ApiEndpoint` class extends `ApiGroup` to automatically set up REST verbs, paths and CRUD actions:
 
 ```js
 const posts = new ApiEndpoint(axios, 'posts/:id')
 ```
 
-This makes it even easier to call REST endpoints as the methods [are declared](https://github.com/davestewart/axios-actions/blob/master/src/classes/ApiEndpoint.ts#L63-L109) on the class:
+This makes it even easier to call REST endpoints as methods [are declared](https://github.com/davestewart/axios-actions/blob/master/src/classes/ApiEndpoint.ts#L63-L109) on the class:
 
 ```js
-posts.index()
-posts.create(data)
-posts.read(1)
-posts.update(data)
-posts.delete(1)
+posts.index()       // GET
+posts.create(data)  // POST
+posts.read(1)       // GET
+posts.update(data)  // PATCH
+posts.delete(1)     // DELETE
 ```
 
 If your endpoints are not strictly REST, pass in a configuration object instead:
 
 ```js
 const posts = new ApiEndpoint(axios, {
-  index:  'posts/index',
-  read:   'posts/view/:id',
-  create: 'posts/create',
-  update: 'posts/update/:id',
-  delete: 'posts/delete/:id'
+  index:  'posts/index',       // GET
+  create: 'posts/create',      // POST
+  read:   'posts/view/:id',    // GET
+  update: 'posts/update/:id',  // POST
+  delete: 'posts/delete/:id'   // POST
 })
 ```
 
-The class is configured to use `GET` for `index` and `read` and `POST` for everything else. If you want to override these defaults, indicate the correct HTTP method within the URL string:
+For object configuration, the class is configured to use `GET` for `index` and `read` and `POST` for everything else. If you want to override these defaults, indicate the correct HTTP method within the URL string:
 
 ```js
 { update: 'PATCH posts/update/:id' }
@@ -143,21 +149,15 @@ Any of the main classes can have actions added to them at any point:
 const comments = new ApiEndpoint('comments/:id')
 comments.actions.add('search', 'comments/search?user=:userId&text=:text')
 ```
-
-Call them using the `call()` method:
+Again, prepend the HTTP method to the front of the URL if you need to, then execute via `call()` or the automatically-created method:
 
 ```js
 comments
-  .call('search', form)
+  .search(form)
   .then(onSearch)
 ```
 
-You can add actions to existing instances, or create a [custom class](#extending-classes) on which you can add instance methods:
-
-```js
-const comments = new CommentsEndpoint(axios)
-comments.search(form)
-``` 
+You can add actions to existing instances, or if greater functionality is required, you can [extend from a base class](#extending-classes) and add your own custom methods.
 
 ## Core class
 
@@ -186,7 +186,7 @@ this.api = new Api(axios)
 this.api.get('api/comments')
 ```
 
-In your application's view, you can sync with class properties (for any of the classes) to show progress and updates: 
+In your application's view, you can sync with instance properties (for any of the classes) to show progress and updates: 
 
 ```html
 <error v-if="api.error">{{ api.error }}</error>
@@ -196,7 +196,7 @@ In your application's view, you can sync with class properties (for any of the c
 </div>
 ```
 
-Note that each Api or sub-class instance monitors its own loading progress, and will report loaded only when **all** requests have loaded. This way you can have separate, light-weight instances for individual components or groups of sections of your site.
+Note that each Api or sub-class instance monitors its own loading progress, and will report loaded only when **all** requests have loaded. This way you can have separate, lightweight `Api` instances for individual components or sections of your site.
 
 See the class itself for all methods:
 
@@ -221,7 +221,7 @@ const endpoint = new ApiEndpoint(axios, config)
 
 The `Http` class which manages the Axios calls allows you to modify the outgoing data and incoming responses in a similar manner to Axios intercepters, via `before` and `after` arrays.
 
-To modify data or response, add a handler functions:
+To modify data or response, add handler functions:
 
 ```js
 endpoint.http.before.push(data => onRequest)
@@ -354,13 +354,7 @@ class Widgets extends ApiGroup {
       })
   }
   
-  load (id) {
-    return this.call('load', id)
-  }
-  
-  save (data) {
-    return this.call('save', data)
-  }
+  // load() and save() created automatically by superclass
 }
 ```
 ```js
