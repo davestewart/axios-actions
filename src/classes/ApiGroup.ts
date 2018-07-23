@@ -1,5 +1,6 @@
 import Api from './Api'
 import ActionMap from './services/ActionMap'
+import { isObject } from '../utils/object'
 
 /**
  * Group class
@@ -21,21 +22,33 @@ export default class ApiGroup extends Api {
    */
   constructor (axios: any, actions: any = null) {
     super(axios)
-    this.actions = new ActionMap(actions)
-    if (actions) {
+    this.actions = new ActionMap()
+    if (isObject(actions)) {
       Object
         .keys(actions)
         .forEach(action => {
-          if (action in this) {
-            console.warn(`Unable to add instance method for action name "${action}"`)
-          }
-          else {
-            this[action] = data => {
-              return this.call(action, data)
-            }
-          }
+          this.add(action, actions[action])
         })
     }
+  }
+
+  /**
+   * Add a new action
+   *
+   * @param   action    The name of the action to add
+   * @param   path      The path, and optionally method and path, of the API endpoint
+   */
+  add (action, path) {
+    this.actions.add(action, path)
+    if (action in this) {
+      console.warn(`Skipping helper method for action "${action}"`)
+    }
+    else {
+      this[action] = data => {
+        return this.call(action, data)
+      }
+    }
+    return this
   }
 
   /**

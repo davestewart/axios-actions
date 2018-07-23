@@ -14,6 +14,7 @@ export default class ActionMap {
   }
 
   add (name: string, path: string, method: string = 'get') {
+    path = path.trim()
     const matches = path.match(/^(get|post|patch|put|delete|head)\s+(.+)/i)
     if (matches) {
       method = matches[1].toLowerCase()
