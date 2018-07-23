@@ -1,31 +1,8 @@
+import Post from './helpers/Post'
 import AxiosMock from './helpers/AxiosMock'
 import ApiResource from '../src/classes/ApiResource'
 import ApiEndpoint from '../src/classes/ApiEndpoint'
 import { resource, remap, data } from '../src/functions/plugins'
-
-// ---------------------------------------------------------------------------------------------------------------------
-// classes
-
-class Post {
-  id: number
-  userId: number
-  title: string
-  body: string
-  time: number
-
-  constructor (data: any = {}) {
-    Object.assign(this as Post, data)
-    this.time = Date.now()
-  }
-
-  render () {
-    console.log('[ post ] => ', this)
-  }
-
-  toJSON () {
-    return this
-  }
-}
 
 // ---------------------------------------------------------------------------------------------------------------------
 // mocks
@@ -44,8 +21,6 @@ axios.on('get', 'posts/1', dummy)
 axios.on('post', 'posts/1', dummy)
 axios.on('patch', 'posts/1', dummy)
 axios.on('delete', 'posts/1', { success: 1})
-
-// console.log(JSON.stringify(axios, null, '  '))
 
 // ---------------------------------------------------------------------------------------------------------------------
 // tests
