@@ -1,23 +1,21 @@
 import Api from './classes/Api'
-import Group from './classes/Group'
-import Endpoint from './classes/Endpoint'
+import ApiGroup from './classes/ApiGroup'
+import ApiEndpoint from './classes/ApiEndpoint'
+import ApiResource from './classes/ApiResource'
 
-import * as plugins from './plugins'
-
-import process from './helpers/process'
-import remap from './helpers/remap'
-
-const helpers = {
-  process,
-  remap,
-}
+import * as helpers from './functions/helpers'
+import * as plugins from './functions/plugins'
 
 export default Api
 
 export {
+  // classes
   Api,
-  Group,
-  Endpoint,
+  ApiGroup,
+  ApiEndpoint,
+  ApiResource,
+
+  // functions
+  plugins,
   helpers,
-  plugins
 }

@@ -1,6 +1,11 @@
-import Http from '../services/Http'
-import { replaceTokens } from '../utils/string'
+import Http from './services/Http'
+import * as plugins from '../functions/plugins'
 
+/**
+ * Api class
+ *
+ * Base class to manage calls to API
+ */
 export default class Api {
 
   /**
@@ -31,16 +36,31 @@ export default class Api {
   }
 
   /**
-   * Call the API via any HTTP verb
+   * Use one of the built-in plugins
    *
-   * @param   verb      The API verb to make the call
+   * @param   name      The name of the plugin
+   * @param   params    Any options the plugin needs
+   * @returns {this}
+   */
+  use (name, ...params) {
+    const plugin = plugins[name]
+    if (!plugin) {
+      throw new Error(`No such plugin "${name}"`)
+    }
+    plugin(this, ...params)
+    return this
+  }
+
+  /**
+   * Query the API via any HTTP method
+   *
+   * @param   method    The HTTP method to make the call
    * @param   path      The API path to call
    * @param   data      Any optional data to pass to the endpoints
    * @returns
    */
-  call (verb: string, path: string, data?: object): Promise<any> {
-    path = replaceTokens(path, data)
-    return this.http.call(this, verb, path, data)
+  request (method: string, path: string, data?: object): Promise<any> {
+    return this.http.request(this, method, path, data)
   }
 
   /**
@@ -51,7 +71,7 @@ export default class Api {
    * @returns
    */
   get (path: string, data?: object): Promise<any> {
-    return this.call('get', path, data)
+    return this.request('get', path, data)
   }
 
   /**
@@ -62,7 +82,7 @@ export default class Api {
    * @returns
    */
   post (path: string, data?: object): Promise<any> {
-    return this.call('post', path, data)
+    return this.request('post', path, data)
   }
 
   /**

@@ -1,11 +1,9 @@
-export type action = { verb: string, path: string }
-
 export default class ActionMap {
 
-  actions: any
+  map: any
 
   constructor (actions: object = null) {
-    this.actions = {}
+    this.map = {}
     if (actions) {
       Object
         .keys(actions)
@@ -15,21 +13,22 @@ export default class ActionMap {
     }
   }
 
-  add (name: string, path: string, verb: string = 'get') {
+  add (name: string, path: string, method: string = 'get') {
+    path = path.trim()
     const matches = path.match(/^(get|post|patch|put|delete|head)\s+(.+)/i)
     if (matches) {
-      verb = matches[1].toLowerCase()
+      method = matches[1].toLowerCase()
       path = matches[2]
     }
-    this.actions[name] = { verb, path }
+    this.map[name] = { method, path }
   }
 
   remove (name: string) {
-    delete this.actions[name]
+    delete this.map[name]
   }
 
   get (name) {
-    return this.actions[name]
+    return this.map[name]
   }
 
 }

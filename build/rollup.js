@@ -32,7 +32,9 @@ const umd = {
   external: external,
   output: output('js'),
   plugins: [
-    typescript(),
+    typescript({
+      cacheRoot: `build/.rpt2_cache`
+    }),
     license({
       banner: {
         file: path.join(__dirname, 'banner.txt')

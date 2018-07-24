@@ -1,33 +1,31 @@
-import Group from './Group'
-import remap from '../helpers/remap'
+import ApiGroup from './ApiGroup'
+import { isObject } from '../utils/object'
 
 /**
- * CRUD endpoint class
+ * Endpoint class
+ *
+ * Manages CRUD and index calls for a specific endpoint
  */
-export default class Endpoint extends Group {
+export default class ApiEndpoint extends ApiGroup {
 
   /**
    * Endpoint constructor
    *
+   * - creates CRUD operations + index
    * - inherits all API methods
-   * - inherits all CRUD operations + browse
    * - supports REST or object configuration
-   * - optionally returns data rather than response
-   * - optionally maps keys to and from the server
    *
    * @param   axios       An Axios instance
    * @param   config      A single RESTful URL or map of URLs for create, read, update, delete
-   * @param   optimize    An optional flag to return the data rather than the response
-   * @param   map         An optional map to re-key objects on send and receive
    */
   constructor (axios: any, config: string | object) {
     super(axios)
 
     // normal
     let actions = config
-    let verbs = {
+    let methods = {
       read: 'get',
-      browse: 'get',
+      index: 'get',
       create: 'post',
       update: 'post',
       delete: 'post'
@@ -35,15 +33,15 @@ export default class Endpoint extends Group {
 
     // rest
     if (typeof config === 'string') {
-      verbs = {
+      methods = {
         read: 'get',
-        browse: 'get',
+        index: 'get',
         create: 'post',
         update: 'patch',
         delete: 'delete'
       }
       actions = Object
-        .keys(verbs)
+        .keys(methods)
         .reduce((output, action) => {
           output[action] = config
           return output
@@ -54,16 +52,16 @@ export default class Endpoint extends Group {
     Object
       .keys(actions)
       .map(action => {
-        this.map.add(action, actions[action], verbs[action])
+        this.actions.add(action, actions[action], methods[action])
       })
   }
 
   /**
-   * Browse the resource index
+   * Load the resource index
    * @param   data
    */
-  browse (data?: any): Promise<any> {
-    return this.exec('browse', data)
+  index (data?: any): Promise<any> {
+    return this.call('index', data)
   }
 
   /**
@@ -71,7 +69,10 @@ export default class Endpoint extends Group {
    * @param   data
    */
   create (data: any): Promise<any> {
-    return this.exec('create', data)
+    if (!isObject(data)) {
+      throw new Error('Missing data parameter')
+    }
+    return this.call('create', data)
   }
 
   /**
@@ -79,7 +80,10 @@ export default class Endpoint extends Group {
    * @param   id
    */
   read (id: any): Promise<any> {
-    return this.exec('read', id)
+    if (typeof id === 'undefined') {
+      throw new Error('Missing id parameter')
+    }
+    return this.call('read', id)
   }
 
   /**
@@ -87,7 +91,10 @@ export default class Endpoint extends Group {
    * @param   data
    */
   update (data: any): Promise<any> {
-    return this.exec('update', data)
+    if (!isObject(data)) {
+      throw new Error('Missing data parameter')
+    }
+    return this.call('update', data)
   }
 
   /**
@@ -95,6 +102,9 @@ export default class Endpoint extends Group {
    * @param   id
    */
   delete (id: any): Promise<any> {
-    return this.exec('delete', id)
+    if (typeof id === 'undefined') {
+      throw new Error('Missing id parameter')
+    }
+    return this.call('delete', id)
   }
 }

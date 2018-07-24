@@ -1,3 +1,6 @@
+import Api from '../Api'
+import { replaceTokens } from '../../utils/string'
+
 export default class Http {
 
   axios: any
@@ -5,6 +8,7 @@ export default class Http {
   after: Function[]
   done: Set<Function>
   fail: Set<Function>
+  queue: Map<any,any>
 
   constructor (axios: any) {
     this.axios = axios
@@ -12,28 +16,46 @@ export default class Http {
     this.after = []
     this.done = new Set<Function>()
     this.fail = new Set<Function>()
+    this.queue = new Map
   }
 
-  install (plugin: Function, ...rest) {
-    plugin(this, ...rest)
-    return this
-  }
-
-  call (instance, verb, path, data) {
+  /**
+   * Dispatch an axios request
+   *
+   * @param instance
+   * @param method
+   * @param path
+   * @param data
+   * @returns {Promise<any>}
+   */
+  request (instance: Api, method: string, path: string, data:any) {
     // reset
     instance.error = null
     instance.loading = true
 
+    // variables
     data = this.before.reduce((data, fn) => fn(data), data)
+    path = replaceTokens(path, data)
 
     // sanity check
-    if (typeof this.axios[verb] !== 'function') {
-      throw new Error(`No such Axios verb '${verb}' !`)
+    if (typeof this.axios[method] !== 'function') {
+      throw new Error(`No such HTTP method '${method}'`)
+    }
+
+    // loading
+    const promise = this.axios[method](path, data)
+    const key = Symbol(`${method} ${path}`)
+    this.queue.set(key, promise)
+
+    const setLoaded = (key) => {
+      this.queue.delete(key)
+      instance.loading = this.queue.size > 0
     }
 
     // call
-    return this.axios[verb](path, data)
+    return promise
       .then(res => {
+        setLoaded(key)
         this.after.forEach(fn => {
           const result = fn(res)
           if (typeof result !== 'undefined') {
@@ -44,12 +66,10 @@ export default class Http {
         return res
       })
       .catch(error => {
+        setLoaded(key)
         instance.error = error
         this.fail.forEach(fn => fn(error))
         return Promise.reject(error)
-      })
-      .finally(() => {
-        instance.loading = false
       })
   }
 }
