@@ -1,16 +1,63 @@
-# Axios Api
+<p align="center"><img src="src/app/assets/logo.png" width="60%"></p>
 
-> An Axios wrapper for server I/O + CRUD
+# js demo
 
-## Build Setup
+> A starter project to demo JS libraries
 
-``` bash
-# install dependencies
+## Features
+
+Layout
+
+- Navigation
+- Pages
+- Info section
+- Attractive design
+- Example logo + favicon
+
+UI components
+
+- Input
+- Select
+- Modal
+- Table
+- Icon
+
+Functionality
+
+- Built on Vue
+- Code Sandbox integration
+- Routing
+- Vuex
+
+Libraries
+
+- Vue
+- Vuex
+- Vue Router
+- Axios
+- Bulma
+
+## Demo
+
+Editable demo:
+
+- [codesandbox.io/s/github/davestewart/js-demo](https://codesandbox.io/s/github/davestewart/js-demo)
+
+Live site:
+
+- [js-demo.netlify.com](https://js-demo.netlify.com)
+
+## Usage
+
+Clone to the `demo/` folder of your local repository.
+
+Then, install and run:
+
+```bash
 npm install
-
-# serve with hot reload at localhost:8080
 npm run dev
-
-# build for production with minification
-npm run build
 ```
+
+View at [http://localhost:8080](http://localhost:8080)
+
+

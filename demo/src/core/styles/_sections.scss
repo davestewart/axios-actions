@@ -1,0 +1,27 @@
+.home {
+
+  header {
+    position: relative;
+    top: -50px;
+
+    @include tablet {
+      left: -10%;
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+    }
+
+    h1 {
+      font: $title-font;
+      font-weight: 200;
+      letter-spacing: .05em;
+      font-size: 55px;
+      text-align: center;
+      margin-top: .5em !important;
+    }
+
+  }
+
+}

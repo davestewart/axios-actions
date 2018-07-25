@@ -1,0 +1,137 @@
+@import 'variables';
+
+body {
+  font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  color: $text-color;
+}
+
+#app {
+  text-align: center;
+  color: $body-color;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+//  HEADINGS
+// ---------------------------------------------------------------------------------------------------------------------
+
+h1, h2, h3 {
+  font-weight: normal;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: $title-font;
+  margin-top: 2em;
+}
+
+.content {
+  h1, h2, h3, h4, h5 {
+    font-weight: 400;
+  }
+
+  > {
+    h1:first-child,
+    h2:first-child,
+    h3:first-child,
+    h4:first-child {
+      margin-top: 0;
+    }
+  }
+
+  h3 {
+    margin-top: 2em
+  }
+
+  strong {
+    -webkit-font-smoothing: auto;
+  }
+
+}
+
+h2 span {
+  display: none;
+  font-size: 0.35em;
+  margin-bottom: 0.3em;
+  margin-top: -1.6em;
+}
+
+.title + .title {
+  margin-top: 0.5em;
+}
+
+// navigation
+.indent, li {
+  h1, h2, h3, h4, h5 {
+    margin-top: 1.5em;
+  }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+//  FORMATTING
+// ---------------------------------------------------------------------------------------------------------------------
+
+.content {
+
+  p,
+  ol,
+  ul {
+    line-height: 1.6rem;
+    word-spacing: .05rem;
+  }
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  // display: inline-block;
+  margin: 0 10px;
+}
+
+a {
+  color: $primary-color;
+}
+
+* {
+  text-align: left;
+  line-height: 1.4em;
+}
+
+.content pre,
+pre {
+  margin: 1em 0;
+  padding: 1em 1.5em;
+  border-radius: 4px;
+  background: #f8f8f8;
+  color: darken($text-color, 10%);
+  font-smoothing: antialiased;
+  font-family: Roboto Mono, Monaco, Courier New, courier, monospace;
+  font-size: 0.75em;
+  line-height: 1.4em;
+  overflow-x: auto;
+}
+
+.columns {
+  margin-top: 0;
+}
+
+.indent {
+  padding-left: 1.5em;
+  padding-bottom: 1.5em;
+
+  &.has-border {
+    padding: 1em 0 1em 1.5em;
+    border-left: 1px solid #EEE;
+
+    > h1:first-child,
+    > h2:first-child,
+    > h3:first-child,
+    > h4:first-child,
+    > h5:first-child {
+      margin-top: 0;
+    }
+
+  }
+}
