@@ -85,6 +85,8 @@ const posts = new ApiEndpoint(axios, {
 
 For object configuration, the class is configured to use `GET` for `index` / `read` and `POST` for everything else. If you want to override these defaults, indicate the correct HTTP method within the URL string:
 
+
+
 ```js
 { update: 'PATCH posts/update/:id' }
 ```
@@ -159,9 +161,9 @@ comments
 
 You can add actions to existing instances, or if greater functionality is required, you can [extend from a base class](#extending-classes) and add your own custom methods.
 
-## Core class
+## ApiCore
 
-All classes extend from the base `Api` class which contains core functionality for:
+All classes extend from the `ApiCore` class which contains base functionality for:
 
 - HTTP methods `get()`, `post()` and `request()`
 - event handling via `done()` and `fail()`
@@ -171,10 +173,10 @@ All classes extend from the base `Api` class which contains core functionality f
 
 
 ```js
-import { Api } from 'axios-endpoints'
+import { ApiCore } from 'axios-endpoints'
 
-// create base-level Api class
-this.api = new Api(axios)
+// create new Api instance
+this.api = new ApiCore(axios)
   // return data not repsonse
   .use('data')
   
@@ -196,11 +198,11 @@ In your application's view, you can sync with instance properties (for any of th
 </div>
 ```
 
-Note that each Api or sub-class instance monitors its own loading progress, and will report loaded only when **all** requests have loaded. This way you can have separate, lightweight `Api` instances for individual components or sections of your site.
+Note that each Api class instance monitors its own loading progress, and will report loaded only when **all** requests have loaded. This way you can have separate, lightweight Api instances for individual components or sections of your site.
 
 See the class itself for all methods:
 
-- [src/classes/Api.ts](https://github.com/davestewart/axios-actions/blob/master/src/classes/Api.ts)
+- [src/classes/ApiCore.ts](https://github.com/davestewart/axios-actions/blob/master/src/classes/ApiCore.ts)
 
 ## Advanced functionality
 
@@ -269,7 +271,7 @@ See the plugins file itself for all built-in plugin functions:
 
 ### Creating your own plugins
 
-Very simply, plugins are functions which take any Api (or subclass) instance, then any parameters you want to pass:
+Very simply, plugins are functions which take any Api instance, then any parameters you want to pass:
 
 ```js
 function doSomething (api, foo, bar) { ... }

@@ -6,7 +6,7 @@ import * as plugins from '../functions/plugins'
  *
  * Base class to manage calls to API
  */
-export default class Api {
+export default class ApiCore {
 
   /**
    * The loading state of the service

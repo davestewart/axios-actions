@@ -1,4 +1,4 @@
-import Api from '../classes/Api'
+import ApiCore from '../classes/ApiCore'
 import { process, toJSON } from './helpers'
 import { reKey } from '../utils/object'
 
@@ -9,7 +9,7 @@ import { reKey } from '../utils/object'
  * @param model
  * @param convert
  */
-export function resource (api: Api, model: any, convert: Function = toJSON) {
+export function resource (api: ApiCore, model: any, convert: Function = toJSON) {
   api.http.before.push(data => process(data, data => convert(data)))
   api.http.after.push(res => process(res.data, data => new model(data)))
   return this
@@ -21,7 +21,7 @@ export function resource (api: Api, model: any, convert: Function = toJSON) {
  * @param api
  * @param map
  */
-export function remap (api: Api, map: object) {
+export function remap (api: ApiCore, map: object) {
   api.http.before.push(data => {
     process(data, obj => reKey(obj, map, false))
     return data
@@ -38,7 +38,7 @@ export function remap (api: Api, map: object) {
  *
  * @param api
  */
-export function data (api: Api) {
+export function data (api: ApiCore) {
   api.http.after.push(res => res.data)
   return this
 }

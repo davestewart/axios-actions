@@ -1,4 +1,4 @@
-import Api from '../Api'
+import ApiCore from '../ApiCore'
 import { replaceTokens } from '../../utils/string'
 
 export default class Http {
@@ -28,7 +28,7 @@ export default class Http {
    * @param data
    * @returns {Promise<any>}
    */
-  request (instance: Api, method: string, path: string, data:any) {
+  request (instance: ApiCore, method: string, path: string, data:any) {
     // reset
     instance.error = null
     instance.loading = true

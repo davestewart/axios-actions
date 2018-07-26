@@ -1,4 +1,4 @@
-import Api from './Api'
+import ApiCore from './ApiCore'
 import ActionMap from './services/ActionMap'
 import { isObject } from '../utils/object'
 
@@ -7,7 +7,7 @@ import { isObject } from '../utils/object'
  *
  * Manages related URLs of an API
  */
-export default class ApiGroup extends Api {
+export default class ApiGroup extends ApiCore {
 
   /**
    * A map of API endpoints
