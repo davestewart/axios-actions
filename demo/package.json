@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "author": "Dave Stewart",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    "dev": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=development webpack-dev-server --open --hot",
+    "build": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
     "axios": "^0.18.0",

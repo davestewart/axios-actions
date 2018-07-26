@@ -5,9 +5,9 @@
     <div class="content">
       <h2 class="title is-2">ApiEndpoint</h2>
       <blockquote>
-        <p>ApiEndpoint extends ApiGroup to automatically set up REST verbs, paths and CRUD actions.</p>
+        <p>ApiEndpoint extends <router-link to="group">ApiGroup</router-link> to automatically set up REST verbs, paths and CRUD actions.</p>
         <edit-code src="examples/api/ApiEndpoint.vue"/>
-        <view-docs src="apiendpoint"/>
+        <view-docs src="ApiEndpoint"/>
       </blockquote>
     </div>
 
@@ -60,7 +60,6 @@ posts.use('data')
 posts.actions.add('search', 'GET posts?userId=:id')
 
 export default {
-  name: 'app',
 
   data () {
     return {

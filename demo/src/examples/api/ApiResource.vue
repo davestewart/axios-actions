@@ -3,11 +3,11 @@
   <article>
 
     <div class="content">
-      <h2 class="title is-2">ApiCore</h2>
+      <h2 class="title is-2">ApiResource</h2>
       <blockquote>
-        <p>ApiCore provides the base functionality for all other Api classes</p>
-        <edit-code src="examples/api/ApiCore.vue"/>
-        <view-docs src="ApiCore"/>
+        <p>ApiResource extends <router-link to="endpoint">ApiEndpoint</router-link> to automatically convert models to and from plain data in request and response.</p>
+        <edit-code src="examples/basics/Api.vue"/>
+        <view-docs src="ApiResource"/>
       </blockquote>
     </div>
 

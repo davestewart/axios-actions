@@ -5,8 +5,10 @@ import Home from '../pages/Home'
 import Classes from '../pages/Classes'
 
 // examples
-import Api from '../../examples/api/ApiCore'
+import ApiCore from '../../examples/api/ApiCore'
+import ApiGroup from '../../examples/api/ApiGroup'
 import ApiEndpoint from '../../examples/api/ApiEndpoint'
+import ApiResource from '../../examples/api/ApiResource'
 
 // helper
 
@@ -18,9 +20,9 @@ export default [
 
   // basics
   ...group ('/api', [
-    route('core', Api),
-    route('group', Api),
+    route('core', ApiCore),
+    route('group', ApiGroup),
     route('endpoint', ApiEndpoint),
-    route('resource', Api),
+    route('resource', ApiResource),
   ])
 ]

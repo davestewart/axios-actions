@@ -3,11 +3,11 @@
   <article>
 
     <div class="content">
-      <h2 class="title is-2">Api</h2>
+      <h2 class="title is-2">ApiGroup</h2>
       <blockquote>
-        <p>The Api class is the base class which provides </p>
+        <p>ApiGroup extends <router-link to="core">ApiCore</router-link> to provide functionality to call URLs as actions</p>
         <edit-code src="examples/basics/Api.vue"/>
-        <view-docs src="core-class"/>
+        <view-docs src="ApiGroup"/>
       </blockquote>
     </div>
 
