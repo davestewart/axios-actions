@@ -12,10 +12,12 @@
 
     <p class="menu-label">Api</p>
     <ul class="menu-list">
+      <!--
       <li><router-link class="code" to="/api/core">ApiCore</router-link></li>
       <li><router-link class="code" to="/api/group">ApiGroup</router-link></li>
-      <li><router-link class="code" to="/api/endpoint">ApiEndpoint</router-link></li>
       <li><router-link class="code" to="/api/resource">ApiResource</router-link></li>
+      -->
+      <li><router-link class="code" to="/api/endpoint">ApiEndpoint</router-link></li>
     </ul>
 
     <!--

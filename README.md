@@ -114,52 +114,6 @@ function load () {
 }
 ```
 
-## Additional functionality
-
-### Handling events
-
-Events can be handled per instance or per action.
-
-To set up instance-level event handling, use `done()` and `fail()`:
-
-```js
-const posts = new ApiEndpoint('posts/:id')
-  .done(onLoad)
-  .fail(onError)
-```
-```js
-posts.index()
-```
-
-To set up action-level event handling, use `then()` and `catch()`:
-
-```js
-const posts = new ApiEndpoint('posts/:id')
-```
-```js
-posts
-  .index()
-  .then(res => this.data = res.data.map(post => new Post(post)))
-```
-
-
-### Adding actions
-
-Any of the main classes can have actions added to them at any point:
-
-```js
-const comments = new ApiEndpoint('comments/:id')
-comments.add('search', 'comments/search?user=:userId&text=:text')
-```
-Again, prepend the HTTP method to the front of the URL if you need to, then execute via `call()` or the automatically-created method:
-
-```js
-comments
-  .search(form)
-  .then(onSearch)
-```
-
-You can add actions to existing instances, or if greater functionality is required, you can [extend from a base class](#extending-classes) and add your own custom methods.
 
 ## ApiCore
 
@@ -204,7 +158,8 @@ See the class itself for all methods:
 
 - [src/classes/ApiCore.ts](https://github.com/davestewart/axios-actions/blob/master/src/classes/ApiCore.ts)
 
-## Advanced functionality
+
+## Basic functionality
 
 ### Axios configuration
 
@@ -218,6 +173,54 @@ axios.interceptors.response.use( ... )
 
 const endpoint = new ApiEndpoint(axios, config)
 ```
+
+### Adding actions
+
+Any of the main classes can have actions added to them at any point:
+
+```js
+const comments = new ApiEndpoint('comments/:id')
+comments.add('search', 'comments/search?user=:userId&text=:text')
+```
+Again, prepend the HTTP method to the front of the URL if you need to, then execute via `call()` or the automatically-created method:
+
+```js
+comments
+  .search(form)
+  .then(onSearch)
+```
+
+You can add actions to existing instances, or if greater functionality is required, you can [extend from a base class](#extending-classes) and add your own custom methods.
+
+
+### Handling events
+
+Events can be handled per instance or per action.
+
+To set up instance-level event handling, use `done()` and `fail()`:
+
+```js
+const posts = new ApiEndpoint('posts/:id')
+  .done(onLoad)
+  .fail(onError)
+```
+```js
+posts.index()
+```
+
+To set up action-level event handling, use `then()` and `catch()`:
+
+```js
+const posts = new ApiEndpoint('posts/:id')
+```
+```js
+posts
+  .index()
+  .then(res => this.data = res.data.map(post => new Post(post)))
+```
+
+
+## Advanced functionality
 
 ### Modifying request or response data
 

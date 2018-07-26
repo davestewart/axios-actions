@@ -6,9 +6,6 @@
       <h1>Axios Actions</h1>
     </header>
 
-    <h4 class="title is-4">Introduction</h4>
-    <p>This demo is intended to illustrate both API and real-world usage.</p>
-
     <h4 class="title is-4">Running the examples</h4>
 
     <p>Use the menu on the left to navigate the examples.</p>

@@ -1,6 +1,6 @@
 {
   "name": "axios-actions",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Bundle endpoints as callable, reusable services",
   "types": "dist/main.d.ts",
   "main": "dist/axios-actions.js",
@@ -15,6 +15,7 @@
     "docs": "docsify serve docs",
     "docs.old": "node-sass docs/assets/scss -o docs/assets/css -w docs/assets/scss/**/*.scss & docsify serve docs",
     "demo": "cd demo && npm run dev",
+    "demo:build": "cd demo && npm run build",
     "test": "jest --watchAll --verbose",
     "unit": "jest --config jest.config.js --coverage"
   },
