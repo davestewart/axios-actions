@@ -62,7 +62,15 @@ export default class ApiGroup extends ApiCore {
     if (!action) {
       throw new Error(`No such action "${action}"`)
     }
-    return this.request(action.method, action.path, data)
+    return this
+      .request(action.method, action.path, data)
+      .then(res => {
+        if (action.handler) {
+          action.handler(res, name)
+        }
+        return Promise.resolve(res)
+      })
+  }
 
   /**
    * Add a callback to fire when any call completes successfully
