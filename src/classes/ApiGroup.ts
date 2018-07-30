@@ -37,13 +37,12 @@ export default class ApiGroup extends ApiCore {
    *
    * @param   action    The name of the action to add
    * @param   path      The path, and optionally method and path, of the API endpoint
+   * @param   method    An optional HTTP method to use if the method is not declared in the path; then defaults to "get"
+   * @param   callback  An optional handler function to fire on a successful call
    */
-  add (action, path) {
-    this.actions.add(action, path)
-    if (action in this) {
-      console.warn(`Skipping helper method for action "${action}"`)
-    }
-    else {
+  add (action: string, path: string, method: string = 'get', callback?: Function) {
+    this.actions.add(action, path, method, callback)
+    if (!(action in this)) {
       this[action] = data => {
         return this.call(action, data)
       }
