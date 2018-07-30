@@ -52,7 +52,7 @@ export default class ApiEndpoint extends ApiGroup {
     Object
       .keys(actions)
       .map(action => {
-        this.actions.add(action, actions[action], methods[action])
+        this.add(action, actions[action], methods[action])
       })
   }
 
