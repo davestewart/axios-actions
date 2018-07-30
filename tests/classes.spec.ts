@@ -1,34 +1,34 @@
-import Post from './helpers/Post'
 import AxiosMock from './helpers/AxiosMock'
 import ApiGroup from '../src/classes/ApiGroup'
-import ApiResource from '../src/classes/ApiResource'
+import ApiEndpoint from '../src/classes/ApiEndpoint'
 
 const axios = new AxiosMock()
 axios.on('get', 'foo', { success: 1 })
 
-const endpoint = new ApiGroup(axios, { foo: 'foo' })
+const group = new ApiGroup(axios, { foo: 'foo' })
+const endpoint = new ApiEndpoint(axios, { foo: 'foo' })
 
 describe('ApiGroup', () => {
   describe('creating a new instance', () => {
     it('should add the correct method and path', () => {
-      expect(endpoint.actions.get('foo')).toEqual({ method: 'get', path: 'foo' })
+      expect(group.actions.get('foo')).toEqual({ method: 'get', path: 'foo' })
     })
     it('should add an instance method', () => {
-      expect(endpoint.foo).toBeInstanceOf(Function)
+      expect(group.foo).toBeInstanceOf(Function)
     })
   })
 
   describe('adding an action manually', () => {
-    endpoint.add('bar', 'PATCH bar')
+    group.add('bar', 'PATCH bar')
     it('should add the correct method and path', () => {
-      expect(endpoint.actions.get('bar')).toEqual({ method: 'patch', path: 'bar' })
+      expect(group.actions.get('bar')).toEqual({ method: 'patch', path: 'bar' })
     })
     it('should add an instance method', () => {
-      expect(endpoint.bar).toBeInstanceOf(Function)
+      expect(group.bar).toBeInstanceOf(Function)
     })
   })
 
-  describe('adding prefixed URLs', () => {
+  describe('adding method-prefixed URLs', () => {
     const endpoint = new ApiGroup(axios, {
       default: 'foo',
       get: 'GET foo',
@@ -44,14 +44,29 @@ describe('ApiGroup', () => {
       expect(map.get('patch').method).toBe('patch')
       expect(map.get('delete').method).toBe('delete')
     })
+
+    it('should overwrite any passed method', () => {
+      map.add('bar', 'DELETE bar', 'PATCH')
+      expect(map.get('bar').path).toBe('bar')
+      expect(map.get('bar').method).toBe('delete')
+    })
   })
 
   describe('calling an instance method', () => {
     it('should return data', () => {
       expect.assertions(1)
-      endpoint.foo().then(res => expect(res.data.success).toBe(1))
+      group.foo().then(res => expect(res.data.success).toBe(1))
     })
   })
 })
 
-
+describe('ApiEndpoint', () => {
+  describe('creating a new instance', () => {
+    it('should add the correct method and path', () => {
+      expect(endpoint.actions.get('foo')).toEqual({ method: 'get', path: 'foo' })
+    })
+    it('should add an instance method', () => {
+      expect(endpoint.foo).toBeInstanceOf(Function)
+    })
+  })
+})
