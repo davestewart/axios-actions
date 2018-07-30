@@ -64,5 +64,16 @@ export default class ApiGroup extends ApiCore {
       throw new Error(`No such action "${action}"`)
     }
     return this.request(action.method, action.path, data)
+
+  /**
+   * Add a callback to fire when any call completes successfully
+   *
+   * @param   name      The name or names of actions to bind to
+   * @param   callback  The function to fire
+   * @returns this
+   */
+  when (name: string, callback: Function) {
+    this.actions.addHandler(name, callback)
+    return this
   }
 }
