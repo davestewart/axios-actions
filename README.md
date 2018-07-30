@@ -15,7 +15,10 @@ collection
   .then(<handler>)
 ```
 
-This collection-based approach allows you to set up APIs without scattering URLs and handler code throughout your application; you set up your endpoints once, then import where needed.
+This collection-based approach allows you to set up APIs without scattering URLs and handler code throughout your application; you set up your endpoints once, then import and use these robust, functional units where needed.
+
+The end result is a significant reduction in application complexity (especially where replacing the Flux pattern) but without sacrificing separation of concerns.
+
 
 ## Main classes
 
@@ -190,14 +193,26 @@ comments
   .then(onSearch)
 ```
 
-You can add actions to existing instances, or if greater functionality is required, you can [extend from a base class](#extending-classes) and add your own custom methods.
+The method supports an alternative long-hand signature where by you can manually specify the HTTP method and also an action-level handler, which is called only on a successful call to the URL endpoint:
+
+```js
+comments.add(action, path, method, handler)
+```
+
+Note that a method in the path will always override a method passed as an argument.
+
+Actions can be added to any `ApiGroup` instances, or if greater functionality is required, you can [extend from a base class](#extending-classes) and add your own custom methods.
 
 
 ### Handling events
 
-Events can be handled per instance or per action.
+Events can be handled in three ways:
 
-To set up instance-level event handling, use `done()` and `fail()`:
+- per call
+- per group of actions
+- per action
+
+To set up call-level event handling, use `done()` and `fail()` on the Api instance:
 
 ```js
 const posts = new ApiEndpoint('posts/:id')
@@ -208,7 +223,23 @@ const posts = new ApiEndpoint('posts/:id')
 posts.index()
 ```
 
-To set up action-level event handling, use `then()` and `catch()`:
+To set up group-level event handling, use `when()` on any `ApiGroup` (or subclass) instance:
+
+```js
+const posts = new ApiEndpoint('posts/:id')
+  .when('create update delete', onAction)
+```
+```js
+function onAction (res, action) {
+    console.log(`action: ${action}`, res)
+    posts.index() // reload
+}
+posts.create({title: 'new post', body: 'this is a new post'})
+```
+
+Note that the handler will only be called for successful calls.
+
+To set up action-level event handling, use `then()` and `catch()` on the call return:
 
 ```js
 const posts = new ApiEndpoint('posts/:id')
@@ -333,40 +364,28 @@ plugins.log = function (api) {
 
 A typical use case for Axios Actions is also to extend an existing class with your own methods.
 
-This is done quite simply:
+The following example shows how to decouple your API from your Flux-based (Vuex) store, using it only for shared data:
 
 ```js
 import axios from 'axios'
-import ApiGroup from 'axios-actions'
+import { ApiEndpoint } from 'axios-actions'
+import store from './store'
 
-class Widgets extends ApiGroup {
-  constructor () {
-    super(axios, {
-      view: 'GET api/products/widgets',
-      load: 'GET api/products/widgets/:id',
-      save: 'POST api/products/widgets/:id',
-    })
-    this.use('data')
-    this.items = []
+class VuexResource extends ApiEndpoint {
+  constructor (path, mutation) {
+    super(axios, path)
+    this
+      .when('create update delete', () => this.index())
+      .when('index', data => store.commit(mutation, data))
+      .use('data')
   }
-  
-  view () {
-    return this
-      .call('view')
-      .then(data => {
-        this.items = data
-        return Promise.resolve(data)
-      })
-  }
-  
-  // load() and save() created automatically by superclass
 }
+
 ```
 ```js
-const widgets = new Widgets()
-widgets
-  .load(1)
-  .then( ... )
+const posts = new VuexResource('posts/:id', 'posts/data')
+posts.index()
+posts.create({ ... }) // no handlers needed; index updates automatically!
 ```
 
 ## Demo
