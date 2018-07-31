@@ -5,6 +5,7 @@
 </template>
 
 <script>
+  import slugify from 'slugify'
   export default {
     props: {
       src: String,
@@ -12,13 +13,13 @@
 
     computed: {
       url () {
-        return `${this.$site.docs}#${this.src}`
+        return `${this.$site.docs}#${slugify(this.src).toLowerCase()}`
       }
     },
 
     methods: {
       open () {
-        window.open(this.url, 'docs');
+        window.open(this.url, 'docs')
       }
     }
   }
