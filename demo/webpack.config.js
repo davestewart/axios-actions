@@ -94,7 +94,6 @@ module.exports = {
     alias: {
       '@':          resolve(''),
       'vue$':       'vue/dist/vue.esm.js',
-      'axios-actions': __dirname + '/../dist/axios-actions.esm.js',
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
