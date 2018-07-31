@@ -6,7 +6,7 @@ import UiButton from './ui/UiButton'
 import UiSelect from './ui/UiSelect'
 import UiIcon from './ui/UiIcon'
 
-import ViewCode from './nav/EditCode'
+import ViewCode from './nav/ViewCode'
 import ViewDocs from './nav/ViewDocs'
 
 import Markdown from './content/Markdown'
@@ -21,7 +21,7 @@ const components = {
   'ui-icon': UiIcon,
 
   // other
-  'edit-code': ViewCode,
+  'view-code': ViewCode,
   'view-docs': ViewDocs,
 
   // content

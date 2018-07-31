@@ -23,21 +23,33 @@
       },
 
       url () {
-        return `/src/${this.src}`
+        return this.isCodeSandbox
+          ? `/src/${this.src}`
+          : `${this.$site.repo}/tree/master/${this.src}`
       },
 
       text () {
-        return this.src.includes('.vue')
-          ? 'Edit component'
+        const action = this.isCodeSandbox
+          ? 'Edit'
+          : 'View'
+        const object = this.src.includes('.vue')
+          ? 'component'
           : this.src.includes('/vuex')
-            ? 'Edit store'
-            : 'Edit code'
+            ? 'store'
+            : 'code'
+        return `${action} ${object}`
       }
+    },
+
+    mounted () {
+      console.log(this.$site.repo)
     },
 
     methods: {
       open() {
-        dispatch(actions.editor.openModule(this.url));
+        this.isCodeSandbox
+          ? dispatch(actions.editor.openModule(this.url))
+          : window.open(this.url, '_github')
       },
     }
   }

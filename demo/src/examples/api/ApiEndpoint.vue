@@ -9,7 +9,8 @@
           <router-link to="group">ApiGroup</router-link>
           to automatically set up REST verbs, paths and CRUD actions.
         </p>
-        <edit-code src="examples/api/ApiEndpoint.vue"/>
+        <view-code src="demo/src/examples/api/ApiEndpoint.vue" label="View example"/>
+        <view-code src="src/classes/ApiEndpoint.ts" label="View class"/>
         <view-docs src="ApiEndpoint"/>
       </blockquote>
     </div>
@@ -58,7 +59,7 @@ const posts = new ApiEndpoint(axios, 'posts/:id')
 posts.use('data')
 
 // add a new endpoint
-posts.actions.add('search', 'GET posts?userId=:id')
+posts.add('search', 'GET posts?userId=:id')
 
 export default {
 

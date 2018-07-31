@@ -6,7 +6,8 @@
       <h1>ApiResource</h1>
       <blockquote>
         <p>ApiResource extends <router-link to="endpoint">ApiEndpoint</router-link> to automatically convert models to and from plain data in request and response.</p>
-        <edit-code src="examples/basics/Api.vue"/>
+        <view-code src="demo/src/examples/api/ApiResource.vue" label="View example"/>
+        <view-code src="src/classes/ApiResource.ts" label="View class"/>
         <view-docs src="ApiResource"/>
       </blockquote>
     </div>
