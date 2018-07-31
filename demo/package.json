@@ -1,6 +1,6 @@
 {
-  "name": "js-demo",
-  "description": "JS Demo - A starter project to demo JS libraries",
+  "name": "axios-actions-demo",
+  "description": "Axios Actions - Demo project",
   "version": "1.0.2",
   "author": "Dave Stewart",
   "scripts": {

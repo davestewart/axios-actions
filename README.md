@@ -396,7 +396,7 @@ View the demo on Netlify:
 
 Edit the demo on Code Sandbox:
 
-- [codesandbox.io/s/github/davestewart/axios-actions](https://codesandbox.io/s/github/davestewart/axios-actions)
+- [codesandbox.io/s/github/davestewart/axios-actions/tree/master/demo](https://codesandbox.io/s/github/davestewart/axios-actions/tree/master/demo)
 
 View the source code here:
 
