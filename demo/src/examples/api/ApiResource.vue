@@ -3,7 +3,7 @@
   <article>
 
     <div class="content">
-      <h2 class="title is-2">ApiResource</h2>
+      <h1>ApiResource</h1>
       <blockquote>
         <p>ApiResource extends <router-link to="endpoint">ApiEndpoint</router-link> to automatically convert models to and from plain data in request and response.</p>
         <edit-code src="examples/basics/Api.vue"/>

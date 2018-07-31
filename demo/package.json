@@ -1,15 +1,15 @@
 {
   "name": "js-demo",
   "description": "JS Demo - A starter project to demo JS libraries",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "author": "Dave Stewart",
   "scripts": {
-    "dev": "node node_modules/.bin/cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "node node_modules/.bin/cross-env NODE_ENV=production webpack --progress --hide-modules"
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
+    "demo": "cross-env NODE_ENV=production:demo webpack --progress --hide-modules",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "axios-actions": "^1.0.1",
     "bulma": "^0.6.2",
     "codesandbox-api": "0.0.18",
     "font-awesome": "^4.7.0",
@@ -34,11 +34,12 @@
     "cross-env": "^5.1.5",
     "css-loader": "^0.28.11",
     "file-loader": "^1.1.4",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.9.2",
     "raw-loader": "^0.5.1",
     "sass-loader": "^6.0.6",
     "uglifyjs-webpack-plugin": "^1.2.5",
-    "vue-loader": "^13.0.5",
+    "vue-loader": "^13.7.2",
+    "vue-markdown-loader": "^2.4.1",
     "vue-template-compiler": "^2.5.16",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.9.1"

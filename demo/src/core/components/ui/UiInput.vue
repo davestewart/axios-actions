@@ -33,3 +33,9 @@
   }
 
 </script>
+
+<style lang="scss" scoped>
+  .ui-input {
+    min-width: 50px;
+  }
+</style>

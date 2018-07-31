@@ -3,7 +3,7 @@
   <article>
 
     <div class="content">
-      <h2 class="title is-2">ApiCore</h2>
+      <h1>ApiCore</h1>
       <blockquote>
         <p>ApiCore provides the base functionality for all other Api classes</p>
         <edit-code src="examples/api/ApiCore.vue"/>

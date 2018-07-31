@@ -30,12 +30,14 @@ ApiCore (axios: Axios)
       |
       +-  actions : ActionMap (actions: object)
       |    |
-      |    +- map    : any
-      |    +- add    ( name: string, path: string, method: string = 'get' )
-      |    +- remove ( name: string )
-      |    +- get    ( name )
+      |    +- map        : any
+      |    +- add        ( name: string, path: string, method: string = 'get', handler: Function = null )
+      |    +- addHandler ( name: string, handler: Function )
+      |    +- remove     ( name: string )
+      |    +- get        ( name )
       |
-      +-  add  ( action: string, path : string ) : ApiGroup
+      +-  add  ( action: string, path : string, method: string = 'get', handler: Function = null ) : ApiGroup
+      +-  when (name: string, callback: Function) : ApiGroup
       +-  call ( action: string, data?: any ) : Promise
       |
       +-  ApiEndpoint ( axios: Axios, config: string | object )

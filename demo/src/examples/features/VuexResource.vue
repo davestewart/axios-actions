@@ -3,12 +3,9 @@
   <article>
 
     <div class="content">
-      <h1>ApiEndpoint</h1>
+      <h1>VuexResource</h1>
       <blockquote>
-        <p>ApiEndpoint extends
-          <router-link to="group">ApiGroup</router-link>
-          to automatically set up REST verbs, paths and CRUD actions.
-        </p>
+        <p>An example class extending <router-link to="../api/endpoint">ApiEndpoint</router-link> to automatically update a Vuex store when data has loaded.</p>
         <edit-code src="examples/api/ApiEndpoint.vue"/>
         <view-docs src="ApiEndpoint"/>
       </blockquote>
@@ -23,7 +20,6 @@
       <nav>
         <div class="control">
           <ui-button @click="index()">Index</ui-button>
-          <ui-button @click="search()">Search</ui-button>
           <ui-button @click="read()">Read</ui-button>
           <ui-button @click="create()">Create</ui-button>
           <ui-button @click="update()">Update</ui-button>
@@ -34,6 +30,7 @@
       <data-view :loading="endpoint.loading"
                  :error="endpoint.error"
                  :data="data" />
+
     </section>
 
   </article>
@@ -43,6 +40,32 @@
 import axios from 'axios'
 import { ApiEndpoint } from 'axios-actions'
 
+import store  from '../../app/store'
+import { registerModule } from '../../app/helpers/store'
+
+class VuexResource extends ApiEndpoint {
+  constructor (path, mutation) {
+    super(axios, path)
+    this
+      .when('create update delete', () => this.index())
+      .when('index', data => store.commit(mutation, data))
+      .use('data')
+  }
+}
+
+const posts = new VuexResource('posts/:id', 'posts/data')
+
+const module = registerModule('posts', {
+  state: {
+    data: []
+  },
+  mutations: {
+    data(state, data) {
+      state.data = data
+    }
+  }
+})
+
 function payload (data) {
   return {
     ...data,
@@ -51,25 +74,21 @@ function payload (data) {
   }
 }
 
-// set up REST endpoint
-const posts = new ApiEndpoint(axios, 'posts/:id')
-
-// return data by default
-posts.use('data')
-
-// add a new endpoint
-posts.actions.add('search', 'GET posts?userId=:id')
-
 export default {
+
+  mixins: [module],
 
   data () {
     return {
-      data: null,
-      error: null,
-      endpoint: posts
-        .when('create update delete', this.notify)
-        .done(this.done)
-        .fail(this.fail)
+      endpoint: posts.fail(this.fail)
+    }
+  },
+
+  computed: {
+    data () {
+      return this.$store.state.posts
+        ? this.$store.state.posts.data
+        : null
     }
   },
 
@@ -80,9 +99,7 @@ export default {
   methods: {
 
     index () {
-      this.endpoint.index().then(data => {
-        console.log('Index loaded!')
-      })
+      this.endpoint.index()
     },
 
     read () {
@@ -101,20 +118,7 @@ export default {
       this.endpoint.delete(30)
     },
 
-    search () {
-      this.endpoint.call('search', 2)
-    },
-
-    notify (data, action) {
-      console.log(action + ':', data)
-    },
-
-    done (data) {
-      this.data = data
-    },
-
     fail (error) {
-      this.data = null
       this.error = error.message
       console.log(error)
     },

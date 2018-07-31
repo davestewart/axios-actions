@@ -12,11 +12,7 @@
 
     computed: {
       url () {
-        return `${this.$site.docs}#${this.anchor}`
-      },
-
-      anchor () {
-        return this.src.replace(/ +/g, '-').toLowerCase()
+        return `${this.$site.docs}#${this.src}`
       }
     },
 

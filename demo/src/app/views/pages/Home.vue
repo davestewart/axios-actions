@@ -2,7 +2,7 @@
 
   <div class="content home">
     <header class="banner">
-      <img src="../../core/assets/logo.png" width="350">
+      <img src="../../../../../demo.old/src/core/assets/logo.png" width="350">
       <h1>Axios Actions</h1>
     </header>
 

@@ -1,38 +1,36 @@
 import Vue from 'vue'
 import VueMarkdown from 'vue-markdown'
-import axios from 'axios'
 
-import App from './core/App'
-import store from './app/data/store'
-import router from './core/router/index'
-
-// ui
-import './core/components'
-
-// styles
+// assets
+import './core/assets/favicon.png'
 import './core/styles/index.scss'
 
-// google analytics
+// app
+import './core/components'
+import App from './core/App'
+import router from './core/router'
+
+// config
+import './app/config/main'
+import store from './app/store'
 import config from './app/config/site'
+
+// analytics
 import track from './core/vendor/ga'
-if (config.ga) {
-  track(config.ga)
-}
-
-// plugins
-Vue.use(VueMarkdown);
-Vue.component('vue-markdown', VueMarkdown)
-
-// axios
-axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com/'
+track(config.ga)
 
 // config
 Vue.use(Vue => Vue.prototype.$site = config)
+Vue.config.devtools = true
+
+// plugins
+Vue.use(VueMarkdown)
+Vue.component('vue-markdown', VueMarkdown)
 
 // app
 window.store = store
 window.app = new Vue({
-  el: '#demo',
+  el: '#app',
   router,
   store,
   template: '<App/>',

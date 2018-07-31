@@ -8,8 +8,7 @@ aside {
 
 .sidebar {
 
-  position: fixed;
-
+  // logo
   h1 {
     position: relative;
     margin: 25px 0 25px 0;
@@ -26,25 +25,22 @@ aside {
       content: ' ';
 
       display: none;
-      @include desktop {
+      @include tablet {
         display: block;
       }
     }
 
+    a {
+      color: $title-color;
+    }
+
+    a:hover {
+      color: $primary-color;
+    }
+
   }
 
-  h2, h3 {
-    font-size: 1rem;
-    font-weight: normal;
-    line-height: 1.4em;
-    margin: 0;
-    padding: 0.5rem 0 0;
-  }
-
-  h3 {
-    font-size: 0.8rem;
-  }
-
+  // list items
   ul, li {
     padding: 0;
     margin: 0;
@@ -54,13 +50,20 @@ aside {
     margin: 0.2em 1em;
   }
 
-  li {
-    // font-size: 0.8em;
+  ul,
+  .menu-list ul,
+  .menu-list li ul {
+    margin-right: 0;
   }
 
+  // links
   .menu-list a {
     padding: .4em .8em;
     letter-spacing: 0.02em;
+  }
+
+  a {
+    font-size: 0.85em;
   }
 
   .is-link-active {
@@ -68,22 +71,24 @@ aside {
 
     &.is-link-exact {
       color: $primary-color;
-      font-weight: bold;
     }
   }
 
-  a {
-    font-size: 0.85em;
-  }
-
-  ul > li > ul > li a {
-    // font-size: 0.85em;
-  }
-
-  .code:before {
+  // items
+  .item-code a:before {
     font-family: $icon-font;
     margin-right: .5em;
     content: "\f108";
+  }
+
+  .item-code + .item-page {
+    margin-top: 5px;
+  }
+
+  * + .item-menu-list,
+  .item-page + .item-menu-list {
+    margin-top: 10px;
+    margin-left: 10px;
   }
 
 }

@@ -88,7 +88,7 @@ export default class ApiCore {
   /**
    * Add a callback to fire when any call completes successfully
    *
-   * @param   callback
+   * @param   callback  The function to fire
    * @returns
    */
   done (callback): this {
@@ -99,7 +99,7 @@ export default class ApiCore {
   /**
    * Add a callback to fire when any call fails to complete
    *
-   * @param   callback
+   * @param   callback  The function to fire
    * @returns
    */
   fail (callback): this {

@@ -12,10 +12,7 @@
   "scripts": {
     "dev": "rollup -c build/rollup.js -w",
     "build": "rollup -c build/rollup.js",
-    "docs": "docsify serve docs",
-    "docs.old": "node-sass docs/assets/scss -o docs/assets/css -w docs/assets/scss/**/*.scss & docsify serve docs",
     "demo": "cd demo && npm run dev",
-    "demo:build": "cd demo && npm run build",
     "test": "jest --watchAll --verbose",
     "unit": "jest --config jest.config.js --coverage"
   },

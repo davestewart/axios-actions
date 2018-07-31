@@ -3,7 +3,7 @@
   <article>
 
     <div class="content">
-      <h2 class="title is-2">ApiGroup</h2>
+      <h1>ApiGroup</h1>
       <blockquote>
         <p>ApiGroup extends <router-link to="core">ApiCore</router-link> to provide functionality to call URLs as actions</p>
         <edit-code src="examples/basics/Api.vue"/>

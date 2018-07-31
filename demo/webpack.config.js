@@ -80,22 +80,21 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      {
+        test: /\.md$/,
+        loader: 'vue-markdown-loader',
+        options: {
+          wrapper: 'markdown-page',
+        }
       }
     ]
   },
   resolve: {
     alias: {
-      'vue$':       'vue/dist/vue.esm.js',
-      'vuex-pathify':'vuex-pathify/src/main.js',
-      /*
       '@':          resolve(''),
-      'assets':     resolve('assets'),
-      'store':      resolve('store'),
-      'examples':   resolve('examples'),
-      'views':      resolve('views'),
-      'pages':      resolve('views/pages'),
-      'components': resolve('views/components'),
-      */
+      'vue$':       'vue/dist/vue.esm.js',
+      'axios-actions': __dirname + '/../dist/axios-actions.esm.js',
     },
     extensions: ['*', '.js', '.vue', '.json']
   },

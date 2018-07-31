@@ -385,16 +385,24 @@ class VuexResource extends ApiEndpoint {
 ```js
 const posts = new VuexResource('posts/:id', 'posts/data')
 posts.index()
-posts.create({ ... }) // no handlers needed; index updates automatically!
+posts.create({ ... }) // no handlers needed; new data loads in automatically!
 ```
 
-## Demo
+## Demo (WIP)
 
-View the demo code here:
+View the demo on Netlify:
 
-- [demo/src/App.vue](https://github.com/davestewart/axios-actions/blob/master/demo/src/App.vue)
+- [axios-actions.netlify.com](https://axios-actions.netlify.com)
 
-Run the demo via the terminal:
+Edit the demo on Code Sandbox:
+
+- [codesandbox.io/s/github/davestewart/axios-actions](https://codesandbox.io/s/github/davestewart/axios-actions)
+
+View the source code here:
+
+- [github.com/davestewart/axios-actions/tree/master/demo/src/examples](https://github.com/davestewart/axios-actions/tree/master/demo/src/examples)
+
+Run the demo locally:
 
 ```bash
 npm run demo
@@ -407,4 +415,3 @@ Install via [NPM](https://www.npmjs.com/package/axios-actions):
 ```bash
 npm install axios-actions
 ```
-

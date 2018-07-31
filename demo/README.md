@@ -1,4 +1,5 @@
-<p align="center"><img src="src/app/assets/logo.png" width="60%"></p>
+<p align="center"><img src="src/core/assets/logo-image.png" width="60%"></p>
+<p align="center"><img src="src/core/assets/logo-text.png" width="60%"></p>
 
 # js demo
 
@@ -10,9 +11,10 @@ Layout
 
 - Navigation
 - Pages
-- Info section
+- Markdown support
 - Attractive design
 - Example logo + favicon
+- Info section for examples
 
 UI components
 
@@ -22,20 +24,36 @@ UI components
 - Table
 - Icon
 
+Configuration
+
+- Single [navigation / routes](https://github.com/davestewart/js-demo/blob/master/src/app/config/navgation.js) configuration file
+- Single [site](https://github.com/davestewart/js-demo/blob/master/src/app/config/site.js) configuration file
+- Store [already set up](https://github.com/davestewart/js-demo/blob/master/src/app/data/store.js)
+- Various [sample pages](https://github.com/davestewart/js-demo/tree/master/src/app/pages) ready to go
+
+Integration / Links
+
+- Documentation
+- Demo site (recommends Netlify)
+- GitHub
+- Google Analytics
+- Code Sandbox
+
+
 Functionality
 
 - Built on Vue
-- Code Sandbox integration
+- [CodeSandbox](https://codesandbox.io/) integration
 - Routing
 - Vuex
 
 Libraries
 
-- Vue
-- Vuex
-- Vue Router
-- Axios
-- Bulma
+- [Vue](https://vuejs.org/)
+- [Vuex](https://vuex.vuejs.org/)
+- [Vue Router](https://router.vuejs.org/)
+- [Axios](https://github.com/axios/axios)
+- [Bulma](https://bulma.io/)
 
 ## Demo
 

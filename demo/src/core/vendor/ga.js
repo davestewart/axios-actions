@@ -1,4 +1,4 @@
-export default function (id) {
+function track (id) {
   // prepare data
   window.dataLayer = window.dataLayer || []
 
@@ -13,4 +13,10 @@ export default function (id) {
   script.type = 'text/javascript'
   script.async = true
   document.head.appendChild(script)
+}
+
+export default function (id) {
+  if (id) {
+    track(id)
+  }
 }
