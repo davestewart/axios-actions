@@ -11,7 +11,7 @@ const endpoint = new ApiEndpoint(axios, { foo: 'foo' })
 describe('ApiGroup', () => {
   describe('creating a new instance', () => {
     it('should add the correct method and path', () => {
-      expect(group.actions.get('foo')).toEqual({ method: 'get', path: 'foo' })
+      expect(group.actions.get('foo')).toMatchObject({ method: 'get', path: 'foo' })
     })
     it('should add an instance method', () => {
       expect(group.foo).toBeInstanceOf(Function)
@@ -21,7 +21,7 @@ describe('ApiGroup', () => {
   describe('adding an action manually', () => {
     group.add('bar', 'PATCH bar')
     it('should add the correct method and path', () => {
-      expect(group.actions.get('bar')).toEqual({ method: 'patch', path: 'bar' })
+      expect(group.actions.get('bar')).toMatchObject({ method: 'patch', path: 'bar' })
     })
     it('should add an instance method', () => {
       expect(group.bar).toBeInstanceOf(Function)
@@ -63,7 +63,7 @@ describe('ApiGroup', () => {
 describe('ApiEndpoint', () => {
   describe('creating a new instance', () => {
     it('should add the correct method and path', () => {
-      expect(endpoint.actions.get('foo')).toEqual({ method: 'get', path: 'foo' })
+      expect(endpoint.actions.get('foo')).toMatchObject({ method: 'get', path: 'foo' })
     })
     it('should add an instance method', () => {
       expect(endpoint.foo).toBeInstanceOf(Function)

@@ -17,6 +17,7 @@ export default class Http {
     this.done = new Set<Function>()
     this.fail = new Set<Function>()
     this.queue = new Map
+    Object.freeze(this as Object)
   }
 
   /**

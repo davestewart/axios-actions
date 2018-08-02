@@ -29,7 +29,7 @@ export default class ApiCore {
    * @param   axios     An Axios instance
    */
   constructor (axios: any) {
-    this.http = new Http(axios)
+    this.http = Object.freeze(new Http(axios))
     this.error = null
     this.loading = false
     Object.freeze(this.http)
@@ -59,7 +59,7 @@ export default class ApiCore {
    * @param   data      Any optional data to pass to the endpoints
    * @returns
    */
-  request (method: string, path: string, data?: object): Promise<any> {
+  request (method: string, path: string, data?: any): Promise<any> {
     return this.http.request(this, method, path, data)
   }
 
@@ -70,7 +70,7 @@ export default class ApiCore {
    * @param   data      Any optional data to pass to the endpoints
    * @returns
    */
-  get (path: string, data?: object): Promise<any> {
+  get (path: string, data?: any): Promise<any> {
     return this.request('get', path, data)
   }
 
@@ -81,7 +81,7 @@ export default class ApiCore {
    * @param   data      Any optional data to pass to the endpoints
    * @returns
    */
-  post (path: string, data?: object): Promise<any> {
+  post (path: string, data?: any): Promise<any> {
     return this.request('post', path, data)
   }
 
