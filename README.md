@@ -97,26 +97,57 @@ For object configuration, the class is configured to use `GET` for `index` / `re
 
 ### ApiResource
 
-The `ApiResource` class extends `ApiEndpoint` to allow you work with models, which are converted and created in both request and response:
+The `ApiResource` class extends `ApiEndpoint` and is supplied primarily to demonstrate the package's core features working together in a single class.
+
+In addition to
+
+- `ApiCore` features such as `loading` state and `error` messages
+- `ApiGroup` features such as actions and `when()` handlers
+- `ApiEndpoint` actions `create`, `read`, `update`, `delete` and `index`
+
+it:
+
+- provides an additional `search` action
+- saves `items` and `item` data on the instance itself
+- uses the `resource` plugin to optionally convert to and from supplied a supplied Model
+- uses the `when` handler to optionally reload `index` on successful `create`, `update` and `delete` operations
+
+The class is designed to encapsulate all API-related functionality in a single place, making it as simple as possible to call endpoints and update your UI without leaking logic or data into composing components.
+
+The following is a Vue example:
 
 ```js
-const comments = new ApiResource(axios, 'comments/:id', Comment)
+data () {
+  return {
+    api: new ApiResource(axios, 'comments/:id', Comment, true)
+  }
+}
 ```
+```vue
+<button @click="api.index()">Load</button>
+<section :class="{ loading: api.loading }">
+  <comment v-if="api.items" v-for="model in api.items" v-bind="model" />
+  <error v-if="api.error" />
+</section>
+```
+
+Note that there are **no component-level variables** such as `loading`, `error`, `data` or handlers for any action or subsequent assignment, for example:
+
 ```js
-function create (data) {
-  const comment = new Comment(data)
-  comments.create(comment)
+// x 6 actions
+create (data) {
+  this.api
+    .create(data)
+    .then(res => this.data = res.data)
+    .catch(error => this.error = error.message)
 }
+``` 
 
-function load () {
-  comments
-    .index()
-    .then(comments => {
-        comments.forEach(comment => comment.render(this))
-      })
-}
-```
+Check the demo online to see it in action:
 
+- https://axios-actions.netlify.com/#/api/resource
+
+Its implementation should cover a broad range of use cases, but where it doesn't (for example adding additional pagination methods) it's a simple case of extending the class or even duplicating the [original source](https://github.com/davestewart/axios-actions/blob/master/src/classes/ApiResource.ts) and creating your own `ApiResource` class.
 
 ## ApiCore
 
@@ -388,30 +419,19 @@ posts.index()
 posts.create({ ... }) // no handlers needed; new data loads in automatically!
 ```
 
-## Demo (WIP)
+## Demo
 
-View the demo on Netlify:
+Check the demo folder for local, live, and editable demos:
 
-- [axios-actions.netlify.com](https://axios-actions.netlify.com)
+- [github.com/davestewart/axios-actions/tree/master/demo](https://github.com/davestewart/axios-actions/tree/master/demo)
 
-Edit the demo on Code Sandbox:
 
-- [codesandbox.io/s/github/davestewart/axios-actions/tree/master/demo](https://codesandbox.io/s/github/davestewart/axios-actions/tree/master/demo)
-
-View the source code here:
-
-- [github.com/davestewart/axios-actions/tree/master/demo/src/examples](https://github.com/davestewart/axios-actions/tree/master/demo/src/examples)
-
-Run the demo locally:
-
-```bash
-npm run demo
-```
-
-### Install
+## Install
 
 Install via [NPM](https://www.npmjs.com/package/axios-actions):
 
 ```bash
 npm install axios-actions
 ```
+
+

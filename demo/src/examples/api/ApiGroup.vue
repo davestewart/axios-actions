@@ -5,10 +5,7 @@
     <div class="content">
       <h1>ApiGroup</h1>
       <blockquote>
-        <p>ApiGroup extends
-          <router-link to="core">ApiCore</router-link>
-          to provide functionality to call URLs as actions
-        </p>
+        <p>ApiGroup extends <router-link to="core">ApiCore</router-link> to provide functionality to call URLs as actions</p>
         <view-code src="demo/src/examples/api/ApiGroup.vue" label="View example"/>
         <view-code src="src/classes/ApiGroup.ts" label="View class"/>
         <view-docs src="ApiGroup"/>

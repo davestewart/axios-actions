@@ -6,6 +6,8 @@ var CopyWebpackPlugin = require('copy-webpack-plugin')
 
 var src = path.resolve(__dirname, './src')
 var dist = path.resolve(__dirname, './dist')
+var lib = path.resolve(__dirname, '../dist/axios-actions.esm.js')
+
 
 function resolve (path) {
   return src + '/' + (path || '')
@@ -94,6 +96,7 @@ module.exports = {
     alias: {
       '@':          resolve(''),
       'vue$':       'vue/dist/vue.esm.js',
+      'axios-actions': lib
     },
     extensions: ['*', '.js', '.vue', '.json']
   },

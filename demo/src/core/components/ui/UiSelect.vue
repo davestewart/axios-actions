@@ -93,8 +93,16 @@
 </script>
 
 <style lang="scss" scoped>
-  select {
+  .field.ui-select {
     display: inline-block;
     text-transform: capitalize;
+
+    .label {
+      text-indent: 3px;
+    }
+
+    select {
+      text-transform: capitalize;
+    }
   }
 </style>
