@@ -1,8 +1,8 @@
+var fs = require('fs')
 var path = require('path')
 var webpack = require('webpack')
 var UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
-
 
 var src = path.resolve(__dirname, './src')
 var dist = path.resolve(__dirname, './dist')
@@ -96,7 +96,6 @@ module.exports = {
     alias: {
       '@':          resolve(''),
       'vue$':       'vue/dist/vue.esm.js',
-      'axios-actions': lib
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
@@ -109,6 +108,10 @@ module.exports = {
     hints: false
   },
   devtool: '#eval-source-map'
+}
+
+if (fs.existsSync(lib)) {
+  module.exports.resolve.alias['axios-actions'] = lib
 }
 
 if (process.env.NODE_ENV === 'production') {

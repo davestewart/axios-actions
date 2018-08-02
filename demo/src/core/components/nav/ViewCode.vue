@@ -41,10 +41,6 @@
       }
     },
 
-    mounted () {
-      console.log(this.$site.repo)
-    },
-
     methods: {
       open() {
         this.isCodeSandbox
