@@ -1,3 +1,4 @@
+import Action from './Action'
 export default class ActionMap {
 
   map: any
@@ -28,12 +29,7 @@ export default class ActionMap {
       method = matches[1]
       path = matches[2]
     }
-    method = method.toLowerCase()
-    const action:any = { method, path }
-    if (handler) {
-      action.handler = handler
-    }
-    this.map[name] = action
+    this.map[name] = new Action(path, method.toLowerCase(), handler)
   }
 
   /**
@@ -48,17 +44,24 @@ export default class ActionMap {
     names.forEach(name => {
       const action = this.get(name)
       if (action) {
-        action.handler = handler
+        action.addHandler(handler)
       }
     })
     return this
+  }
+
+  removeHandler (name: string, handler: Function) {
+    const action = this.get(name)
+    if (action) {
+      action.removeHandler(handler)
+    }
   }
 
   remove (name: string) {
     delete this.map[name]
   }
 
-  get (name) {
+  get (name): Action {
     return this.map[name]
   }
 

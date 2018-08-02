@@ -22,7 +22,7 @@ export default class ApiGroup extends ApiCore {
    */
   constructor (axios: any, actions: any = null) {
     super(axios)
-    this.actions = new ActionMap()
+    this.actions = Object.freeze(new ActionMap())
     if (isObject(actions)) {
       Object
         .keys(actions)
@@ -65,8 +65,8 @@ export default class ApiGroup extends ApiCore {
     return this
       .request(action.method, action.path, data)
       .then(res => {
-        if (action.handler) {
-          action.handler(res, name)
+        if (action.handlers) {
+          action.exec(res, name)
         }
         return Promise.resolve(res)
       })
