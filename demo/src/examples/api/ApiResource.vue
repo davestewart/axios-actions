@@ -13,6 +13,9 @@
           <li>optional automatic model conversion</li>
           <li>optional index-reload on create, update and delete</li>
         </ul>
+        <p>No need to set data or methods on the Vue component, everything is accessible directly on the endpoint itself.</p>
+        <p>Click the buttons to call the API, then inspect this component in the Vue Devtools and view the
+          <code>endpoint</code> property. You should see both the data and the actions.</p>
         <view-code src="demo/src/examples/api/ApiResource.vue" label="View example"/>
         <view-code src="src/classes/ApiResource.ts" label="View class"/>
         <view-docs src="ApiResource"/>
@@ -20,35 +23,34 @@
     </div>
 
     <div class="content">
-      <p>Click the buttons to call the API, then inspect this component in the Vue Devtools and view the
-        <code>endpoint</code> property. You should see both the data and the actions.</p>
-    </div>
 
-    <section style="position: relative">
+      <section style="position: relative">
 
-      <nav>
-        <div class="control">
-          <ui-select v-model="models" options="objects models" label="Use"/>
-          <ui-select v-model="reload" options="manually automatically" label="Reload"/>
-          <ui-button @click="index()">Index</ui-button>
-          <ui-button @click="search()">Search</ui-button>
-          <ui-button @click="read()">Read</ui-button>
-          <ui-button @click="create()">Create</ui-button>
-          <ui-button @click="update()">Update</ui-button>
-          <ui-button @click="remove()">Delete</ui-button>
-        </div>
-      </nav>
+        <nav>
+          <!-- no need to create interim methods! -->
+          <div class="control">
+            <ui-button @click="api.index()">Index</ui-button>
+            <ui-button @click="api.search(5)">Search</ui-button>
+            <ui-button @click="api.read(20)">Read</ui-button>
+            <ui-button @click="api.create(payload())">Create</ui-button>
+            <ui-button @click="api.update(payload({ id: 30 }))">Update</ui-button>
+            <ui-button @click="api['delete'](40)">Delete</ui-button>
+          </div>
+        </nav>
 
-      <data-view :loading="endpoint.loading"
-                 :error="endpoint.error"
-                 :data="data"/>
+        <!-- show both item and items results -->
+        <h4>Item result:</h4>
+        <data-view :loading="api.loading"
+                   :error="api.error"
+                   :data="api.item"/>
 
-      <!--
-      <section>
-        <div class="post" v-for="post in [...data]" v-html="post.render()"></div>
+        <h4>Items result:</h4>
+        <data-view :loading="api.loading"
+                   :error="api.error"
+                   :data="api.items"/>
       </section>
--->
-    </section>
+
+    </div>
 
   </article>
 </template>
@@ -58,12 +60,12 @@ import _ from 'lodash'
 import axios from 'axios'
 import { ApiResource } from 'axios-actions'
 
-// Post model
+// Example post model. A bit contrived, but demos using a model and its functions
 class Post {
 
   constructor (data) {
     const url = axios.defaults.baseURL
-    this.template = _.template(`<h4><a href="${url}posts/<%= id %>" target="_blank">Post <%= id %></a></h4><ul><li><%= title %></li><li><%= body %></li></ul>`)
+    this.template = _.template(`<h5>Title: <a href="${url}posts/<%= id %>" target="_blank"><%= title %></a></h5><p>Body: <%= body %><p>`)
     Object.assign(this, data)
   }
 
@@ -81,75 +83,39 @@ class Post {
 export default {
 
   data () {
+    const config = {
+      search: '       posts?userId=:id',
+      index:  '       posts',
+      create: 'POST   posts',
+      read:   'GET    posts/:id',
+      update: 'PATCH  posts/:id',
+      delete: 'DELETE posts/:id',
+    }
     return {
       data: [],
       error: null,
       models: 'objects',
       reload: 'manually',
-    }
-  },
-
-  computed: {
-    endpoint () {
-      const model = this.models === 'models' ? Post : null
-      const reload = this.reload === 'automatically'
-      return new ApiResource(axios, 'posts/:id', model, reload)
-        .done(this.done)
-        .fail(this.fail)
+      api: new ApiResource(axios, config, Post, true)
     }
   },
 
   created () {
-    this.index()
+    this.api.index()
   },
 
   methods: {
 
-    index () {
-      this.endpoint.index().then(data => {
-        console.log('Index loaded!')
+    payload (data) {
+      return new Post({
+        ...data,
+        title: 'New title @ ' + Date.now(),
+        body: 'New body @ ' + Date.now()
       })
-    },
-
-    search () {
-      this.endpoint.call('search', 2)
-    },
-
-    read () {
-      this.endpoint.read(10)
-    },
-
-    create () {
-      this.endpoint.create(payload())
-    },
-
-    update () {
-      this.endpoint.update(payload({ id: 20 }))
-    },
-
-    remove () {
-      this.endpoint.delete(30)
-    },
-
-    done (data) {
-      this.data = data
-    },
-
-    fail (error) {
-      this.data = null
-      this.error = error.message
-      console.log(error)
-    },
+    }
 
   }
 }
 
-function payload (data) {
-  return {
-    ...data,
-    title: 'New title @ ' + Date.now(),
-    body: 'New body @ ' + Date.now()
-  }
-}
 
 </script>

@@ -11,5 +11,4 @@ export default {
   docs: 'https://github.com/davestewart/axios-actions',
   cs:   'https://codesandbox.io/s/github/davestewart/axios-actions',
   ga: '' // UA-603607-XX
-
 }
