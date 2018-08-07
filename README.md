@@ -109,7 +109,7 @@ it:
 
 - provides an additional `search` action
 - saves `items` and `item` data on the instance itself
-- uses the `resource` plugin to optionally convert to and from supplied a supplied Model
+- uses the `resource` plugin to optionally convert to and from a supplied Model
 - uses the `when` handler to optionally reload `index` on successful `create`, `update` and `delete` operations
 
 The class is designed to encapsulate all API-related functionality in a single place, making it as simple as possible to call endpoints and update your UI without leaking logic or data into composing components.
