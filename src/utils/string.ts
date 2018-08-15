@@ -1,6 +1,6 @@
 import { isObject, isValue, getValue } from './object'
 
-export function replaceTokens (template: string, data: any, pattern: RegExp = /:(\w+[.\w]+)/) {
+export function replaceTokens (template: string, data: any, pattern: RegExp = /[:{](\w+[.\w]+)}?/) {
 
   // replace array
   if (Array.isArray(data)) {

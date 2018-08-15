@@ -20,6 +20,9 @@ describe('string utils', () => {
     it('should replace array values', () => {
       expect(replaceTokens('users/:userId/posts/:id', [4, 5])).toBe('users/4/posts/5')
     })
+    it('should replace {} style parameters', () => {
+      expect(replaceTokens('users/{userId}/posts/{id}', [4, 5])).toBe('users/4/posts/5')
+    })
   })
 })
 

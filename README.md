@@ -30,7 +30,7 @@ You set it up with an axios instance and a configuration block:
 
 ```js
 export const widgets = new ApiGroup(axios, {
-  view: 'api/products/widgets',
+  view: 'api/products/widgets?category=:category',
   load: 'api/products/widgets/:id',
   save: 'POST api/products/widgets/:id',
 })
@@ -40,6 +40,8 @@ Note that:
 
 - HTTP methods can be specified directly in the URL format
 - placeholder variables are automatically filled-in using passed data
+- placeholders can be used anywhere in the string
+- You can use `:value` or `{value}` style placeholders
 
 To use the endpoint, import it, then either `call()` the action by name, or execute it directly:
 
