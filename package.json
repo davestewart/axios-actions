@@ -1,6 +1,6 @@
 {
   "name": "axios-actions",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Bundle endpoints as callable, reusable services",
   "types": "dist/main.d.ts",
   "main": "dist/axios-actions.js",
