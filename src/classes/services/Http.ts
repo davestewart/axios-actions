@@ -74,3 +74,44 @@ export default class Http {
       })
   }
 }
+
+/**
+ * Helper function to create an Axios-compatible request object
+ *
+ * @param url     A string url or object config object
+ * @param method  An optional HTTP method if a string url is passed
+ * @param data    An optional data object if a string url is passed
+ */
+export function makeRequest (url: string | AxiosRequestConfig, method: string = 'get', data: any = null): AxiosRequestConfig {
+  const request:any = {}
+
+  // config object was passed
+  if (isObject(url)) {
+    Object.assign(request, url)
+  }
+
+  // strings were passed
+  else if (typeof url === 'string') {
+    url = url.trim()
+    const matches = url.match(/^(get|post|patch|put|delete|head)\s+(.+)/i)
+    if (matches) {
+      method = matches[1]
+      url = matches[2]
+    }
+
+    Object.assign(request, {
+      method,
+      url
+    })
+  }
+
+  else {
+    throw new Error('Invalid request parameters')
+  }
+
+  // cleanup
+  request.method = String(request.method).toLowerCase()
+
+  // return
+  return request
+}
