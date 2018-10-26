@@ -36,7 +36,28 @@ posts.create(data).then( ... )
 posts.delete(id).then( ... )
 ```
 
-The end result is clearly-separated concerns and a significant reduction in application complexity, especially where replacing the Flux pattern.
+The end result is clearly-separated concerns and a significant reduction in dependencies and application complexity, especially with Vuex:
+
+```js
+/**
+ * Vuex
+ *
+ * - Vuex store dependency
+ * - must set up action method
+ * - urls scattered across application
+ * - magic string
+ */
+this.$store.dispatch('collection/action', payload)
+
+/**
+ * Axios Actions
+ *
+ * - independent
+ * - reusable
+ * - simple
+ */
+collection.action(payload)
+```
 
 
 ## Main classes
