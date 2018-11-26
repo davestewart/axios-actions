@@ -1,4 +1,6 @@
 import Action from './Action'
+import { AxiosRequestConfig } from 'axios'
+
 export default class ActionMap {
 
   map: any
@@ -14,22 +16,28 @@ export default class ActionMap {
     }
   }
 
+  get (name): Action {
+    return this.map[name]
+  }
+
   /**
-   * Add a new action
+   * Add an action
    *
    * @param   name      The name of the action to add
-   * @param   path      The path, and optionally method and path, of the API endpoint
-   * @param   method    An optional HTTP method to use if the method is not declared in the path; then defaults to "get"
+   * @param   config    An object confirming to the AxiosRequestConfig interface
    * @param   handler   An optional handler function to fire on a successful call
    */
-  add (name: string, path: string, method: string = 'get', handler?: Function) {
-    path = path.trim()
-    const matches = path.match(/^(get|post|patch|put|delete|head)\s+(.+)/i)
-    if (matches) {
-      method = matches[1]
-      path = matches[2]
-    }
-    this.map[name] = new Action(path, method.toLowerCase(), handler)
+  add (name: string, config: AxiosRequestConfig, handler?: Function) {
+    this.map[name] = new Action(config, handler)
+  }
+
+  /**
+   * Remove an action
+   *
+   * @param   name      The name of the action to delete
+   */
+  remove (name: string) {
+    delete this.map[name]
   }
 
   /**
@@ -55,14 +63,6 @@ export default class ActionMap {
     if (action) {
       action.removeHandler(handler)
     }
-  }
-
-  remove (name: string) {
-    delete this.map[name]
-  }
-
-  get (name): Action {
-    return this.map[name]
   }
 
 }

@@ -1,5 +1,7 @@
 import Http from './services/Http'
 import * as plugins from '../functions/plugins'
+import { AxiosRequestConfig } from 'axios'
+import { makeRequest } from '../utils/request'
 
 /**
  * Api class
@@ -52,37 +54,36 @@ export default class ApiCore {
   }
 
   /**
-   * Query the API via any HTTP method
+   * Query the API using a request config object
    *
-   * @param   method    The HTTP method to make the call
-   * @param   path      The API path to call
+   * @param   config    The HTTP method to make the call
    * @param   data      Any optional data to pass to the endpoints
    * @returns
    */
-  request (method: string, path: string, data?: any): Promise<any> {
-    return this.http.request(this, method, path, data)
+  request (config: AxiosRequestConfig, data?: any): Promise<any> {
+    return this.http.request(this, config, data)
   }
 
   /**
    * Call the API via HTTP GET
    *
-   * @param   path      The API path to call
-   * @param   data      Any optional data to pass to the endpoints
+   * @param   url       The API URL to call
+   * @param   data      Any optional data to pass to the endpoint
    * @returns
    */
-  get (path: string, data?: any): Promise<any> {
-    return this.request('get', path, data)
+  get (url: string, data?: any): Promise<any> {
+    return this.request(makeRequest(url, 'get'), data)
   }
 
   /**
    * Call the API via HTTP POST
    *
-   * @param   path      The API path to call
-   * @param   data      Any optional data to pass to the endpoints
+   * @param   url       The API URL to call
+   * @param   data      Any optional data to pass to the endpoint
    * @returns
    */
-  post (path: string, data?: any): Promise<any> {
-    return this.request('post', path, data)
+  post (url: string, data?: any): Promise<any> {
+    return this.request(makeRequest(url, 'post'), data)
   }
 
   /**
