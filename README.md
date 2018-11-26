@@ -60,7 +60,7 @@ Note that `ApiGroup` will **not** override existing properties or methods with n
 
 ### ApiEndpoint
 
-The `ApiEndpoint` class extends `ApiGroup` to automatically set up REST verbs, paths and CRUD actions:
+The `ApiEndpoint` class extends `ApiGroup` to automatically set up REST verbs, URLs and CRUD actions:
 
 ```js
 const posts = new ApiEndpoint(axios, 'posts/:id')
@@ -229,10 +229,10 @@ comments
 The method supports an alternative long-hand signature where by you can manually specify the HTTP method and also an action-level handler, which is called only on a successful call to the URL endpoint:
 
 ```js
-comments.add(action, path, method, handler)
+comments.add(action, url, method, handler)
 ```
 
-Note that a method in the path will always override a method passed as an argument.
+Note that a method in the url will always override a method passed as an argument.
 
 Actions can be added to any `ApiGroup` instances, or if greater functionality is required, you can [extend from a base class](#extending-classes) and add your own custom methods.
 
@@ -405,8 +405,8 @@ import { ApiEndpoint } from 'axios-actions'
 import store from './store'
 
 class VuexResource extends ApiEndpoint {
-  constructor (path, mutation) {
-    super(axios, path)
+  constructor (url, mutation) {
+    super(axios, url)
     this
       .when('create update delete', () => this.index())
       .when('index', data => store.commit(mutation, data))
