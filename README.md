@@ -4,7 +4,7 @@
 
 ## Intro
 
-Axios Actions comprises a small set of classes which allows you to collate and call URLs as actions:
+Axios Actions comprises a small set of classes which collate URLs as callable actions:
 
 ```js
 const collection = new <ApiClass>(axios, actions)
@@ -15,9 +15,49 @@ collection
   .then(<handler>)
 ```
 
-This collection-based approach allows you to set up APIs without scattering URLs and handler code throughout your application; you set up your endpoints once, then import and use these robust, functional units where needed.
+This collection-based approach allows you to set up APIs without scattering URLs and handler code throughout your application; you set up your endpoints once, then import and use as needed:
 
-The end result is a significant reduction in application complexity (especially where replacing the Flux pattern) but without sacrificing separation of concerns.
+
+```js
+// api.js
+export const posts = new ApiEndpoint(axios, '/posts/:id')
+```
+```js
+// components, store, etc
+import { posts } from './api'
+
+// get all posts
+posts.index().then( ... )
+
+// create new post
+posts.create(data).then( ... )
+
+// delete post 
+posts.delete(id).then( ... )
+```
+
+The end result is clearly-separated concerns and a significant reduction in dependencies and application complexity, especially with Vuex:
+
+```js
+/**
+ * Vuex
+ *
+ * - Vuex store dependency
+ * - must set up action method
+ * - urls scattered across application
+ * - magic string
+ */
+this.$store.dispatch('collection/action', payload)
+
+/**
+ * Axios Actions
+ *
+ * - independent
+ * - reusable
+ * - simple
+ */
+collection.action(payload)
+```
 
 
 ## Main classes
@@ -180,7 +220,7 @@ this.api.get('api/comments')
 
 In your application's view, you can sync with instance properties (for any of the classes) to show progress and updates: 
 
-```html
+```vue
 <error v-if="api.error">{{ api.error }}</error>
 <loading v-else-if="api.loading" />
 <div v-else>
