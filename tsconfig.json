@@ -5,6 +5,7 @@
     "declaration": true,
     "noImplicitAny": false,
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "baseUrl": "./",
     "outDir": "./dist"
   },

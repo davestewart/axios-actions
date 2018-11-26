@@ -7,27 +7,31 @@ export default class AxiosMock {
     this.data = new DataMock
   }
 
-  on (verb, path, data) {
-    this.data.set(verb, path, data)
+  on (verb, url, data) {
+    this.data.set(verb, url, data)
   }
 
-  get (path, data = null) {
-    return this.data.get('get', path, data)
+  request (config, data = null) {
+    return this.data.get(config.method, config.url, data)
   }
 
-  post (path, data) {
-    return this.data.get('post', path, data)
+  get (url, data = null) {
+    return this.data.get('get', url, data)
   }
 
-  patch (path, data) {
-    return this.data.get('patch', path, data)
+  post (url, data) {
+    return this.data.get('post', url, data)
   }
 
-  put (path, data) {
-    return this.data.get('put', path, data)
+  patch (url, data) {
+    return this.data.get('patch', url, data)
   }
 
-  delete (path, data) {
-    return this.data.get('delete', path, data)
+  put (url, data) {
+    return this.data.get('put', url, data)
+  }
+
+  delete (url, data) {
+    return this.data.get('delete', url, data)
   }
 }
