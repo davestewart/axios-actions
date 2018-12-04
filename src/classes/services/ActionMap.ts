@@ -24,7 +24,7 @@ export default class ActionMap {
    * Add an action
    *
    * @param   name      The name of the action to add
-   * @param   config    An object confirming to the AxiosRequestConfig interface
+   * @param   config    An object conforming to the AxiosRequestConfig interface
    * @param   handler   An optional handler function to fire on a successful call
    */
   add (name: string, config: AxiosRequestConfig, handler?: Function) {
