@@ -1,479 +1,54 @@
 # Axios Actions
 
-> Bundle endpoints as callable, reusable units
+> Bundle endpoints as callable, reusable services
 
-## Intro
+## Abstract
 
 Axios Actions comprises a small set of classes which collate URLs as callable actions:
 
 ```js
-const collection = new <ApiClass>(axios, actions)
+const actions = {
+  <action>: '<url>',
+  <action>: '<url>',
+  ...
+}
 ```
 ```js
-collection
+const service = new <ApiClass>(axios, actions)
+```
+```js
+service
   .<action>(<data>)
   .then(<handler>)
 ```
 
-This collection-based approach allows you to set up APIs without scattering URLs and handler code throughout your application; you set up your endpoints once, then import and use as needed:
+This service-based approach:
 
+- removes brittle configuration from components and stores
+- encapsulates additional logic (such as load state and handlers) within the service
+- ensures application code stays simple and semantic
+- provides a dedicated layer for API interaction
 
-```js
-// api.js
-export const posts = new ApiEndpoint(axios, '/posts/:id')
-```
-```js
-// components, store, etc
-import { posts } from './api'
 
-// get all posts
-posts.index().then( ... )
+## Quick start
 
-// create new post
-posts.create(data).then( ... )
+To view this abstract example in real code, see:
 
-// delete post 
-posts.delete(id).then( ... )
-```
+- [axios-actions/docs/quick-start.md](docs/quick-start.md)
 
-The end result is clearly-separated concerns and a significant reduction in dependencies and application complexity, especially with Vuex:
+## Next steps
 
-```js
-/**
- * Vuex
- *
- * - Vuex store dependency
- * - must set up action method
- * - urls scattered across application
- * - magic string
- */
-this.$store.dispatch('collection/action', payload)
+To view the full documentation, see:
 
-/**
- * Axios Actions
- *
- * - independent
- * - reusable
- * - simple
- */
-collection.action(payload)
-```
+- [axios-actions/docs](docs)
 
+To run view the live and editable demos, see:
 
-## Main classes
+- [axios-actions/demo](demo)
 
-### ApiGroup
 
-The `ApiGroup` class is the base building block for actions.
-
-You set it up with an axios instance and a configuration block:
-
-```js
-export const widgets = new ApiGroup(axios, {
-  view: 'api/products/widgets?category=:category',
-  load: 'api/products/widgets/:id',
-  save: 'POST api/products/widgets/:id',
-})
-```
-
-Note that:
-
-- HTTP methods can be specified directly in the URL format
-- placeholder variables are automatically filled-in using passed data
-- placeholders can be used anywhere in the string
-- You can use `:value` or `{value}` style placeholders
-
-To use the endpoint, import it, then either `call()` the action by name, or execute it directly:
-
-```js
-import { widgets } from '../api'
-
-// call by name
-widgets.call('load', 1).then(onLoad)
-
-// execute directly
-widgets.load(1).then(onLoad)
-```
-
-Note that `ApiGroup` will **not** override existing properties or methods with new ones.
-
-
-### ApiEndpoint
-
-The `ApiEndpoint` class extends `ApiGroup` to automatically set up REST verbs, URLs and CRUD actions:
-
-```js
-const posts = new ApiEndpoint(axios, 'posts/:id')
-```
-
-This makes it even easier to call REST endpoints as methods [are declared](https://github.com/davestewart/axios-actions/blob/master/src/classes/ApiEndpoint.ts#L63-L109) on the class:
-
-```js
-posts.index()       // GET
-posts.create(data)  // POST
-posts.read(1)       // GET
-posts.update(data)  // PATCH
-posts.delete(1)     // DELETE
-```
-
-If your endpoints are not strictly REST, pass in a configuration object instead:
-
-```js
-const posts = new ApiEndpoint(axios, {
-  index:  'posts/index',       // GET
-  create: 'posts/create',      // POST
-  read:   'posts/view/:id',    // GET
-  update: 'posts/update/:id',  // POST
-  delete: 'posts/delete/:id'   // POST
-})
-```
-
-For object configuration, the class is configured to use `GET` for `index` / `read` and `POST` for everything else. If you want to override these defaults, indicate the correct HTTP method within the URL string:
-
-
-
-```js
-{ update: 'PATCH posts/update/:id' }
-```
-
-
-### ApiResource
-
-The `ApiResource` class extends `ApiEndpoint` and is supplied primarily to demonstrate the package's core features working together in a single class.
-
-In addition to
-
-- `ApiCore` features such as `loading` state and `error` messages
-- `ApiGroup` features such as actions and `when()` handlers
-- `ApiEndpoint` actions `create`, `read`, `update`, `delete` and `index`
-
-it:
-
-- provides an additional `search` action
-- saves `items` and `item` data on the instance itself
-- uses the `resource` plugin to optionally convert to and from a supplied Model
-- uses the `when` handler to optionally reload `index` on successful `create`, `update` and `delete` operations
-
-The class is designed to encapsulate all API-related functionality in a single place, making it as simple as possible to call endpoints and update your UI without leaking logic or data into composing components.
-
-The following is a Vue example:
-
-```js
-data () {
-  return {
-    api: new ApiResource(axios, 'comments/:id', Comment, true)
-  }
-}
-```
-```vue
-<button @click="api.index()">Load</button>
-<section :class="{ loading: api.loading }">
-  <comment v-if="api.items" v-for="model in api.items" v-bind="model" />
-  <error v-if="api.error" />
-</section>
-```
-
-Note that there are **no component-level variables** such as `loading`, `error`, `data` or handlers for any action or subsequent assignment, for example:
-
-```js
-// x 6 actions
-create (data) {
-  this.api
-    .create(data)
-    .then(res => this.data = res.data)
-    .catch(error => this.error = error.message)
-}
-``` 
-
-Check the demo online to see it in action:
-
-- https://axios-actions.netlify.com/#/api/resource
-
-Its implementation should cover a broad range of use cases, but where it doesn't (for example adding additional pagination methods) it's a simple case of extending the class or even duplicating the [original source](https://github.com/davestewart/axios-actions/blob/master/src/classes/ApiResource.ts) and creating your own `ApiResource` class.
-
-## ApiCore
-
-All classes extend from the `ApiCore` class which contains base functionality for:
-
-- HTTP methods `get()`, `post()` and `request()`
-- event handling via `done()` and `fail()`
-- loading state via `loading`
-- error state via `error`
-- plugins via `use()`
-
-
-```js
-import { ApiCore } from 'axios-endpoints'
-
-// create new Api instance
-this.api = new ApiCore(axios)
-  // return data not repsonse
-  .use('data')
-  
-  // add global handlers
-  .done(data => this.comments = data)
-  .fail(error => this.error = this.api.error.message)
-
-// call an endpoint directly
-this.api.get('api/comments')
-```
-
-In your application's view, you can sync with instance properties (for any of the classes) to show progress and updates: 
-
-```vue
-<error v-if="api.error">{{ api.error }}</error>
-<loading v-else-if="api.loading" />
-<div v-else>
-  <comment v-for="commment in comments" :model="comment" />
-</div>
-```
-
-Note that each Api class instance monitors its own loading progress, and will report loaded only when **all** requests have loaded. This way you can have separate, lightweight Api instances for individual components or sections of your site.
-
-See the class itself for all methods:
-
-- [src/classes/ApiCore.ts](https://github.com/davestewart/axios-actions/blob/master/src/classes/ApiCore.ts)
-
-
-## Basic functionality
-
-### Axios configuration
-
-The package acts as a layer on top of your existing axios setup, so things like base URL, authentication and errors would be handled in axios, then the axios instance passed to Axios Actions classes:
-
-```js
-import axios from 'axios'
-axios.defaults.baseURL = '...'
-axios.interceptors.request.use( ... )
-axios.interceptors.response.use( ... )
-
-const endpoint = new ApiEndpoint(axios, config)
-```
-
-### Adding actions
-
-Any of the main classes can have actions added to them at any point:
-
-```js
-const comments = new ApiEndpoint('comments/:id')
-comments.add('search', 'comments/search?user=:userId&text=:text')
-```
-Again, prepend the HTTP method to the front of the URL if you need to, then execute via `call()` or the automatically-created method:
-
-```js
-comments
-  .search(form)
-  .then(onSearch)
-```
-
-The method supports an alternative long-hand signature where by you can manually specify the HTTP method and also an action-level handler, which is called only on a successful call to the URL endpoint:
-
-```js
-comments.add(action, url, method, handler)
-```
-
-Note that a method in the url will always override a method passed as an argument.
-
-Actions can be added to any `ApiGroup` instances, or if greater functionality is required, you can [extend from a base class](#extending-classes) and add your own custom methods.
-
-
-### Handling events
-
-Events can be handled in three ways:
-
-- per call
-- per group of actions
-- per action
-
-To set up call-level event handling, use `done()` and `fail()` on the Api instance:
-
-```js
-const posts = new ApiEndpoint('posts/:id')
-  .done(onLoad)
-  .fail(onError)
-```
-```js
-posts.index()
-```
-
-To set up group-level event handling, use `when()` on any `ApiGroup` (or subclass) instance:
-
-```js
-const posts = new ApiEndpoint('posts/:id')
-  .when('create update delete', onAction)
-```
-```js
-function onAction (res, action) {
-    console.log(`action: ${action}`, res)
-    posts.index() // reload
-}
-posts.create({title: 'new post', body: 'this is a new post'})
-```
-
-Note that the handler will only be called for successful calls.
-
-To set up action-level event handling, use `then()` and `catch()` on the call return:
-
-```js
-const posts = new ApiEndpoint('posts/:id')
-```
-```js
-posts
-  .index()
-  .then(res => this.data = res.data.map(post => new Post(post)))
-```
-
-
-## Advanced functionality
-
-### Modifying request or response data
-
-The `Http` class which manages the Axios calls allows you to modify the outgoing data and incoming responses in a similar manner to Axios intercepters, via `before` and `after` arrays.
-
-To modify data or response, add handler functions:
-
-```js
-endpoint.http.before.push(data => onRequest)
-endpoint.http.after.push(data => onResponse)
-```
-
-You can import the `process` helper function to abstract the response data whether it's an array or a single object:
-
-```js
-import { helpers } from 'axios-actions'
-function onResponse (res) {
-  helpers.process(res.data => item => {
-    Object
-      .keys(item)
-      .forEach(key => {
-        item[key] = String(item).toUpperCase()
-      })
-  })
-}
-```
-
-### Plugins
-
-Plugins wrap up the kind of functionality above into easy-to-use functions that can be called directly, or added by name to all Api classes.
-
-There are currently three plugins:
-
-- `resource` - converts outgoing and incoming data to and from models
-- `remap` - remaps key names from client to server and back again
-- `data` - returns the data component only from any calls
-
-To use plugins, use the `use()` method of any of the Api classes:
-
-```js
-const endpoint = new ApiEndpoint(axios, config)
-  .use('resource', Post)
-  .use('remap', { the_title: 'title'}, the_body: 'body')
-  .use('data')
-```
-
-See the plugins file itself for all built-in plugin functions:
-
-- [src/functions/plugins.ts](https://github.com/davestewart/axios-actions/blob/master/src/functions/plugins.ts)
-
-
-### Creating your own plugins
-
-Very simply, plugins are functions which take any Api instance, then any parameters you want to pass:
-
-```js
-function doSomething (api, foo, bar) { ... }
-```
-
-To extend the uppercase example from the previous section, we might do the following:
-
-```js
-import { helpers } from 'axios-actions'
-
-// create plugin
-function changeCase (api, state) {
-  const transform = state ? 'toUpperCase': 'toLowerCase'
-  const onResponse = function (res) {
-    helpers.process(res.data => item => {
-      Object
-        .keys(item)
-        .forEach(key => {
-          item[key] = String(item)[transform]()
-        })
-    })
-  }
-  api.http.after.push(res => onResponse)
-}
-```
-
-To implement it in our project, we can do the following:
-
-```js
-// add to global plugins
-import { plugins } from 'axios-actions'
-plugins.changeCase = changeCase
-
-// implement via use()
-const posts = new ApiEndpoint('posts/:id')
-    .use('changeCase', true)
-```
-```js
-// implement via calling
-changeCase(posts, false) 
-```
-
-You can do anything you like with the `api` instance in the plugin, for example adding callbacks:
-
-```js
-plugins.log = function (api) {
-  api.fail(error => {
-    console.log('ERROR!', error)
-    return Promise.reject(error)
-  })
-}
-```
-
-
-### Extending classes
-
-A typical use case for Axios Actions is also to extend an existing class with your own methods.
-
-The following example shows how to decouple your API from your Flux-based (Vuex) store, using it only for shared data:
-
-```js
-import axios from 'axios'
-import { ApiEndpoint } from 'axios-actions'
-import store from './store'
-
-class VuexResource extends ApiEndpoint {
-  constructor (url, mutation) {
-    super(axios, url)
-    this
-      .when('create update delete', () => this.index())
-      .when('index', data => store.commit(mutation, data))
-      .use('data')
-  }
-}
-
-```
-```js
-const posts = new VuexResource('posts/:id', 'posts/data')
-posts.index()
-posts.create({ ... }) // no handlers needed; new data loads in automatically!
-```
-
-## Demo
-
-Check the demo folder for local, live, and editable demos:
-
-- [github.com/davestewart/axios-actions/tree/master/demo](https://github.com/davestewart/axios-actions/tree/master/demo)
-
-
-## Install
-
-Install via [NPM](https://www.npmjs.com/package/axios-actions):
+To [install](https://www.npmjs.com/package/axios-actions) run:
 
 ```bash
 npm install axios-actions
 ```
-
-
