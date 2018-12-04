@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueMarkdown from 'vue-markdown'
+import axios from 'axios'
 
 // assets
 import './core/assets/favicon.png'
@@ -28,6 +29,7 @@ Vue.use(VueMarkdown)
 Vue.component('vue-markdown', VueMarkdown)
 
 // app
+window.axios = axios
 window.store = store
 window.app = new Vue({
   el: '#app',

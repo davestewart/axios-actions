@@ -11,7 +11,7 @@ const endpoint = new ApiEndpoint(axios, { foo: 'foo' })
 describe('ApiGroup', () => {
   describe('creating a new instance', () => {
     it('should add the correct method and path', () => {
-      expect(group.actions.get('foo')).toMatchObject({ method: 'get', path: 'foo' })
+      expect(group.actions.get('foo').config).toMatchObject({ method: 'get', url: 'foo' })
     })
     it('should add an instance method', () => {
       expect(group.foo).toBeInstanceOf(Function)
@@ -19,9 +19,9 @@ describe('ApiGroup', () => {
   })
 
   describe('adding an action manually', () => {
-    group.add('bar', 'PATCH bar')
+    group.add('bar', 'PATCH bar', undefined)
     it('should add the correct method and path', () => {
-      expect(group.actions.get('bar')).toMatchObject({ method: 'patch', path: 'bar' })
+      expect(group.actions.get('bar').config).toMatchObject({ method: 'patch', url: 'bar' })
     })
     it('should add an instance method', () => {
       expect(group.bar).toBeInstanceOf(Function)
@@ -38,18 +38,13 @@ describe('ApiGroup', () => {
     })
     const map = endpoint.actions
     it('should add the correct methods', () => {
-      expect(map.get('default').method).toBe('get')
-      expect(map.get('get').method).toBe('get')
-      expect(map.get('post').method).toBe('post')
-      expect(map.get('patch').method).toBe('patch')
-      expect(map.get('delete').method).toBe('delete')
+      expect(map.get('default').config.method).toBe('get')
+      expect(map.get('get').config.method).toBe('get')
+      expect(map.get('post').config.method).toBe('post')
+      expect(map.get('patch').config.method).toBe('patch')
+      expect(map.get('delete').config.method).toBe('delete')
     })
 
-    it('should overwrite any passed method', () => {
-      map.add('bar', 'DELETE bar', 'PATCH')
-      expect(map.get('bar').path).toBe('bar')
-      expect(map.get('bar').method).toBe('delete')
-    })
   })
 
   describe('calling an instance method', () => {
@@ -63,10 +58,11 @@ describe('ApiGroup', () => {
 describe('ApiEndpoint', () => {
   describe('creating a new instance', () => {
     it('should add the correct method and path', () => {
-      expect(endpoint.actions.get('foo')).toMatchObject({ method: 'get', path: 'foo' })
+      expect(endpoint.actions.get('foo').config).toMatchObject({ method: 'get', url: 'foo' })
     })
     it('should add an instance method', () => {
       expect(endpoint.foo).toBeInstanceOf(Function)
     })
   })
+
 })

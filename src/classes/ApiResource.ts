@@ -28,7 +28,7 @@ export default class ApiResource extends ApiEndpoint {
     const search = this.actions.get('search')
     if (!search) {
       const index = this.actions.get('index')
-      this.add('search', index.path, index.method)
+      this.add('search', index.config.url, index.config.method)
     }
 
     // always save data

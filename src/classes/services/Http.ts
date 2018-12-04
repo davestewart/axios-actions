@@ -1,5 +1,7 @@
+import { AxiosRequestConfig } from 'axios'
 import ApiCore from '../ApiCore'
 import { replaceTokens } from '../../utils/string'
+import { isObject } from '../../utils/object'
 
 export default class Http {
 
@@ -8,7 +10,7 @@ export default class Http {
   after: Function[]
   done: Set<Function>
   fail: Set<Function>
-  queue: Map<any,any>
+  queue: Map<any, any>
 
   constructor (axios: any) {
     this.axios = axios
@@ -24,28 +26,42 @@ export default class Http {
    * Dispatch an axios request
    *
    * @param instance
-   * @param method
-   * @param path
+   * @param config
    * @param data
    * @returns {Promise<any>}
    */
-  request (instance: ApiCore, method: string, path: string, data:any) {
+  request (instance: ApiCore, config: AxiosRequestConfig, data: any = null) {
     // reset
     instance.error = null
     instance.loading = true
 
     // variables
-    data = this.before.reduce((data, fn) => fn(data), data)
-    path = replaceTokens(path, data)
+    let { method, url } = config
+    method = method.toLowerCase()
 
     // sanity check
     if (typeof this.axios[method] !== 'function') {
       throw new Error(`No such HTTP method '${method}'`)
+
+    }
+    // variables
+    data = this.before.reduce((data, fn) => fn(data), data)
+    url = replaceTokens(url, data)
+
+    // setup object
+    config = Object.assign({}, config)
+    config.method = method
+    config.data = data
+    config.url = url
+
+    // data
+    if (method === 'get' && !url.includes('?') && isObject(data)) {
+      config.params = data
     }
 
     // loading
-    const promise = this.axios[method](path, data)
-    const key = Symbol(`${method} ${path}`)
+    const promise = this.axios.request(config)
+    const key = Symbol(`${method} ${url}`)
     this.queue.set(key, promise)
 
     const setLoaded = (key) => {
