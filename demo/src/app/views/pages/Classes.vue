@@ -17,12 +17,12 @@ ApiCore (axios: Axios)
  |    +- done    : Set&lt;Function&gt;
  |    +- fail    : Set&lt;Function&gt;
  |    +- queue   : Map
- |    +- request ( instance: Api, method: string, path: string, data:any )
+ |    +- request ( instance: Api, method: string, url: string, data:any )
  |
  +-  use     ( name:string, ...params ) : Api
- +-  request ( verb: string, path: string, data?: any ) : Promise
- +-  get     ( path: string, data?: any ) : Promise
- +-  post    ( path: string, data?: any ) : Promise
+ +-  request ( config: AxiosRequestConfig, data?: any ) : Promise
+ +-  get     ( url: string, data?: any ) : Promise
+ +-  post    ( url: string, data?: any ) : Promise
  +-  done    ( callback: Function ) : Api
  +-  fail    ( callback: Function ) : Api
  |
@@ -30,13 +30,14 @@ ApiCore (axios: Axios)
       |
       +-  actions : ActionMap (actions: object)
       |    |
-      |    +- map        : any
-      |    +- add        ( name: string, path: string, method: string = 'get', handler: Function = null )
-      |    +- addHandler ( name: string, handler: Function )
-      |    +- remove     ( name: string )
-      |    +- get        ( name )
+      |    +- map           : any
+      |    +- get           ( name )
+      |    +- add           ( name: string, url: string, method: string = 'get', handler: Function = null )
+      |    +- remove        ( name: string )
+      |    +- addHandler    ( name: string, handler: Function )
+      |    +- removeHandler ( name: string, handler: Function )
       |
-      +-  add  ( action: string, path : string, method: string = 'get', handler: Function = null ) : ApiGroup
+      +-  add  ( action: string, url : string, method: string = 'get', handler: Function = null ) : ApiGroup
       +-  when (name: string, callback: Function) : ApiGroup
       +-  call ( action: string, data?: any ) : Promise
       |

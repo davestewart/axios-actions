@@ -5,7 +5,7 @@
     <div class="content">
       <h1>ApiResource</h1>
       <blockquote>
-        <p>ApiResource is an example class that extends <router-link to="endpoint">ApiEndpoint</router-link> featuring:
+        <p>An example class extending <router-link to="endpoint">ApiEndpoint</router-link> featuring:
         </p>
         <ul>
           <li>CRUD, index and search</li>

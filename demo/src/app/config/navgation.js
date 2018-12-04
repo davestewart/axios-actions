@@ -9,10 +9,11 @@ import Classes from '../views/pages/Classes'
 import ApiCore from '../../examples/api/ApiCore'
 import ApiGroup from '../../examples/api/ApiGroup'
 import ApiEndpoint from '../../examples/api/ApiEndpoint'
-import ApiResource from '../../examples/api/ApiResource'
+import ApiResource from '../../examples/extension/ApiResource'
 
 // features
-import VuexResource from '../../examples/features/VuexResource'
+import VuexResource from '../../examples/extension/VuexResource'
+import Config from '../../examples/config/Config'
 
 // helper
 
@@ -25,16 +26,21 @@ export default [
     page('classes', 'Classes', Classes),
   ]),
 
+  // pages
+  list('setup', 'Setup', [
+    code('config', 'Config', Config),
+  ]),
+
   // basics
   list ('api', 'Api', [
     code('core', 'ApiCore', ApiCore),
     code('group', 'ApiGroup', ApiGroup),
     code('endpoint', 'ApiEndpoint', ApiEndpoint),
-    code('resource', 'ApiResource', ApiResource),
   ]),
 
   // features
-  list ('features', 'Features', [
+  list ('extension', 'Extension', [
+    code('resource', 'ApiResource', ApiResource),
     code('vuex-resource', 'VuexResource', VuexResource),
   ])
 ]

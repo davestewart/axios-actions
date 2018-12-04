@@ -18,7 +18,7 @@ export default class ApiEndpoint extends ApiGroup {
    * @param   axios       An Axios instance
    * @param   config      A single RESTful URL or map of URLs for create, read, update, delete
    */
-  constructor (axios: any, config: string | object) {
+  constructor (axios: any, config: string | any) {
     super(axios)
 
     // normal

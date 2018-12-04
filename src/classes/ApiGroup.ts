@@ -1,6 +1,8 @@
+import { AxiosRequestConfig } from 'axios'
 import ApiCore from './ApiCore'
 import ActionMap from './services/ActionMap'
 import { isObject } from '../utils/object'
+import { makeRequest } from '../utils/request'
 
 /**
  * Group class
@@ -18,7 +20,7 @@ export default class ApiGroup extends ApiCore {
    * Endpoint constructor
    *
    * @param   axios       An Axios instance
-   * @param   actions     An optional hash of paths
+   * @param   actions     An optional hash of URLs
    */
   constructor (axios: any, actions: any = null) {
     super(axios)
@@ -36,12 +38,23 @@ export default class ApiGroup extends ApiCore {
    * Add a new action
    *
    * @param   action    The name of the action to add
-   * @param   path      The path, and optionally method and path, of the API endpoint
-   * @param   method    An optional HTTP method to use if the method is not declared in the path; then defaults to "get"
-   * @param   callback  An optional handler function to fire on a successful call
+   * @param   config    An object conforming to the AxiosRequestConfig interface
    */
-  add (action: string, path: string, method: string = 'get', callback?: Function) {
-    this.actions.add(action, path, method, callback)
+  add (action: string, config: AxiosRequestConfig)
+
+  /**
+   * Add a new action
+   *
+   * @param   action    The name of the action to add
+   * @param   url       The url, and optionally method and url, of the API endpoint
+   * @param   method    An optional HTTP method to use if the method is not declared in the url; then defaults to "get"
+   * @param   callback? An optional handler function to fire on a successful call
+   */
+  add (action: string, url: string, method: string, callback?: Function)
+
+  add (action: string, config: string | AxiosRequestConfig, method?: string, callback?: Function) {
+    config = makeRequest(config as any, method)
+    this.actions.add(action, config, callback)
     if (!(action in this)) {
       this[action] = data => {
         return this.call(action, data)
@@ -63,7 +76,7 @@ export default class ApiGroup extends ApiCore {
       throw new Error(`No such action "${action}"`)
     }
     return this
-      .request(action.method, action.path, data)
+      .request(action.config, data)
       .then(res => {
         if (action.handlers) {
           action.exec(res, name)

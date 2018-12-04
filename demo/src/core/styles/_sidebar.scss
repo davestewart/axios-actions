@@ -75,10 +75,16 @@ aside {
   }
 
   // items
+  .item-page a:before,
   .item-code a:before {
     font-family: $icon-font;
     margin-right: .5em;
+  }
+  .item-code a:before {
     content: "\f108";
+  }
+  .item-page a:before {
+    // content: "\f15c";
   }
 
   .item-code + .item-page {

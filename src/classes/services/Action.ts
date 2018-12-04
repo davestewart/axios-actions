@@ -1,11 +1,11 @@
+import { AxiosRequestConfig } from 'axios'
+
 export default class Action {
-  path: string
-  method: string
+  config: AxiosRequestConfig
   handlers: Set<Function>
 
-  constructor (path: string, method: string, handler?: Function) {
-    this.path = path
-    this.method = method
+  constructor (config: AxiosRequestConfig, handler?: Function) {
+    this.config = config
     if (handler) {
       this.addHandler(handler)
     }
