@@ -2,7 +2,7 @@
 
 > Home
 
-<p align="center"><a href="../res/README.md"><img src="../res/logo-text.png" /></a></p>
+<p align="center"><a href="#"><img src="../res/logo-text.png" /></a></p>
 
 ## 🚀 2 minute docs
 
