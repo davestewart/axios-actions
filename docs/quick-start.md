@@ -63,8 +63,10 @@ const widgets = new ApiGroup(axios, actions)
 At this point you can add additional [plugins](extensibility/plugins.md) or add [event handlers](classes/ApiGroup.md#handling-events):
 
 ```js
-widgets.use('data')
-widgets.fail(error => console.log('the request failed', error))
+widgets
+  .use('data')
+  .when('update delete', event => console.log('something changed', event))
+  .fail(error => console.log('the request failed', error))
 ```
 
 If this is a service you intend to use regularly, you can encapsulate this setup in a single file to be imported as needed:

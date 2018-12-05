@@ -2,6 +2,8 @@
 
 > Bundle endpoints as callable, reusable services
 
+<p align="center"><a href="docs/images/README.md"><img src="docs/images/logo.png" /></a></p>
+
 ## Abstract
 
 Axios Actions comprises a small set of classes which collate URLs or URL request configs as callable actions:

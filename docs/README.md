@@ -2,6 +2,8 @@
 
 > Home
 
+<p align="center"><a href="images/README.md"><img src="images/logo.png" /></a></p>
+
 ## 🚀 2 minute docs
 
 Just the essentials

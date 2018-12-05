@@ -114,9 +114,9 @@ Actions can be added to any `ApiGroup` instances, or if greater functionality is
 
 Events (call success or failure) can be handled in three ways:
 
-- per call
-- per group of actions
+- per instance
 - per action
+- per call
 
 ### Per-instance
 
