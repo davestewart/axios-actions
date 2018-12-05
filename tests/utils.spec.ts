@@ -11,13 +11,19 @@ const payload = {
 
 describe('string utils', () => {
   describe('replace tokens', () => {
-    it('should replace single ids', () => {
+    it('should replace using numeric values', () => {
+      expect(replaceTokens('users/:userId/posts', 1)).toBe('users/1/posts')
+    })
+    it('should replace using string values', () => {
+      expect(replaceTokens('users/:userId/posts', 'dave')).toBe('users/dave/posts')
+    })
+    it('should replace using object properties', () => {
       expect(replaceTokens('users/:userId/posts/:id', payload)).toBe('users/2/posts/1')
     })
-    it('should replace object values', () => {
+    it('should replace using sub-object properties', () => {
       expect(replaceTokens('users/:user.id/posts/:id', payload)).toBe('users/3/posts/1')
     })
-    it('should replace array values', () => {
+    it('should replace using array values', () => {
       expect(replaceTokens('users/:userId/posts/:id', [4, 5])).toBe('users/4/posts/5')
     })
     it('should replace {} style parameters', () => {

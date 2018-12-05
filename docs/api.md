@@ -18,7 +18,6 @@
     |    +- fail    : Set<Function>
     |    +- queue   : Map
     |    +- request ( instance: ApiCore, config: AxiosRequestConfig, data: any )
-    |    +- replaceTokens ( url: string, data: any )
     |
     +-  use     ( name:string, ...params ) : Api
     +-  request ( config: AxiosRequestConfig, data?: any ) : Promise

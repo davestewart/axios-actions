@@ -6,7 +6,7 @@ export function replaceTokens (template: string, data: any, pattern: RegExp = /[
   if (Array.isArray(data)) {
     const d = [...data]
     while (d.length) {
-      template = template.replace(pattern, d.shift())
+      template = template.replace(pattern, String(d.shift()))
     }
     return template
   }

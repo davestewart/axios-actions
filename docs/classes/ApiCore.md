@@ -35,7 +35,6 @@ The `ApiCore` class has the following API:
     |    +- done   : Set<Function>
     |    +- fail   : Set<Function>
     |    +- request ( instance: ApiCore, config: AxiosRequestConfig, data: any )
-    |    +- replaceTokens ( url: string, data: any )
     |
     +-  use     ( name:string, ...params ) : Api
     +-  request ( config: AxiosRequestConfig, data?: any ) : Promise
