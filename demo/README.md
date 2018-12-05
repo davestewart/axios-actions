@@ -1,4 +1,4 @@
-<p align="center"><img src="src/core/assets/logo-image.png" width="60%"></p>
+<p align="center"><img src="src/core/assets/logo-text.png"></p>
 
 # Axios Actions Demo
 

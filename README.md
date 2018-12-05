@@ -2,7 +2,7 @@
 
 > Bundle endpoints as callable, reusable services
 
-<p align="center"><a href="docs/images/README.md"><img src="docs/images/logo.png" /></a></p>
+<p align="center"><a href="res/README.md"><img src="res/logo-text.png" /></a></p>
 
 ## Abstract
 
