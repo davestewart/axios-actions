@@ -118,9 +118,9 @@ Events (call success or failure) can be handled in three ways:
 - per group of actions
 - per action
 
-### Per-call
+### Per-instance
 
-To set up call-level event handling (via [`ApiCore`](ApiCore.md#handling-events)) use `done()` and `fail()` on the Api instance:
+To set up instance-level event handling (via [`ApiCore`](ApiCore.md#handling-events)) use `done()` and `fail()` on the Api instance:
 
 ```js
 const posts = new ApiEndpoint(axios, 'posts/:id')
@@ -131,9 +131,9 @@ const posts = new ApiEndpoint(axios, 'posts/:id')
 posts.index()
 ```
 
-### Per-group
+### Per-action
 
-To set up group-level event handling, use `when()` with a string of `action` names on any `ApiGroup` (or subclass) instance:
+To set up action-level event handling, use `when()` with a string of `action` names on any `ApiGroup` (or subclass) instance:
 
 ```js
 function onAction (res, action) {
@@ -151,9 +151,9 @@ posts.create({title: 'new post', body: 'this is a new post'})
 
 Note that the handler will only be called for successful calls.
 
-### Per-action
+### Per-call
 
-To set up action-level event handling, use `then()` and `catch()` on the call return:
+To set up call-level event handling, use `then()` and `catch()` on the call's returned Promise:
 
 ```js
 const posts = new ApiEndpoint('posts/:id')

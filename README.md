@@ -4,12 +4,12 @@
 
 ## Abstract
 
-Axios Actions comprises a small set of classes which collate URLs as callable actions:
+Axios Actions comprises a small set of classes which collate URLs or URL request configs as callable actions:
 
 ```js
 const actions = {
   <action>: '<url>',
-  <action>: '<url>',
+  <action>: '<config>',
   ...
 }
 ```
@@ -29,6 +29,7 @@ This service-based approach:
 - ensures application code stays simple and semantic
 - provides a dedicated layer for API interaction
 
+There are lots of [other goodies](docs/tips.md) in the library which take the drudgery out of working with APIs!
 
 ## Quick start
 
@@ -50,5 +51,5 @@ To run view the live and editable demos, see:
 To [install](https://www.npmjs.com/package/axios-actions) run:
 
 ```bash
-npm install axios-actions
+npm i -S axios-actions
 ```

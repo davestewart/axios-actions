@@ -6,10 +6,10 @@
 
 To use Axios Actions you need to do four things:
 
-- [Configure Axios](#axios-config)
-- [Configure actions](#actions-config)
+- [Configure Axios](#configure-axios)
+- [Configure actions](#configure-actions)
 - [Set up a service](#set-up-a-service)
-- [Use the service](#call-the-service)
+- [Use the service](#use-the-service)
 
 
 ## Configure Axios

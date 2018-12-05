@@ -6,21 +6,21 @@
 
 Just the essentials
 
-- [**Quick Start**](quick-start.md)
+- [**Quick start**](quick-start.md)
   <br>End-to-end setup on one page
 
 ## 📗 5 minute docs
 
-A bit of background...
+A bit more background...
 
-- [**Quick Start**](quick-start.md)
+- [**Quick start**](quick-start.md)
   <br>End-to-end setup on one page
-- [**Actions Config**](config.md)
-  <br>How you'll configure endpoint URLs as actions
+- [**Tips and tricks**](tips.md)
+  <br>The best bits of the library on one page
+- [**Actions config**](config.md)
+  <br>All the ways to configure endpoints
 - [**ApiGroup**](classes/ApiGroup.md)
   <br>The primary class you'll use package and call endpoints
-- [**ApiCore**](classes/ApiCore.md)
-  <br>Core functionality that's good to know
 
 ## 📚 20 minute docs
 
@@ -29,10 +29,12 @@ The whole enchilada!
 - **Getting started**
     <br>Start here to understand the package
 
-    - [**Quick Start**](quick-start.md)
-      <br>End-to-end setup on one page`
-    - [**Actions Config**](config.md)
-      <br>How to configure your enpoints as actions
+    - [**Quick start**](quick-start.md)
+      <br>End-to-end setup on one page
+    - [**Tips and tricks**](tips.md)
+      <br>The best bits of the library on one page
+    - [**Actions config**](config.md)
+      <br>All the ways to configure endpoints
     - [**API**](api.md)
       <br>The full class API
 

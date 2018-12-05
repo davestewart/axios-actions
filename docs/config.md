@@ -4,7 +4,7 @@
 
 ## Intro
 
-The key to Axios Action's ease-of-use is its configuration of named Actions **ahead** of time:
+The key to Axios Action's ease-of-use is its pre-configuration of named Actions:
 
 ```js
 const actions = {
@@ -23,9 +23,11 @@ const actions = {
 const widgets = new ApiGroup(axios, actions)
 ```
 
-This allows URLs, sometimes with complex setup, to be called quickly and simply by name:
+This allows endpoints – sometimes with complex setup – to be called quickly and simply by name:
 
 ```js
+widgets.search('metal')
+widgets.update({id: 1, name: 'Bouncy Widget', category: 'rubber'})
 widgets.delete(1)
 ```
 
@@ -35,10 +37,10 @@ widgets.delete(1)
 
 The URLS within the config support **tokens** which allow the payload to modify the URL at runtime:
 
-```
-products/widgets/:id
-products/widgets/{id}
-products/widgets/search?category=:category&color=:color
+```js
+'products/widgets/:id'
+'products/widgets/{id}'
+'products/widgets/search?category=:category&color=:color'
 ```
 
 Note that:
@@ -47,20 +49,27 @@ Note that:
 - you can use `:value` or `{value}` style placeholders
 - placeholder variables are automatically filled-in using payload data
 
+You can pass in:
+
+- **Numbers** or **Strings**: these will populate the first token they find in the URL
+- **Arrays**: these will populate the tokens in the order that they are found
+- **Objects**: these will populate tokens by object path (use `:foo.bar` for sub-properties)
+
+
 ### Methods
 
-URLs are by default, GET. You can modify these in the basic string config by simply appending the method in front of the URL:
+URLs are `GET` by default. You can modify this in the basic string config by simply prepending the method before the URL:
 
-```
-POST products/widgets/:id/update
+```js
+'POST products/widgets/:id/update'
 ```
 
 ### Complex config
 
-To pass full config to the Axios instance that will power your calls, set up a complete config object in 
+To add complex configuration, build an object conforming to the `AxiosRequestConfig` interface:
 
-```js
-delete: {
+```
+{
     url: 'products/widgets/:id/delete',
     method: 'delete',
     headers: {
@@ -69,7 +78,7 @@ delete: {
   }
 ```
 
-See the Axios docs on [request config](https://github.com/axios/axios#request-config) for more info.
+See the [Axios docs](https://github.com/axios/axios#request-config) for more info.
 
 ### REST / CRUD
 
@@ -79,11 +88,4 @@ An additional REST / CRUD config is available for the [ApiEndpoint](classes/ApiE
 ```js
 const endpoint = new ApiEndpoint(axios, 'products/widgets/:id')
 ```
-
-## Next steps
-
-Now that you know how to configure Axios Actions, it's time to see how to set up and call endpoints with the built-in classes: 
-
-- [ApiGroup](classes/ApiGroup.md)
-- [ApiCore](classes/ApiCore.md)
 

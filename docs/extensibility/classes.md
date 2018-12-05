@@ -8,7 +8,7 @@ Because Axios Actions is built from the ground up to be [extensible](README.md),
 
 ## Usage
 
-A typical use case for Axios Actions is also to extend an existing class:
+A typical use case for Axios Actions is to extend an existing class:
  
 - adding new instance methods
 - using the constructor to set up logic

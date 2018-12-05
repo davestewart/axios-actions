@@ -28,15 +28,14 @@ The `ApiCore` class has the following API:
     +-  error   : any
     +-  http    : Http
     |    |
-    |    +- axios : Axios
-    |    +- queue : Map
-    |    +- hooks : object
-    |    |   +- before : Array<Function>
-    |    |   +- after  : Array<Function>
-    |    |   +- done   : Set<Function>
-    |    |   +- fail   : Set<Function>
-    |    |
+    |    +- axios  : Axios
+    |    +- queue  : Map
+    |    +- before : Array<Function>
+    |    +- after  : Array<Function>
+    |    +- done   : Set<Function>
+    |    +- fail   : Set<Function>
     |    +- request ( instance: ApiCore, config: AxiosRequestConfig, data: any )
+    |    +- replaceTokens ( url: string, data: any )
     |
     +-  use     ( name:string, ...params ) : Api
     +-  request ( config: AxiosRequestConfig, data?: any ) : Promise
@@ -87,15 +86,16 @@ Vue's reactivity means you can include the service instance directly in the comp
 </div>
 ```
 
-Note that each Api class instance monitors its own loading progress, and will report `loaded` as true only when **all** requests have completed.
+## Loading state
+
+Note that each Api class instance monitors its own loading progress, and will report `loaded` as true only when **all** requests have completed. Additionally, an `error` property will hold the last error, if any.
 
 This allows you to create separate, lightweight Api instances for individual components or sections of your site, without needing to write additional code to track the loading state.
 
 
-
 ## Handling events
 
-Set up global event handling using `done()` and `fail()`:
+Set up instance-level event handling using `done()` and `fail()`:
 
 ```js
 const api = new ApiGroup(axios)

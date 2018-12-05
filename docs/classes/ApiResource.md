@@ -6,13 +6,13 @@
 
 The `ApiResource` class extends [`ApiEndpoint`](ApiEndpoint.md) and is supplied primarily to demonstrate the package's core features working together in a single class.
 
-In addition to
+In addition to...
 
 - `ApiCore` features such as `loading` state and `error` messages
 - `ApiGroup` features such as actions and `when()` handlers
 - `ApiEndpoint` actions `create`, `read`, `update`, `delete` and `index`
 
-it:
+...it:
 
 - provides an additional `search` action
 - saves `items` and `item` data on the instance itself

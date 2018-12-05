@@ -13,5 +13,5 @@ Each of the service classes have additional functionality which extends from `Ap
 - [Helpers](helpers.md)
   <br>Helper functions to make modifying data a little easier
 - [Classes](classes.md)
-  <br>Package all custom functionality into a new service template
+  <br>Package custom functionality into new instantiatable classes
 
