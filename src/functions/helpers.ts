@@ -1,5 +1,5 @@
 import { isObject } from '../utils/object'
-import ApiGroup from '../classes/ApiGroup'
+import ActionMap from '../classes/services/ActionMap'
 
 /**
  * Helper function to process single object or array
@@ -38,11 +38,9 @@ export function toJSON (data) {
  * @param instance
  * @param root
  */
-export function getUrls (instance: any, root = false)
-export function getUrls (instance: ApiGroup, root = false)
-export function getUrls (instance: any, root = false) {
+export function getUrls (instance: any, root?:boolean) {
   // type
-  let isApiGroup = instance instanceof ApiGroup
+  let isApiGroup = instance.actions instanceof ActionMap
 
   // config
   const config = isApiGroup
@@ -55,7 +53,7 @@ export function getUrls (instance: any, root = false) {
     if (!isApiGroup) {
       throw new Error('Root path can only be queried on ApiGroup instances')
     }
-    rootPath = instance.http.axios.defaults.baseURL || 'xx'
+    rootPath = instance.http.axios.defaults.baseURL || ''
   }
 
   // build
