@@ -3,7 +3,6 @@ import { route, redirect, list, page, code } from '../../core/router/helpers'
 
 // pages
 import Home from '../views/pages/Home'
-import Classes from '../views/pages/Classes'
 
 // examples
 import ApiCore from '../../examples/api/ApiCore'
@@ -20,11 +19,6 @@ import Config from '../../examples/config/Config'
 // routes
 export default [
   route('/', Home),
-
-  // pages
-  list('basics', 'Basics', [
-    page('classes', 'Classes', Classes),
-  ]),
 
   // pages
   list('setup', 'Setup', [

@@ -2,8 +2,8 @@
 
   <div class="content home">
     <header class="banner">
-      <img src="../../../core/assets/logo-text.png" width="350">
-      <h1>Axios Actions</h1>
+      <img src="../../../core/assets/logo-text.png" width="600" title="Axios Actions">
+      <h1 style="display: none;">Axios Actions</h1>
     </header>
 
     <h4>Running the examples</h4>
