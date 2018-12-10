@@ -1,5 +1,6 @@
 import ApiGroup from './ApiGroup'
 import { isObject } from '../utils/object'
+import { makeRequest } from '../utils/request'
 
 /**
  * Endpoint class
@@ -21,39 +22,41 @@ export default class ApiEndpoint extends ApiGroup {
   constructor (axios: any, config: string | any) {
     super(axios)
 
-    // normal
-    let actions = config
-    let methods = {
-      read: 'get',
-      index: 'get',
-      create: 'post',
-      update: 'post',
-      delete: 'post'
-    }
-
     // rest
     if (typeof config === 'string') {
-      methods = {
+      const methods = {
         read: 'get',
         index: 'get',
         create: 'post',
         update: 'patch',
         delete: 'delete'
       }
-      actions = Object
+      Object
         .keys(methods)
-        .reduce((output, action) => {
-          output[action] = config
-          return output
-        }, {})
+        .forEach(action => {
+          this.add(action, {
+            method: methods[action],
+            url: config
+          })
+        })
     }
 
-    // add actions
-    Object
-      .keys(actions)
-      .map(action => {
-        this.add(action, actions[action], methods[action])
-      })
+    // object
+    else if (isObject(config)) {
+      const methods = {
+        read: 'get',
+        index: 'get',
+        create: 'post',
+        update: 'post',
+        delete: 'post'
+      }
+      Object
+        .keys(config)
+        .map(action => {
+          const request = makeRequest(config[action], methods[action])
+          this.add(action, request)
+        })
+    }
   }
 
   /**

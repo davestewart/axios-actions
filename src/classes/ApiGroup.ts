@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from 'axios'
 import ApiCore from './ApiCore'
 import ActionMap from './services/ActionMap'
 import { isObject } from '../utils/object'
-import { makeRequest } from '../utils/request'
+import { makeRequest, mergeOptions } from '../utils/request'
 
 /**
  * Group class
@@ -37,27 +37,27 @@ export default class ApiGroup extends ApiCore {
   /**
    * Add a new action
    *
-   * @param   action    The name of the action to add
-   * @param   config    An object conforming to the AxiosRequestConfig interface
+   * @param   action      The name of the action to add
+   * @param   config      The url, and optionally method and url, of the API endpoint
+   * @param   callback?   An optional handler function to fire on a successful call
    */
-  add (action: string, config: AxiosRequestConfig)
+  add (action: string, config: string, callback?: Function)
 
   /**
    * Add a new action
    *
-   * @param   action    The name of the action to add
-   * @param   url       The url, and optionally method and url, of the API endpoint
-   * @param   method    An optional HTTP method to use if the method is not declared in the url; then defaults to "get"
-   * @param   callback? An optional handler function to fire on a successful call
+   * @param   action      The name of the action to add
+   * @param   config      An object conforming to the AxiosRequestConfig interface
+   * @param   callback?   An optional handler function to fire on a successful call
    */
-  add (action: string, url: string, method: string, callback?: Function)
+  add (action: string, config: any, callback?: Function)
 
-  add (action: string, config: string | AxiosRequestConfig, method?: string, callback?: Function) {
-    config = makeRequest(config as any, method)
+  add (action: string, config: string | any, callback?: Function) {
+    config = makeRequest(config)
     this.actions.add(action, config, callback)
     if (!(action in this)) {
-      this[action] = data => {
-        return this.call(action, data)
+      this[action] = (data, options) => {
+        return this.call(action, data, options)
       }
     }
     return this
@@ -67,16 +67,17 @@ export default class ApiGroup extends ApiCore {
    * Call a specific action
    *
    * @param   name      The name of the action to execute
-   * @param   data      An optional hash of data to pass to the server
+   * @param   data      An optional hash of data to send to the server
+   * @param   options   An optional hash of options to merge into the Axios config
    * @returns {Promise<any>}
    */
-  call (name: string, data?: any) {
+  call (name: string, data?: any, options?: any) {
     const action = this.actions.get(name)
     if (!action) {
       throw new Error(`No such action "${action}"`)
     }
     return this
-      .request(action.config, data)
+      .request(mergeOptions(action.config, options), data)
       .then(res => {
         if (action.handlers) {
           action.exec(res, name)

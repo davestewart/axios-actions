@@ -1,7 +1,7 @@
 import Http from './services/Http'
 import * as plugins from '../functions/plugins'
-import { AxiosRequestConfig } from 'axios'
-import { makeRequest } from '../utils/request'
+import { AxiosInstance, AxiosRequestConfig } from 'axios'
+import { mergeOptions } from '../utils/request'
 
 /**
  * Api class
@@ -30,7 +30,7 @@ export default class ApiCore {
    *
    * @param   axios     An Axios instance
    */
-  constructor (axios: any) {
+  constructor (axios: AxiosInstance) {
     this.http = Object.freeze(new Http(axios))
     this.error = null
     this.loading = false
@@ -69,10 +69,11 @@ export default class ApiCore {
    *
    * @param   url       The API URL to call
    * @param   data      Any optional data to pass to the endpoint
+   * @param   options   An optional hash of options to merge into the Axios config
    * @returns
    */
-  get (url: string, data?: any): Promise<any> {
-    return this.request(makeRequest(url, 'get'), data)
+  get (url: string, data?: any, options?: any): Promise<any> {
+    return this.request(mergeOptions({ url, method: 'get' }, options), data)
   }
 
   /**
@@ -80,10 +81,11 @@ export default class ApiCore {
    *
    * @param   url       The API URL to call
    * @param   data      Any optional data to pass to the endpoint
+   * @param   options   An optional hash of options to merge into the Axios config
    * @returns
    */
-  post (url: string, data?: any): Promise<any> {
-    return this.request(makeRequest(url, 'post'), data)
+  post (url: string, data?: any, options?: any): Promise<any> {
+    return this.request(mergeOptions({ url, method: 'post' }, options), data)
   }
 
   /**

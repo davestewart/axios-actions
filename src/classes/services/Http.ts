@@ -1,18 +1,18 @@
-import { AxiosRequestConfig } from 'axios'
+import { AxiosInstance, AxiosRequestConfig } from 'axios'
 import ApiCore from '../ApiCore'
 import { replaceTokens } from '../../utils/string'
 import { isObject } from '../../utils/object'
 
 export default class Http {
 
-  axios: any
+  axios: AxiosInstance
   before: Function[]
   after: Function[]
   done: Set<Function>
   fail: Set<Function>
   queue: Map<any, any>
 
-  constructor (axios: any) {
+  constructor (axios: AxiosInstance) {
     this.axios = axios
     this.before = []
     this.after = []
@@ -25,9 +25,9 @@ export default class Http {
   /**
    * Dispatch an axios request
    *
-   * @param instance
-   * @param config
-   * @param data
+   * @param   instance  The ApiCore instance which should make the call
+   * @param   config    An AxiosRequestConfig with all data for the call
+   * @param   data      Any optional data to pass to the endpoints
    * @returns {Promise<any>}
    */
   request (instance: ApiCore, config: AxiosRequestConfig, data: any = null) {

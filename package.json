@@ -1,6 +1,6 @@
 {
   "name": "axios-actions",
-  "version": "3.1.2",
+  "version": "4.0.0",
   "description": "Bundle endpoints as callable, reusable services",
   "types": "dist/main.d.ts",
   "main": "dist/axios-actions.js",
@@ -33,7 +33,7 @@
     "url": "https://github.com/davestewart/axios-actions/issues"
   },
   "dependencies": {
-    "lodash.clonedeep": "^4.5.0"
+    "deepmerge": "^3.0.0"
   },
   "devDependencies": {
     "@types/jest": "^23.3.10",
