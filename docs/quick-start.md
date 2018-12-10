@@ -60,7 +60,7 @@ import actions from './actions'
 const widgets = new ApiGroup(axios, actions)
 ```
 
-At this point you can add additional [plugins](extensibility/plugins.md) or add [event handlers](classes/ApiGroup.md#handling-events):
+At this point you can add additional [plugins](extension/plugins.md) or add [event handlers](classes/ApiGroup.md#handling-events):
 
 ```js
 widgets

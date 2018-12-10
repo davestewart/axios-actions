@@ -1,6 +1,6 @@
 # Hooks
 
-> [Home](../README.md) &gt; [Extensibility](README.md) &gt; Hooks
+> [Home](../README.md) &gt; [Extension](README.md) &gt; Hooks
 
 ## Intro
 

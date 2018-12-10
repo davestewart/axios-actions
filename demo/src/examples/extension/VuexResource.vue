@@ -6,8 +6,8 @@
       <h1>VuexResource</h1>
       <blockquote>
         <p>An example class extending <router-link to="../api/endpoint">ApiEndpoint</router-link> to automatically update a Vuex store when data has loaded.</p>
-        <view-code src="examples/features/VuexResource.vue"/>
-        <view-docs src="ApiEndpoint"/>
+        <view-code src="examples/extension/VuexResource.vue"/>
+        <view-docs src="extension/classes.md"/>
       </blockquote>
     </div>
 

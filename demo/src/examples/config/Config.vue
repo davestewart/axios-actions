@@ -8,7 +8,7 @@
         <p>Endpoints can be set up in a variety of ways, from just basic URLs to data and headers.</p>
         <view-code src="demo/src/app/views/ApiEndpoint.vue" label="View example"/>
         <view-code src="src/classes/ApiEndpoint.ts" label="View class"/>
-        <view-docs src="ApiEndpoint"/>
+        <view-docs src="config.md"/>
       </blockquote>
     </div>
 

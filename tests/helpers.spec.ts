@@ -31,8 +31,6 @@ describe('helpers', () => {
     baz: 'http://example.com/api/products/baz',
   }
 
-  console.log(axios.defaults.baseURL)
-
   describe('getUrls', () => {
     it('should get all paths from an actions config', () => {
       expect(getUrls(actions)).toEqual(paths)

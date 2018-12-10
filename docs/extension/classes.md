@@ -1,6 +1,6 @@
 # Classes
 
-> [Home](../README.md) &gt; [Extensibility](README.md) &gt; Classes
+> [Home](../README.md) &gt; [Extension](README.md) &gt; Classes
 
 ## Intro
 

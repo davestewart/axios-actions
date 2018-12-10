@@ -28,7 +28,7 @@ Most functionality in Axios Actions is by way of classes:
 
 - Use the [ApiGroup](classes/ApiGroup.md) as your go-to workhorse service
 - All classes inherit from each other; check the [Classes](classes) index for more info
-- Add additional functionality to services by way of [plugins](extensibility/plugins.md#built-in-plugins)
+- Add additional functionality to services by way of [plugins](extension/plugins.md#built-in-plugins)
 
 ## Loading
  
@@ -48,6 +48,6 @@ There are three levels of granularity for event handling:
 
 There are a bunch of ways to encapsulate functionality away from the rest of the app:
 
-- Create [new classes](extensibility/classes.md) to add and share complete new functionality
-- Share partial functionality by way of [plugins](extensibility/plugins.md#creating-your-own-plugins)
-- Use [hooks, helpers](extensibility/README.md) to make the process easier
+- Create [new classes](extension/classes.md) to add and share complete new functionality
+- Share partial functionality by way of [plugins](extension/plugins.md#creating-your-own-plugins)
+- Use [hooks, helpers](extension/README.md) to make the process easier

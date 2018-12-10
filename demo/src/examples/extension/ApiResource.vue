@@ -16,9 +16,9 @@
         <p>No need to set data or methods on the Vue component, everything is accessible directly on the endpoint itself.</p>
         <p>Click the buttons to call the API, then inspect this component in the Vue Devtools and view the
           <code>endpoint</code> property. You should see both the data and the actions.</p>
-        <view-code src="demo/src/examples/api/ApiResource.vue" label="View example"/>
+        <view-code src="demo/src/examples/extension/ApiResource.vue" label="View example"/>
         <view-code src="src/classes/ApiResource.ts" label="View class"/>
-        <view-docs src="ApiResource"/>
+        <view-docs src="classes/ApiResource.md"/>
       </blockquote>
     </div>
 

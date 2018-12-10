@@ -22,13 +22,13 @@ Although you *can* instantiate the `ApiCore` class directly, generally you'll us
 The `ApiCore` class has the following API:
 
 ```
-+- ApiCore (axios: Axios)
++- ApiCore (axios: AxiosInstance)
     |
     +-  loading : boolean
     +-  error   : any
     +-  http    : Http
     |    |
-    |    +- axios  : Axios
+    |    +- axios  : AxiosInstance
     |    +- queue  : Map
     |    +- before : Array<Function>
     |    +- after  : Array<Function>
@@ -38,8 +38,8 @@ The `ApiCore` class has the following API:
     |
     +-  use     ( name:string, ...params ) : Api
     +-  request ( config: AxiosRequestConfig, data?: any ) : Promise
-    +-  get     ( url: string, data?: any ) : Promise
-    +-  post    ( url: string, data?: any ) : Promise
+    +-  get     ( url: string, data?: any, options?: any) : Promise
+    +-  post    ( url: string, data?: any, options?: any ) : Promise
     +-  done    ( callback: Function ) : Api
     +-  fail    ( callback: Function ) : Api
 ```
@@ -51,6 +51,8 @@ The `ApiCore` class does not have any configuration options, aside from passing 
 ```js
 const api = new ApiCore(axios)
 ```
+
+See the [quick start](../quick-start.md) documents to see how to configure Axios if you are new to the library.
 
 ## Usage
 
@@ -84,6 +86,38 @@ Vue's reactivity means you can include the service instance directly in the comp
   <comment v-for="comment in comments" :model="comment" />
 </div>
 ```
+## Methods
+
+The main method to make requests mirrors the Axios `request()` method, and requires the long-form [RequestConfig](https://github.com/axios/axios#request-config) format to call the server:
+
+```js
+const api = new ApiCore(axios)
+api.request({
+  method: 'get',
+  url: 'path/to/resource'
+})
+```
+
+This is used by the rest of the classes to make calls.
+
+As such, the class provides convenience methods for both `GET` and `POST`:
+
+```js
+// simple GET
+api.get('path/to/resource')
+
+// simple POST
+api.post('path/to/resource', data)
+
+// post with options
+api.post('path/to/resource', data, {
+  headers: {
+    Authorization: token
+  }
+})
+```
+
+
 
 ## Loading state
 

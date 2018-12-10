@@ -1,6 +1,6 @@
-# Extensibility
+# Extension
 
-> [Home](../README.md) &gt; Extensibility
+> [Home](../README.md) &gt; Extension
 
 ## Summary
 

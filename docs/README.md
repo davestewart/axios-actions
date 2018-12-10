@@ -2,7 +2,7 @@
 
 > Home
 
-<p align="center"><a href="#"><img src="../res/logo-text.png" /></a></p>
+<p align="center"><a href="#"><img src="../res/logo-text.png" width="80%" /></a></p>
 
 ## 🚀 2 minute docs
 
@@ -52,14 +52,14 @@ The whole enchilada!
     - [**ApiResource**](classes/ApiResource.md)
       <br>Extends `ApiEndpoint` to more fully manage CRUD resources
 
-- [**Extensibility**](extensibility/README.md)
+- [**Extension**](extension/README.md)
     <br>Extend Axios Actions to encapsulate logic within services
 
-    - [**Hooks**](extensibility/hooks.md)
+    - [**Hooks**](extension/hooks.md)
       <br>Modify request and response data
-    - [**Plugins**](extensibility/plugins.md)
+    - [**Plugins**](extension/plugins.md)
       <br>A simple architecture to package hooks as functions
-    - [**Helpers**](extensibility/helpers.md)
+    - [**Helpers**](extension/helpers.md)
       <br>Helper functions to make modifying data a little easier
-    - [**Classes**](extensibility/classes.md)
+    - [**Classes**](extension/classes.md)
       <br>Package all custom functionality into a new service template

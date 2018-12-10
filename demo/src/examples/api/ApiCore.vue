@@ -8,7 +8,7 @@
         <p>ApiCore provides the base functionality for all other Api classes</p>
         <view-code src="demo/src/examples/api/ApiCore.vue" label="View example"/>
         <view-code src="src/classes/ApiCore.ts" label="View class"/>
-        <view-docs src="ApiCore"/>
+        <view-docs src="classes/ApiCore.md"/>
       </blockquote>
     </div>
 
@@ -28,7 +28,7 @@
 
       <data-view :loading="api.loading"
                  :error="api.error"
-                 :data="data" />
+                 :data="data"/>
     </section>
 
   </article>
@@ -63,22 +63,29 @@ export default {
 
   methods: {
 
-    getPosts() {
+    getPosts () {
       this.api.get('posts').then(data => {
         console.log('Posts loaded!')
       })
     },
 
-    getPostComments() {
+    getPostComments () {
       this.api.get('posts/:id/comments', 5)
     },
 
     createUser () {
-      this.api.post('users', {
+      const data = {
         name: 'Some User',
         username: 'some-user',
         email: 'user@users.com'
-      })
+      }
+      const headers = {
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          'X-Custom': 'This is a custom header'
+        }
+      }
+      this.api.post('users', data, headers)
     },
 
     done (data) {

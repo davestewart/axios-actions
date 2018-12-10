@@ -36,7 +36,7 @@ The `ApiGroup` class has the following API:
     |
     +-  add  ( action: string, url : string, method: string = 'get', handler: Function = null ) : ApiGroup
     +-  when (name: string, callback: Function) : ApiGroup
-    +-  call ( action: string, data?: any ) : Promise
+    +-  call ( action: string, data?: any, options?: any ) : Promise
 ```
 
 
@@ -80,18 +80,30 @@ Note that `ApiGroup` will **not** override existing properties or methods with n
 
 ## Adding actions
 
-`ApiGroup` and any classes which extend from it can have actions added to them at any point:
+`ApiGroup` and any classes which extend from it can have actions added to them at any point.
+
+The signature is an `action`, `config` and optional `handler`:
 
 ```js
-widgets.add('search', 'products/search?product=widgets&text=:text')
+widgets.add(action, config, handler)
 ```
-Again, prepend the HTTP method to the front of the URL if you need to.
- 
+
+There are 3 signatures you can use:
+
 ```js
+// url
+widgets.add('search', 'products/search?product=widgets&text=:text')
+
+// method + url
 widgets.add('upload', 'POST products/widgets/:id/files')
+
+// config
+widgets.add('create', { method: 'post', url: 'products/widgets'})
 ```
- 
-Then execute via `call()` or the automatically-created method:
+
+The optional `handler` function will be added and called when the request completes.
+
+Execute the request via `call()` or the automatically-created method:
 
 ```js
 widgets
@@ -99,15 +111,8 @@ widgets
   .then(onSearch)
 ```
 
-The method supports two alternative signatures where by you can manually specify the HTTP method and also an action-level handler, which is called only on a successful call to the URL endpoint:
 
-```js
-comments.add(action, url, method, handler)
-```
-
-Note that a method in the url will always override a method passed as an argument.
-
-Actions can be added to any `ApiGroup` instances, or if greater functionality is required, you can [extend from a base class](../extensibility/classes.md) and add your own custom methods.
+Actions can be added to any `ApiGroup` instances, or if greater functionality is required, you can [extend from a base class](../extension/classes.md) and add your own custom methods.
 
 
 ## Handling events

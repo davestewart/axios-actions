@@ -8,7 +8,7 @@
         <p>ApiGroup extends <router-link to="core">ApiCore</router-link> to provide functionality to call URLs as actions</p>
         <view-code src="demo/src/examples/api/ApiGroup.vue" label="View example"/>
         <view-code src="src/classes/ApiGroup.ts" label="View class"/>
-        <view-docs src="ApiGroup"/>
+        <view-docs src="classes/ApiGroup.md"/>
       </blockquote>
     </div>
 
@@ -21,9 +21,10 @@
       <nav>
         <div class="control">
           <ui-input type="number" v-model="userId" min="1" max="10" @input="call()">User Id</ui-input>
-          <ui-button @click="call('user')">User</ui-button>
-          <ui-button @click="call('posts')">Posts</ui-button>
-          <ui-button @click="call('todos')">To-dos</ui-button>
+          <ui-button @click="call('posts')">Get Posts</ui-button>
+          <ui-button @click="call('todos')">Get To-dos</ui-button>
+          <ui-button @click="call('user')">Get User</ui-button>
+          <ui-button @click="createUser">Create User</ui-button>
         </div>
       </nav>
 
@@ -44,6 +45,13 @@ const endpoint = new ApiGroup(axios, {
   user: 'users/:id',
   posts: 'posts?userId=:id',
   todos: 'todos?userId=:id',
+  createUser: {
+    method: 'POST',
+    url: 'users/:id',
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8'
+    },
+  },
 })
 
 // return data by default
@@ -77,6 +85,23 @@ export default {
 
       // call endpoint dynamically
       this.endpoint[this.action](this.userId)
+    },
+
+    /**
+     * Demonstrates adding options at compile time and runtime
+     */
+    createUser () {
+      const data = {
+        name: 'Some User',
+        username: 'some-user',
+        email: 'user@users.com'
+      }
+      const headers = {
+        headers: {
+          'X-Time': Date.now()
+        }
+      }
+      this.endpoint.createUser(data, headers)
     },
 
     done (data) {

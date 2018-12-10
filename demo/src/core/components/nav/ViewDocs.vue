@@ -13,7 +13,7 @@
 
     computed: {
       url () {
-        return `${this.$site.docs}#${slugify(this.src).toLowerCase()}`
+        return `${this.$site.docs}${this.src}`
       }
     },
 

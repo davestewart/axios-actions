@@ -1,6 +1,6 @@
 # Helpers
 
-> [Home](../README.md) &gt; [Extensibility](README.md) &gt; Helpers
+> [Home](../README.md) &gt; [Extension](README.md) &gt; Helpers
 
 ## Intro
 

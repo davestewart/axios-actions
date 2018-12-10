@@ -89,3 +89,8 @@ An additional REST / CRUD config is available for the [ApiEndpoint](classes/ApiE
 const endpoint = new ApiEndpoint(axios, 'products/widgets/:id')
 ```
 
+
+## Next steps 
+
+- Docs: [Tips and tricks](tips.md)
+- Code: [`Something.js`](src/classes/Something.js)

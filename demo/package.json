@@ -1,7 +1,7 @@
 {
   "name": "axios-actions-demo",
   "description": "Axios Actions - Demo project",
-  "version": "1.0.2",
+  "version": "4.0.0",
   "author": "Dave Stewart",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
@@ -13,6 +13,7 @@
     "axios-actions": "^3.0.0",
     "bulma": "^0.6.2",
     "codesandbox-api": "0.0.18",
+    "deepmerge": "^3.0.0",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.10",
     "marked": "^0.3.19",

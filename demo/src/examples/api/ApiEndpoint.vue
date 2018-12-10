@@ -8,7 +8,7 @@
         <p>ApiEndpoint extends <router-link to="group">ApiGroup</router-link> to automatically set up REST verbs, paths and CRUD actions</p>
         <view-code src="demo/src/examples/api/ApiEndpoint.vue" label="View example"/>
         <view-code src="src/classes/ApiEndpoint.ts" label="View class"/>
-        <view-docs src="ApiEndpoint"/>
+        <view-docs src="classes/ApiEndpoint.md"/>
       </blockquote>
     </div>
 

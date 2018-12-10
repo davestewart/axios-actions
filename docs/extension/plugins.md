@@ -1,6 +1,6 @@
 # Plugins
 
-> [Home](../README.md) &gt; [Extensibility](README.md) &gt; Plugins
+> [Home](../README.md) &gt; [Extension](README.md) &gt; Plugins
 
 ## Intro
 

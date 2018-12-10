@@ -1,3 +1,5 @@
+import { log } from './helpers/log'
+
 import AxiosMock from './helpers/AxiosMock'
 import ApiGroup from '../src/classes/ApiGroup'
 import ApiEndpoint from '../src/classes/ApiEndpoint'
@@ -11,7 +13,7 @@ const endpoint = new ApiEndpoint(axios, { foo: 'foo' })
 describe('ApiGroup', () => {
   describe('creating a new instance', () => {
     it('should add the correct method and path', () => {
-      expect(group.actions.get('foo').config).toMatchObject({ method: 'get', url: 'foo' })
+      expect(group.actions.get('foo').config).toEqual({ method: 'get', url: 'foo' })
     })
     it('should add an instance method', () => {
       expect(group.foo).toBeInstanceOf(Function)
@@ -19,7 +21,7 @@ describe('ApiGroup', () => {
   })
 
   describe('adding an action manually', () => {
-    group.add('bar', 'PATCH bar', undefined)
+    group.add('bar', 'PATCH bar')
     it('should add the correct method and path', () => {
       expect(group.actions.get('bar').config).toMatchObject({ method: 'patch', url: 'bar' })
     })
