@@ -6,7 +6,9 @@
 
 ## Abstract
 
-Axios Actions comprises a small set of classes which collate URLs or URL request configs as callable actions:
+Axios Actions comprises a small set of classes which collate URLs or URL request configs as callable actions.
+
+First, [define](docs/config.md) your endpoints:
 
 ```js
 const actions = {
@@ -15,9 +17,15 @@ const actions = {
   ...
 }
 ```
+
+Then, encapsulate them as one of the built-in [services](docs/classes/README.md):
+
 ```js
 const service = new <ApiClass>(axios, actions)
 ```
+
+Finally, [call](docs/classes/ApiGroup.md#usage) them:
+
 ```js
 service
   .<action>(<data>)
