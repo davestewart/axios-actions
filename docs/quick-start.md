@@ -12,10 +12,14 @@ To use Axios Actions you need to do four things:
 - [Use the service](#use-the-service)
 
 
+> Note: the examples on this page are written as if each chunk of functionality is imported / exported from separate files
+
 ## Configure Axios
 
 Because the package's services run on top of an existing Axios setup, you need to provide that first:
+
 ```js
+// axios.js
 import axios from 'axios'
 
 // create instance
@@ -39,11 +43,14 @@ This needs only to be done once, and will used throughout your app.
 Next, for each set of endpoints, create an actions [config](config.md) which at its most basic is a hash of names and URLs:
 
 ```js
+// actions.js
 const actions = {
   search: 'products/widgets?category=:category',
   update: 'POST products/widgets/:id',
   delete: 'DELETE products/widgets/:id',
 }
+
+export default actions
 ```
 
 If you have multiple endpoint groups, it might be easier to create separate files for each.
@@ -53,6 +60,7 @@ If you have multiple endpoint groups, it might be easier to create separate file
 Once everything is set up, import everything you need and instantiate the service – in this case [ApiGroup](classes/ApiGroup.md):
 
 ```js
+// widgets.js
 import { ApiGroup } from 'axios-actions'
 import axios from './axios'
 import actions from './actions'
@@ -79,6 +87,7 @@ export default widgets
 With the service created and configured, it becomes simple to import it, call actions, and handle results:
 
 ```js
+// main.js
 import widgets from './widgets'
 
 widgets
@@ -90,7 +99,7 @@ widgets
 
 ## Next steps
 
-- [5 minute docs](README.md#-5-minute-docs) – config and core classes
+- [5 minute docs](README.md#-5-minute-docs) – tips, config and core classes
 - [20 minute docs](README.md#-20-minute-docs) – the whole enchilada!
                                                                            
 

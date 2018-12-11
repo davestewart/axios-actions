@@ -51,3 +51,8 @@ There are a bunch of ways to encapsulate functionality away from the rest of the
 - Create [new classes](extension/classes.md) to add and share complete new functionality
 - Share partial functionality by way of [plugins](extension/plugins.md#creating-your-own-plugins)
 - Use [hooks, helpers](extension/README.md) to make the process easier
+
+
+## Next steps 
+
+- Docs: [Actions Config](config.md)

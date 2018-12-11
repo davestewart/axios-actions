@@ -169,7 +169,8 @@ posts
   .then(res => this.data = res.data.map(post => new Post(post)))
 ```
 
-## Source
+## Next steps 
 
-> See: [`src/classes/ApiGroup.ts`](https://github.com/davestewart/axios-actions/blob/master/src/classes/ApiGroup.ts)
+- Docs: [ApiEndpoint](ApiEndpoint.md)
+- Code: [`src/classes/ApiGroup.ts`](https://github.com/davestewart/axios-actions/blob/master/src/classes/ApiGroup.ts)
 

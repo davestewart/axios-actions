@@ -37,8 +37,6 @@ The whole enchilada!
       <br>The best bits of the library on one page
     - [**Actions config**](config.md)
       <br>All the ways to configure endpoints
-    - [**API**](api.md)
-      <br>The full class API
 
 - [**Classes**](classes/README.md)
     <br>Core functionality packaged as classes

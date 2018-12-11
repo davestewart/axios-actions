@@ -136,7 +136,8 @@ const api = new ApiGroup(axios)
   .fail(onError)
 ```
 
-## Source
+## Next steps 
 
-> See: [`src/classes/ApiCore.ts`](https://github.com/davestewart/axios-actions/blob/master/src/classes/ApiCore.ts)
+- Docs: [ApiGroup](ApiGroup.md)
+- Code: [`src/classes/ApiCore.ts`](https://github.com/davestewart/axios-actions/blob/master/src/classes/ApiCore.ts)
 

@@ -104,7 +104,8 @@ Note that:
 
 Its implementation should cover a broad range of use cases, but where it doesn't (for example adding additional pagination methods) it's a simple case of extending the class or even duplicating the [original source](https://github.com/davestewart/axios-actions/blob/master/src/classes/ApiResource.ts) and creating your own `ApiResource` class.
 
-## Source
+## Next steps 
 
-> See: [`src/classes/ApiResource.ts`](https://github.com/davestewart/axios-actions/blob/master/src/classes/ApiResource.ts)
+- Docs: [Extension](../extension/README.md)
+- Code: [`src/classes/ApiResource.ts`](https://github.com/davestewart/axios-actions/blob/master/src/classes/ApiResource.ts)
 

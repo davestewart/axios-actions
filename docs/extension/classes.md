@@ -49,8 +49,8 @@ posts.index()
 posts.create({ ... }) // no handlers needed; new data loads in automatically!
 ```
 
+## Next steps 
 
-## Source
-
-> See: [`src/classes/services/Http.ts`](https://github.com/davestewart/axios-actions/blob/master/src/classes/services/Http.ts#L15-L16)
+- [Demo](../../demo/README.md)
+- [Contents](../README.md)
 

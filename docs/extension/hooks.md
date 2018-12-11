@@ -34,7 +34,8 @@ endpoint.http.after.push(res => {
 
 Because this process is somewhat fiddly, [plugins](plugins.md) exist to make it a little easier.
 
-## Source
+## Next steps 
 
-> See: [`src/classes/services/Http.ts`](https://github.com/davestewart/axios-actions/blob/master/src/classes/services/Http.ts#L15-L16)
+- Docs: [Plugins](plugins.md)
+- Code: [`src/classes/services/Http.ts`](https://github.com/davestewart/axios-actions/blob/master/src/classes/services/Http.ts#L48)
 

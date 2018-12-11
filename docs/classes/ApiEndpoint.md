@@ -72,7 +72,8 @@ posts.update(data)  // PATCH
 posts.delete(1)     // DELETE
 ```
 
-## Source
+## Next steps 
 
-> See: [`src/classes/ApiEndpoint.ts`](https://github.com/davestewart/axios-actions/blob/master/src/classes/ApiEndpoint.ts)
+- Docs: [ApiResource](ApiResource.md)
+- Code: [`src/classes/ApiEndpoint.ts`](https://github.com/davestewart/axios-actions/blob/master/src/classes/ApiEndpoint.ts)
 

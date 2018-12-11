@@ -58,7 +58,8 @@ function onRequest(data) {
 }
 ```
 
-## Source
+## Next steps 
 
-> See: [`src/classes/functions/helpers.ts`](https://github.com/davestewart/axios-actions/blob/master/src/functions/helpers.ts)
+- Docs: [Classes](classes.md)
+- Code: [`src/classes/functions/helpers.ts`](https://github.com/davestewart/axios-actions/blob/master/src/functions/helpers.ts)
 

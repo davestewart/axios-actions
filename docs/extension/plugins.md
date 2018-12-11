@@ -84,7 +84,8 @@ plugins.log = function (api) {
 }
 ```
 
-## Source
+## Next steps 
 
-> See: [`src/classes/functions/plugins.ts`](https://github.com/davestewart/axios-actions/blob/master/src/functions/plugins.ts#)
+- Docs: [Helpers](helpers.md)
+- Code: [`src/classes/functions/plugins.ts`](https://github.com/davestewart/axios-actions/blob/master/src/functions/plugins.ts#)
 

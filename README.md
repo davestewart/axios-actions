@@ -33,24 +33,21 @@ This service-based approach:
 
 There are lots of [other goodies](docs/tips.md) in the library which take the drudgery out of working with APIs!
 
-## Quick start
+## Documentation
 
-To view this abstract example in real code, see:
+Start reading:
 
-- [axios-actions/docs/quick-start.md](docs/quick-start.md)
+- [Quick start](docs/quick-start.md)
+- [Full docs](docs/README.md)
 
 ## Next steps
 
-To view the full documentation, see:
-
-- [axios-actions/docs](docs)
-
-To run view the live and editable demos, see:
+Demos:
 
 - [axios-actions/demo](demo)
 
 
-To [install](https://www.npmjs.com/package/axios-actions) run:
+Installation:
 
 ```bash
 npm i -S axios-actions
