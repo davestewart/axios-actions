@@ -50,12 +50,16 @@ export default class Http {
     // setup object
     config = Object.assign({}, config)
     config.method = method
-    config.data = data
     config.url = url
 
     // data
-    if (method === 'get' && !url.includes('?') && isObject(data)) {
-      config.params = data
+    if (data) {
+      if (method === 'get' && !url.includes('?')) {
+        config.params = data
+      }
+      else {
+        config.data = data
+      }
     }
 
     // loading
