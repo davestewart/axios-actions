@@ -1,8 +1,6 @@
-import { AxiosRequestConfig } from 'axios'
 import ApiCore from './ApiCore'
 import ActionMap from './services/ActionMap'
-import { isObject } from '../utils/object'
-import { makeRequest, mergeOptions } from '../utils/request'
+import { isObject, makeRequest, mergeOptions } from '../utils'
 
 /**
  * Group class

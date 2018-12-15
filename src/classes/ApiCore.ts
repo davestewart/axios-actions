@@ -1,7 +1,7 @@
+import { AxiosInstance, AxiosRequestConfig } from 'axios'
 import Http from './services/Http'
 import * as plugins from '../functions/plugins'
-import { AxiosInstance, AxiosRequestConfig } from 'axios'
-import { mergeOptions } from '../utils/request'
+import { mergeOptions } from '../utils'
 
 /**
  * Api class

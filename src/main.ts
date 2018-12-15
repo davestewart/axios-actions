@@ -5,6 +5,7 @@ import ApiResource from './classes/ApiResource'
 
 import * as helpers from './functions/helpers'
 import * as plugins from './functions/plugins'
+import * as utils from './utils'
 
 export default ApiCore
 
@@ -18,4 +19,5 @@ export {
   // functions
   plugins,
   helpers,
+  utils,
 }

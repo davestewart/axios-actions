@@ -1,6 +1,5 @@
 import ApiGroup from './ApiGroup'
-import { isObject } from '../utils/object'
-import { makeRequest } from '../utils/request'
+import { isObject, makeRequest } from '../utils'
 
 /**
  * Endpoint class

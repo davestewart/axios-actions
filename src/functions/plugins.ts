@@ -1,6 +1,6 @@
 import ApiCore from '../classes/ApiCore'
 import { process, toJSON } from './helpers'
-import { reKey } from '../utils/object'
+import { reKey } from '../utils'
 
 /**
  * Converts axios data to and from models

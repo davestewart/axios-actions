@@ -1,4 +1,4 @@
-import { isObject } from '../utils/object'
+import { isObject } from '../utils'
 import ActionMap from '../classes/services/ActionMap'
 
 /**

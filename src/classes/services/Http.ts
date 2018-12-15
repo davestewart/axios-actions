@@ -1,7 +1,6 @@
 import { AxiosInstance, AxiosRequestConfig } from 'axios'
 import ApiCore from '../ApiCore'
-import { replaceTokens } from '../../utils/string'
-import { isObject } from '../../utils/object'
+import { replaceTokens } from '../../utils'
 
 export default class Http {
 
