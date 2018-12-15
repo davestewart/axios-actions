@@ -9,6 +9,7 @@ import ApiCore from '../../examples/api/ApiCore'
 import ApiGroup from '../../examples/api/ApiGroup'
 import ApiEndpoint from '../../examples/api/ApiEndpoint'
 import ApiResource from '../../examples/extension/ApiResource'
+import ApiGraphQL from '../../examples/extension/ApiGraphQL'
 
 // features
 import VuexResource from '../../examples/extension/VuexResource'
@@ -36,5 +37,6 @@ export default [
   list ('extension', 'Extension', [
     code('resource', 'ApiResource', ApiResource),
     code('vuex-resource', 'VuexResource', VuexResource),
+    code('graph-ql', 'GraphQL', ApiGraphQL),
   ])
 ]
