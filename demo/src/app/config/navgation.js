@@ -27,16 +27,19 @@ export default [
   ]),
 
   // basics
-  list ('api', 'Api', [
+  list ('api', 'Core', [
     code('core', 'ApiCore', ApiCore),
     code('group', 'ApiGroup', ApiGroup),
-    code('endpoint', 'ApiEndpoint', ApiEndpoint),
   ]),
 
   // features
-  list ('extension', 'Extension', [
+  list ('api', 'Services', [
+    code('endpoint', 'ApiEndpoint', ApiEndpoint),
     code('resource', 'ApiResource', ApiResource),
+  ]),
+
+  list ('extension', 'Extension examples', [
     code('vuex-resource', 'VuexResource', VuexResource),
-    code('graph-ql', 'GraphQL', ApiGraphQL),
+    code('graph-ql', 'ApiGraphQL', ApiGraphQL),
   ])
 ]
