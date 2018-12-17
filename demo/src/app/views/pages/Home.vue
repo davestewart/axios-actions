@@ -6,36 +6,36 @@
       <h1 style="display: none;">Axios Actions</h1>
     </header>
 
-    <h4>Running the examples</h4>
+    <h4>Intro</h4>
+    <p>Axios Actions comprises a small set of classes which collate URLs or URL request configs as callable actions.</p>
+    <p>This service-based approach:</p>
+    <ul>
+      <li>removes brittle configuration from components and stores</li>
+      <li>encapsulates additional logic (such as load state and handlers) within the service</li>
+      <li>ensures application code stays simple and semantic</li>
+      <li>provides a dedicated layer for API interaction</li>
+    </ul>
+    <p>There are lots of <a href="https://github.com/davestewart/axios-actions/blob/master/docs/tips.md">other goodies</a> in the library which take the drudgery out of working with APIs!</p>
+
+    <h4>Links</h4>
+    <ul>
+      <li><a href="https://github.com/davestewart/axios-actions/tree/master/docs">Docs</a></li>
+      <li><a href="https://github.com/davestewart/axios-actions/tree/master/demos">Demos</a></li>
+    </ul>
+
+    <h4>Examples</h4>
 
     <p>Use the menu on the left to navigate the examples.</p>
 
-    <p>The examples are designed to be viewed in parallel with editing the code. For each:</p>
+
+    <p>In Code Sandbox, the examples are designed to be viewed in parallel with editing the code. For each:</p>
     <ul>
       <li>there are buttons to open the associated files</li>
       <li>source code is clearly commented, with editing suggestions where appropriate</li>
       <li>additional buttons link to any related documentation</li>
     </ul>
 
-    <h4>Folder structure</h4>
-
-    <p>The example code (for each feature or example) can be found in the <code>src/examples/</code> folder:</p>
-    <pre>
-+- src
-    +- examples
-        +- ...
-    </pre>
-
-    <p>You can manually navigate to the folders, or as mentioned above, use the edit buttons to jump directly to the
-      file.</p>
-
-    <h4>Using Vue Devtools</h4>
-
-    <p>You will probably want to use Vue Devtools as you run the demo to see the store update.</p>
-    <p>As CodeSandbox runs in an iframe, you'll need to open the preview pane in a new window. Click the arrow-like icon
-      above the preview pane to do this, then use Vue Devtools as normal.</p>
-    <p>Note that you will still be able to edit the code and see the results! CodeSandbox is that cool :)</p>
-
+    <p>You can find the code in the <code>src/examples/</code> folder.</p>
   </div>
 
 </template>
