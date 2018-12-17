@@ -1,6 +1,6 @@
 import { AxiosInstance, AxiosRequestConfig } from 'axios'
 import ApiCore from '../ApiCore'
-import { replaceTokens } from '../../utils'
+import { isObject, replaceTokens } from '../../utils'
 
 export default class Http {
 
@@ -54,7 +54,7 @@ export default class Http {
 
     // data
     if (data) {
-      if (method === 'get' && !url.includes('?')) {
+      if (method === 'get' && isObject(data) && !url.includes('?')) {
         config.params = data
       }
       else {
