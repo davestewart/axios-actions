@@ -3,11 +3,10 @@
   <article>
 
     <div class="content">
-      <h1>Config</h1>
+      <h1>Actions</h1>
       <blockquote>
-        <p>Endpoints can be set up in a variety of ways, from just basic URLs to data and headers.</p>
-        <view-code src="demo/src/app/views/ApiEndpoint.vue" label="View example"/>
-        <view-code src="src/classes/ApiEndpoint.ts" label="View class"/>
+        <p>Actions can be set up in a variety of ways, from just basic URLs to data and headers.</p>
+        <view-code src="demo/src/config/Actions.vue" label="View example"/>
         <view-docs src="config.md"/>
       </blockquote>
     </div>
@@ -21,7 +20,7 @@
       <nav>
         <div class="control">
           <ui-button @click="getUrlData()">Get with URL</ui-button>
-          <ui-button @click="getUrlParam()">Get with URL param</ui-button>
+          <ui-button @click="getUrlParam()">Get with URL Param</ui-button>
           <ui-button @click="getMethodUrl()">Get with Method in URL</ui-button>
           <ui-button @click="getObject()">Get with Object</ui-button>
         </div>

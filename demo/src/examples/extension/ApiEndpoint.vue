@@ -5,8 +5,8 @@
     <div class="content">
       <h1>ApiEndpoint</h1>
       <blockquote>
-        <p>ApiEndpoint extends <router-link to="group">ApiGroup</router-link> to automatically set up REST verbs, paths and CRUD actions</p>
-        <view-code src="demo/src/examples/api/ApiEndpoint.vue" label="View example"/>
+        <p>ApiEndpoint extends <router-link to="../api/group">ApiGroup</router-link> to automatically set up REST verbs, paths and CRUD actions</p>
+        <view-code src="demo/src/examples/extension/ApiEndpoint.vue" label="View example"/>
         <view-code src="src/classes/ApiEndpoint.ts" label="View class"/>
         <view-docs src="classes/ApiEndpoint.md"/>
       </blockquote>

@@ -22,7 +22,7 @@
         <div class="control">
           <ui-input type="number" v-model="userId" min="1" max="10" @input="call()">User Id</ui-input>
           <ui-button @click="call('posts')">Get Posts</ui-button>
-          <ui-button @click="call('todos')">Get To-dos</ui-button>
+          <ui-button @click="call('todos')">Get Todos</ui-button>
           <ui-button @click="call('user')">Get User</ui-button>
           <ui-button @click="createUser">Create User</ui-button>
         </div>

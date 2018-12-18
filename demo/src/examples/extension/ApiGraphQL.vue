@@ -5,9 +5,9 @@
     <div class="content">
       <h1>GraphQL</h1>
       <blockquote>
-        <p>An example class extending <router-link to="../api/endpoint">ApiGroup</router-link> to call a GraphQL
+        <p>An example class extending <router-link to="../api/group">ApiGroup</router-link> to call a GraphQL
           endpoint.</p>
-        <view-code src="examples/extension/ApiGraphQL.vue"/>
+        <view-code src="demo/src/examples/extension/ApiGraphQL.vue"/>
         <view-docs src="extension/classes.md"/>
       </blockquote>
     </div>

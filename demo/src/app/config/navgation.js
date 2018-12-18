@@ -4,16 +4,19 @@ import { route, redirect, list, page, code } from '../../core/router/helpers'
 // pages
 import Home from '../views/pages/Home'
 
-// examples
+// config
+import Config from '../../examples/config/Actions'
+import Handlers from '../../examples/config/Handlers'
+
+// core
 import ApiCore from '../../examples/api/ApiCore'
 import ApiGroup from '../../examples/api/ApiGroup'
-import ApiEndpoint from '../../examples/api/ApiEndpoint'
-import ApiResource from '../../examples/extension/ApiResource'
-import ApiGraphQL from '../../examples/extension/ApiGraphQL'
 
-// features
+// extension
+import ApiEndpoint from '../../examples/extension/ApiEndpoint'
+import ApiResource from '../../examples/extension/ApiResource'
 import VuexResource from '../../examples/extension/VuexResource'
-import Config from '../../examples/config/Config'
+import ApiGraphQL from '../../examples/extension/ApiGraphQL'
 
 // helper
 
@@ -22,23 +25,21 @@ export default [
   route('/', Home),
 
   // pages
-  list('setup', 'Setup', [
-    code('config', 'Config', Config),
-  ]),
-
   // basics
-  list ('api', 'Core', [
+  list ('api', 'API', [
     code('core', 'ApiCore', ApiCore),
     code('group', 'ApiGroup', ApiGroup),
   ]),
 
-  // features
-  list ('api', 'Services', [
-    code('endpoint', 'ApiEndpoint', ApiEndpoint),
-    code('resource', 'ApiResource', ApiResource),
+  list('config', 'Config', [
+    code('actions', 'Actions', Config),
+    code('handlers', 'Handlers', Handlers),
   ]),
 
-  list ('extension', 'Extension examples', [
+  // features
+  list ('extension', 'Extensions', [
+    code('endpoint', 'ApiEndpoint', ApiEndpoint),
+    code('resource', 'ApiResource', ApiResource),
     code('vuex-resource', 'VuexResource', VuexResource),
     code('graph-ql', 'ApiGraphQL', ApiGraphQL),
   ])

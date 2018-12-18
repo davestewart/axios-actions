@@ -35,7 +35,8 @@
       <li>additional buttons link to any related documentation</li>
     </ul>
 
-    <p>You can find the code in the <code>src/examples/</code> folder.</p>
+    <p>You can find the code in the <code><a
+      href="https://github.com/davestewart/axios-actions/tree/master/demo/src/examples">src/examples/</a></code> folder.</p>
   </div>
 
 </template>
