@@ -20,7 +20,7 @@
 
       <nav>
         <div class="control">
-          <ui-select :options="ids" :value="id" @input="load"></ui-select>
+          <ui-select :options="ids" v-model="id" @input="load"></ui-select>
         </div>
       </nav>
 
@@ -97,18 +97,13 @@ export default {
     return {
       endpoint,
       data: null,
-      id: 'richardbranson',
+      id: 'TheOnion',
       ids: {
-        'Richard Branson': 'richardbranson',
-        'R.L. Ripples': 'TweetsofOld',
-        'Modern Seinfeld': 'SeinfeldToday',
-        'Snopes.com': 'snopes',
-        'Bill Gates': 'BillGates',
+        'The Onion': 'TheOnion',
+        'So Sad Today': 'sosadtoday',
+        'The Queen': 'Queen_UK',
+        'Darth Vader': 'darthvader',
         'Grammar Police': '_grammar_',
-        'Guy Kawasaki': 'GuyKawasaki',
-        'Disalmanac': 'Disalmanac',
-        'George Takei': 'GeorgeTakei',
-        'MakeUseOf': 'MakeUseOf',
       }
     }
   },

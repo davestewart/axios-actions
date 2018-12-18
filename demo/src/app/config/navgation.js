@@ -5,7 +5,7 @@ import { route, redirect, list, page, code } from '../../core/router/helpers'
 import Home from '../views/pages/Home'
 
 // config
-import Config from '../../examples/config/Actions'
+import Actions from '../../examples/config/Actions'
 import Handlers from '../../examples/config/Handlers'
 
 // core
@@ -32,7 +32,7 @@ export default [
   ]),
 
   list('config', 'Config', [
-    code('actions', 'Actions', Config),
+    code('actions', 'Actions', Actions),
     code('handlers', 'Handlers', Handlers),
   ]),
 
