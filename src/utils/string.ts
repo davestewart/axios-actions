@@ -5,7 +5,7 @@ export function replaceTokens (template: string, data: any, params: any = null, 
 
   if (isObject(params)) {
     Object.keys(params).forEach((key) => {
-        template = template.replace(pattern, String(params[key]))
+      template = template.replace(pattern, String(params[key]))
     });
   }
 

@@ -110,7 +110,7 @@ describe('remap plugin', () => {
   })
   it('should remap keys in browse operations', () => {
     expect.assertions(1)
-	  return posts.index().then(res => {
+    return posts.index().then(res => {
       expect(res.data[0].the_title).toBe('the title')
     })
   })

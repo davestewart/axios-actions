@@ -30,10 +30,10 @@ describe('string utils', () => {
       expect(replaceTokens('users/{userId}/posts/{id}', [4, 5])).toBe('users/4/posts/5')
     })
     it('should replace additional set parameters', () => {
-        expect(replaceTokens('{help}/posts/{id}', 1, {help:1})).toBe('1/posts/1')
+      expect(replaceTokens('{help}/posts/{id}', 1, {help:1})).toBe('1/posts/1')
     })
     it('should replace additional set parameters', () => {
-        expect(replaceTokens('{help}/{test}/{id}', 1, {help:9,test:123})).toBe('9/123/1')
+      expect(replaceTokens('{help}/{test}/{id}', 1, {help:9,test:123})).toBe('9/123/1')
     })
   })
 })
