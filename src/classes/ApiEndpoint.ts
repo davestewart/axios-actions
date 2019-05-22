@@ -69,44 +69,48 @@ export default class ApiEndpoint extends ApiGroup {
   /**
    * Create a new resource
    * @param   data
+   * @param   params
    */
-  create (data: any): Promise<any> {
+  create (data: any, params: any = null): Promise<any> {
     if (!isObject(data)) {
       throw new Error('Missing data parameter')
     }
-    return this.call('create', data)
+    return this.call('create', data, {}, params)
   }
 
   /**
    * Read a single resource
    * @param   id
+   * @param   params
    */
-  read (id: any): Promise<any> {
+  read (id: any, params: any = null): Promise<any> {
     if (typeof id === 'undefined') {
       throw new Error('Missing id parameter')
     }
-    return this.call('read', id)
+    return this.call('read', id, {}, params)
   }
 
   /**
    * Update the resource
    * @param   data
+   * @param   params
    */
-  update (data: any): Promise<any> {
+  update (data: any, params: any = null): Promise<any> {
     if (!isObject(data)) {
       throw new Error('Missing data parameter')
     }
-    return this.call('update', data)
+    return this.call('update', data, {}, params)
   }
 
   /**
    * Delete the resource
    * @param   id
+   * @param   params
    */
-  delete (id: any): Promise<any> {
+  delete (id: any, params: any = null): Promise<any> {
     if (typeof id === 'undefined') {
       throw new Error('Missing id parameter')
     }
-    return this.call('delete', id)
+    return this.call('delete', id, {}, params)
   }
 }

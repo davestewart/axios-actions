@@ -58,10 +58,11 @@ export default class ApiCore {
    *
    * @param   config    The HTTP method to make the call
    * @param   data      Any optional data to pass to the endpoints
+   * @param   params    Any optional data to be used for URL replacements
    * @returns
    */
-  request (config: AxiosRequestConfig, data?: any): Promise<any> {
-    return this.http.request(this, config, data)
+  request (config: AxiosRequestConfig, data?: any, params: any = null): Promise<any> {
+    return this.http.request(this, config, data, params)
   }
 
   /**
@@ -70,10 +71,11 @@ export default class ApiCore {
    * @param   url       The API URL to call
    * @param   data      Any optional data to pass to the endpoint
    * @param   options   An optional hash of options to merge into the Axios config
+   * @param   params    Any optional data to be used for URL replacements
    * @returns
    */
-  get (url: string, data?: any, options?: any): Promise<any> {
-    return this.request(mergeOptions({ url, method: 'get' }, options), data)
+  get (url: string, data?: any, options?: any, params: any = null): Promise<any> {
+    return this.request(mergeOptions({ url, method: 'get' }, options), data, params)
   }
 
   /**
@@ -82,10 +84,11 @@ export default class ApiCore {
    * @param   url       The API URL to call
    * @param   data      Any optional data to pass to the endpoint
    * @param   options   An optional hash of options to merge into the Axios config
+   * @param   params    Any optional data to be used for URL replacements
    * @returns
    */
-  post (url: string, data?: any, options?: any): Promise<any> {
-    return this.request(mergeOptions({ url, method: 'post' }, options), data)
+  post (url: string, data?: any, options?: any, params: any = null): Promise<any> {
+    return this.request(mergeOptions({ url, method: 'post' }, options), data, params)
   }
 
   /**

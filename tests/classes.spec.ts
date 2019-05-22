@@ -6,6 +6,7 @@ import ApiEndpoint from '../src/classes/ApiEndpoint'
 
 const axios = new AxiosMock()
 axios.on('get', 'foo', { success: 1 })
+axios.on('get', '/test/1/example/2', { success: 1 })
 
 const group = new ApiGroup(axios, { foo: 'foo' })
 const endpoint = new ApiEndpoint(axios, { foo: 'foo' })
@@ -48,13 +49,6 @@ describe('ApiGroup', () => {
     })
 
   })
-
-  describe('calling an instance method', () => {
-    it('should return data', () => {
-      expect.assertions(1)
-      group.foo().then(res => expect(res.data.success).toBe(1))
-    })
-  })
 })
 
 describe('ApiEndpoint', () => {
@@ -64,6 +58,16 @@ describe('ApiEndpoint', () => {
     })
     it('should add an instance method', () => {
       expect(endpoint.foo).toBeInstanceOf(Function)
+    })
+  })
+  describe('parameter replacement', () => {
+    expect.assertions(1);
+    let axios = new AxiosMock()
+    axios.on('get', '/test/1/example/2', {success: 1})
+    let endpoint = new ApiEndpoint(axios, '/test/:rootId/example/:id')
+    it('should add the correct method and path', () => {
+      return endpoint.read(2, {'rootId': 1})
+        .then(data => expect(data.data).toEqual({success: 1}));
     })
   })
 

@@ -1,6 +1,13 @@
 import { isObject, isValue, getValue } from './object'
 
-export function replaceTokens (template: string, data: any, pattern: RegExp = /[:{](\w+[.\w]+)}?/) {
+export function replaceTokens (template: string, data: any, params: any = null, pattern: RegExp = /[:{](\w+[.\w]+)}?/) {
+  const rx = new RegExp(pattern.source, 'g')
+
+  if (isObject(params)) {
+    Object.keys(params).forEach((key) => {
+        template = template.replace(pattern, String(params[key]))
+    });
+  }
 
   // replace array
   if (Array.isArray(data)) {
@@ -12,7 +19,6 @@ export function replaceTokens (template: string, data: any, pattern: RegExp = /[
   }
 
   // replace object
-  const rx = new RegExp(pattern.source, 'g')
   return template.replace(rx, function (match, key) {
     const value = isObject(data)
       ? getValue(data, key)

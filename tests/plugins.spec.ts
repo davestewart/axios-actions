@@ -104,13 +104,13 @@ describe('remap plugin', () => {
 
   it('should remap keys in read operations', () => {
     expect.assertions(1)
-    posts.update(data).then(res => {
+    return posts.update(data).then(res => {
       expect(res.data.the_title).toBe('the title')
     })
   })
   it('should remap keys in browse operations', () => {
     expect.assertions(1)
-    posts.index().then(res => {
+	  return posts.index().then(res => {
       expect(res.data[0].the_title).toBe('the title')
     })
   })
@@ -122,7 +122,7 @@ describe('data plugin', () => {
 
   it('should return the data object directly', () => {
     expect.assertions(1)
-    posts.read(1).then(data => {
+    return posts.read(1).then(data => {
       expect(data).toEqual(dummy)
     })
   })

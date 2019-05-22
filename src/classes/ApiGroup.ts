@@ -67,15 +67,16 @@ export default class ApiGroup extends ApiCore {
    * @param   name      The name of the action to execute
    * @param   data      An optional hash of data to send to the server
    * @param   options   An optional hash of options to merge into the Axios config
+   * @param   params    Any optional hash to be used for URL replacements
    * @returns {Promise<any>}
    */
-  call (name: string, data?: any, options?: any) {
+  call (name: string, data?: any, options?: any, params: any = null) {
     const action = this.actions.get(name)
     if (!action) {
       throw new Error(`No such action "${action}"`)
     }
     return this
-      .request(mergeOptions(action.config, options), data)
+      .request(mergeOptions(action.config, options), data, params)
       .then(res => {
         if (action.handlers) {
           action.exec(res, name)

@@ -27,9 +27,10 @@ export default class Http {
    * @param   instance  The ApiCore instance which should make the call
    * @param   config    An AxiosRequestConfig with all data for the call
    * @param   data      Any optional data to pass to the endpoints
+   * @param   params    Any optional data to be used for URL replacements
    * @returns {Promise<any>}
    */
-  request (instance: ApiCore, config: AxiosRequestConfig, data: any = null) {
+  request (instance: ApiCore, config: AxiosRequestConfig, data: any = null, params: any = null) {
     // reset
     instance.error = null
     instance.loading = true
@@ -45,7 +46,7 @@ export default class Http {
     }
     // variables
     data = this.before.reduce((data, fn) => fn(data), data)
-    url = replaceTokens(url, data)
+    url = replaceTokens(url, data, params)
 
     // setup object
     config = Object.assign({}, config)
