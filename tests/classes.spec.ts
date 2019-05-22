@@ -48,11 +48,11 @@ describe('ApiGroup', () => {
       expect(map.get('delete').config.method).toBe('delete')
     })
 
-    describe('calling an instance method', () => {
-      it('should return data', () => {
-        expect.assertions(1)
-        return group.foo().then(res => expect(res.data.success).toBe(1))
-      })
+  })
+  describe('calling an instance method', () => {
+    it('should return data', () => {
+      expect.assertions(1)
+      return group.foo().then(res => expect(res.data.success).toBe(1))
     })
   })
 })
