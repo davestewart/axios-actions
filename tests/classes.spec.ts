@@ -76,5 +76,15 @@ describe('ApiEndpoint', () => {
         .then(data => expect(data.data).toEqual({success: 1}));
     })
   })
+  describe('complex parameter replacement', () => {
+      expect.assertions(1);
+      let axios = new AxiosMock()
+      axios.on('get', '/test/1/example/2', {success: 1})
+      let endpoint = new ApiEndpoint(axios, '/test/:rootId/example/:id')
+      it('should add the correct method and path', () => {
+          return endpoint.read(2, {'rootId': 1})
+              .then(data => expect(data.data).toEqual({success: 1}));
+      })
+  })
 
 })
