@@ -48,6 +48,11 @@ export default class Http {
     data = this.before.reduce((data, fn) => fn(data), data)
     url = replaceTokens(url, data, params)
 
+    // remove ending /'s
+    if (url.endsWith('/')) {
+      url = url.slice(0, -1)
+    }
+
     // setup object
     config = Object.assign({}, config)
     config.method = method
