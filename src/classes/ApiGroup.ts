@@ -54,8 +54,8 @@ export default class ApiGroup extends ApiCore {
     config = makeRequest(config)
     this.actions.add(action, config, callback)
     if (!(action in this)) {
-      this[action] = (data, options) => {
-        return this.call(action, data, options)
+      this[action] = (data, options, params) => {
+        return this.call(action, data, options, params)
       }
     }
     return this
