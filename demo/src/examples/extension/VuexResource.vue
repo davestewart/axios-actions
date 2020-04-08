@@ -80,7 +80,8 @@ export default {
 
   data () {
     return {
-      endpoint: posts.fail(this.fail)
+      endpoint: posts.fail(this.fail),
+      error: null,
     }
   },
 
