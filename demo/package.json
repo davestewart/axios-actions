@@ -15,7 +15,7 @@
     "codesandbox-api": "0.0.18",
     "deepmerge": "^3.0.0",
     "font-awesome": "^4.7.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "marked": "^0.3.19",
     "slugify": "^1.3.4",
     "vue": "^2.5.21",
