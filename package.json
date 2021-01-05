@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@types/jest": "^23.3.10",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-jest": "^23.6.0",
     "jest": "^23.6.0",
     "node-sass": "^4.10.0",
