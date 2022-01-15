@@ -16,7 +16,7 @@
     "deepmerge": "^3.0.0",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.11",
-    "marked": "^0.3.19",
+    "marked": "^4.0.10",
     "slugify": "^1.3.4",
     "vue": "^2.5.21",
     "vue-markdown": "^2.2.4",
