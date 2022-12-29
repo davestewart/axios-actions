@@ -39,7 +39,7 @@
     "@types/jest": "^23.3.10",
     "axios": "^0.18.0",
     "babel-jest": "^23.6.0",
-    "jest": "^23.6.0",
+    "jest": "^29.3.1",
     "node-sass": "^4.10.0",
     "node-fetch": "^2.3.0",
     "rollup-plugin-buble": "^0.19.4",
